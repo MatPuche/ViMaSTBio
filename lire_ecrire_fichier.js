@@ -33,47 +33,10 @@ document.getElementById('file').onchange = function(){
     document.body.appendChild(rien);
     alert(auto);
 
-  //
-  //   //On initialise le dictionnaire à un dictionnaire vide; remplacer str par lines[line]
-  //   var str = '"b" 0 -> 1 when "d"=1'
-  //   var transitions = {} //le dictionnaire
-  //
-  //   var trans = [] // la liste représentant la transition courante
-  //
-  //   for (var i = 0, c = auto.length; i < c; i++){
-  //     trans.push("$") // on initialise la transition à [$, ..., $] (un $ pour chaque automate)
-  //       }
-  //
-  //   var words = str.split('when') // liste à deux éléments, le premier est la transition de l'automate considéré et le deuxième (éventuellement vide) les conditions sur les autres automates
-  //   k = words[0][1].charCodeAt(0) - 97 // on récupère l'indice de l'automate considéré (0 pour a, 1 pour b...)
-  //
-  //
-  //
-  //   trans[k] = [words[0][4], words[0][9]] // la transition de l'automate considéré
-  //   var word = words[1].split('and') // liste éventuellement vide dont chaque élément est une condition
-  //
-  //   for (var j = 0, c = word.length; j < c; j++){ // pour chaque condition
-  //     var letter = word[j][2].charCodeAt(0) - 97 // on récupère l'indice de l'automate apparaissant dans la condition
-  //     trans[letter] = word[j][5] // on récupère la condtion en elle-même (le 1 de b = 1)
-  //   }
-  //
-  //   try {
-  //     var test = transitions[words[0][1]].length
-  //     var newTrans = [transitions[words[0][1]]].concat([trans]) // words[0][1] est la lettre de l'automate considéré
-  // }
-  //
-  // catch(error) {
-  //   var newTrans = [trans]
-  // }
-  //
-  //   transitions[words[0][1]] = newTrans
-  //
-  //
-  //   console.log(transitions)
-
     //le dictionnaire qui stocke les différentes transitions possibles pour chaque automate
     var transitions = {}
 
+    //On itère sur chaque automate
     for (var i=0, c=auto.length; i<c; i++){
       line+=1;
       var trans = [] // la liste représentant toutes les transitions de l'automate auto
@@ -112,6 +75,11 @@ document.getElementById('file').onchange = function(){
       rien = document.createElement('br');
       document.body.appendChild(rien);
     }
+
+    //on récupère le contexte initial
+    line +=1;
+    /initial_context (.+)/.exec(lines[line]);
+    transitions['initial_context'] = (RegExp.$1);
 
   };
 
