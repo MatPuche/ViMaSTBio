@@ -31,7 +31,6 @@ document.getElementById('file').onchange = function(){
     //on saute les lignes inutiles
     rien = document.createElement('br');
     document.body.appendChild(rien);
-    alert(auto);
 
     //le dictionnaire qui stocke les différentes transitions possibles pour chaque automate
     var transitions = {}
@@ -81,9 +80,12 @@ document.getElementById('file').onchange = function(){
     /initial_context (.+)/.exec(lines[line]);
     transitions['initial_context'] = (RegExp.$1);
 
+    for (id in transitions){
+      alert(transitions[id]);
+    }
   };
 
   reader.readAsText(file);
 }
 
-//test pouèr oscar 
+//test pouèr oscar

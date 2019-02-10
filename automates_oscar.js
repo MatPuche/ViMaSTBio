@@ -75,7 +75,9 @@ document.getElementById('file').onchange = function(){
 
 
     }
-
+    for (id in transitions){
+      alert(transitions[id]);
+    }
     console.log(transitions)
 
 
