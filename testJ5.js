@@ -1,20 +1,43 @@
+var transitions = {
+  a: [[["0","1"],"b=1","c=1"]],
+  b: [[["0","1"],"d=1"],[["0", "2"]],[["2", "1"]]],
+  c: [[["0","1"],"d=1"]],
+  d: [[["0","1"],"b=1"],[["0","1"],"c=1"]],
+  initial_context: " \"a\" = 0, \"b\" = 0, \"c\" = 0, \"d\" = 0"};
+
+var auto = [2,3,2,2];
+
 function setup() {
   createCanvas(900, 800);
 }
 
- function draw(){
-   automate(5,140,140,30,30);
-   automate(2,370,140,30,30);
-   automate(4,600, 140,30,30);
-   automate(5,830,140,30,30);
 
-   drawArc(4,0,1,1);
-   drawArc(4,2,1,1);
-   drawArc(1,2,1,1);
-   drawArc(0,1,2,1);
-   // ellipse(70,130,85,205);
-   //arrow(200,200,300,300);
-   //rect(30, 30, 80, 200);
+ function draw(){
+   for (var i=0, c=auto.length ; i<c;i++){
+     automate(auto[i], 140+i*230,140,30,30);
+   }
+   var k = 1, n=1;
+
+   for (var id in transitions){
+     if (id!= "initial_context"){
+       //la variable e1 permet de savoir si c'est le premier arc sortant de e1 ou non;
+       //On initialise à -1 car le premier est forcément la première transition sortante
+       var e1 = -1;
+       for (var i=0, c=transitions[id].length; i<c; i++){
+         var curTrans = transitions[id][i];
+         if (curTrans[0][0]==e1){
+           k+=1;
+         }
+         else{
+           k=1;
+         }
+         drawArc(parseInt(curTrans[0][0]), parseInt(curTrans[0][1]),n,k);
+         e1=curTrans[0][0];
+       }
+     }
+     n+=1;
+     k=1;
+   }
 }
 
 function automate(n,x1,y1,x2,y2){
@@ -28,7 +51,7 @@ function automate(n,x1,y1,x2,y2){
 //Pour dessiner l'arc en passant de l'état e1 à l'état e2.
 //La variable a contient le numéro de l'automate concerné.
 //L'entier k représente le numéro de cette transition sur l'automate (si ce n'est
-//pas la première transition, il ne faut pas la superposer aux autres).
+//pas la seule transition allant de e1 à e2, il ne faut pas la superposer aux autres).
 function drawArc(e1,e2,a,k){
   var x = 155+(a-1)*230, y= 140+(4-e1)*50-(e2-e1)*25, h = 2+(e2-e1)*50;
   if (k==1){
@@ -43,15 +66,18 @@ function drawArc(e1,e2,a,k){
       line(x-38,y-h/2+7, x-30,y-h/2-1);
     }
   }
-}
+  else if (k==2){
+    if (e2<e1){
+      arc(x,y,50+(e1-e2)*30,h, PI / 2, 3* PI / 2, OPEN);
+      line(x,y-h/2, x+8,y-h/2-8);
+      line(x,y-h/2, x+8,y-h/2+8);
+    }
+    else {
+      arc(x-30,y, 50+(e2-e1)*30, h,  PI / 2,  3*PI / 2, OPEN);
+      line(x-38,y-h/2-9, x-30,y-h/2-1);
+      line(x-38,y-h/2+7, x-30,y-h/2-1);
+    }
+  }
 
-function arrow( x1,  y1,  x2,  y2) {
-  ellipse(x1, y1, x2, y2);
-  push();
-  translate(x2, y2);
-  var a = atan2(x1-x2, y2-y1);
-  rotate(a);
-  line(0, 0, -10, -10);
-  line(0, 0, 10, -10);
-  pop();
+
 }

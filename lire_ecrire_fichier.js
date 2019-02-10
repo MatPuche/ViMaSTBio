@@ -54,7 +54,7 @@ document.getElementById('file').onchange = function(){
         //le deuxième élement (éventuellement vide)contient les conditions sur les autres automates
         var words = lines[line].split('when');
         var test = /"([a-z])" ([0-9]) -> ([0-9])/.exec(words[0]);
-        var auto = RegExp.$1;
+        var autom = RegExp.$1;
         curTrans.push([RegExp.$2,RegExp.$3]);
         //On découpe ensuite selon le nombre de conditions sur les autres automates, si il y en a
         if (words[1]){
@@ -69,7 +69,7 @@ document.getElementById('file').onchange = function(){
         line+=1;
       }
       //on ajoute la liste des transitions de l'automate auto au dictionnaire des transitions
-      transitions[auto]=trans;
+      transitions[autom]=trans;
 
       rien = document.createElement('br');
       document.body.appendChild(rien);
@@ -81,11 +81,11 @@ document.getElementById('file').onchange = function(){
     transitions['initial_context'] = (RegExp.$1);
 
     for (id in transitions){
+
       alert(transitions[id]);
     }
+    console.log(transitions);
   };
 
   reader.readAsText(file);
 }
-
-//test pouèr oscar
