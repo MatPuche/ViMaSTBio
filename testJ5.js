@@ -3,12 +3,15 @@ function setup() {
 }
 
  function draw(){
-   automate(4,140,140,30,30);
+   automate(5,140,140,30,30);
    automate(2,370,140,30,30);
    automate(4,600, 140,30,30);
    automate(5,830,140,30,30);
 
-   drawArc(0,3,1,1);
+   drawArc(4,0,1,1);
+   drawArc(4,2,1,1);
+   drawArc(1,2,1,1);
+   drawArc(0,1,2,1);
    // ellipse(70,130,85,205);
    //arrow(200,200,300,300);
    //rect(30, 30, 80, 200);
@@ -27,8 +30,18 @@ function automate(n,x1,y1,x2,y2){
 //L'entier k représente le numéro de cette transition sur l'automate (si ce n'est
 //pas la première transition, il ne faut pas la superposer aux autres).
 function drawArc(e1,e2,a,k){
+  var x = 155+(a-1)*230, y= 140+(4-e1)*50-(e2-e1)*25, h = 2+(e2-e1)*50;
   if (k==1){
-    arc(155+(a-1)*230, 317+(e2-e1-1)*25-100, 90, 52+(e2-e1-1)*50, 3 * PI / 2,  PI / 2, OPEN);
+    if (e2>=e1){
+      arc(x,y,50+(e2-e1)*30,h, 3 * PI / 2,  PI / 2, OPEN);
+      line(x,y-h/2, x+8,y-h/2-8);
+      line(x,y-h/2, x+8,y-h/2+8);
+    }
+    else {
+      arc(x-30,y, 50+(e1-e2)*30, h, 3 * PI / 2,  PI / 2, OPEN);
+      line(x-38,y-h/2-9, x-30,y-h/2-1);
+      line(x-38,y-h/2+7, x-30,y-h/2-1);
+    }
   }
 }
 
