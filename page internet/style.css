@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana;
+}
+
+.window {
+    display: inline-block;
+    width: 41%;
+    height: 20%;
+    min-height: 20%;
+    margin-left: 4%;
+    margin-right: 2%;
+}
+
+#graphWindow, #automataWindow {
+	vertical-align: top;
+}
+
+#graphBox {
+    border: solid black 1px;
+    padding: 2%;
+}
+
+#graph {
+	min-width: 80%;
+	max-width: 80%;
+	text-align: center;
+}
+
+#automata, #graph {
+    display: inline-block;
+}
+
+#graphLegend {
+	display: inline-block;
+	min-width: 15%;
+	max-width: 15%;
+	vertical-align: top;
+}
+
+#tsvFile {
+	vertical-align: top;
+}
+
+input {
+	display: inline-block;
+}
+
+.windowTitle {
+	border-left: solid black 1px;
+	border-right: solid black 1px;
+	border-top: solid black 1px;
+	padding: 1%;
+}
+
+.windowTitle:hover {
+	cursor: move;
+}
+
+h1 {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    text-align: center;
+}
+
+h2 {
+	margin-left: 1%;
+}
+
+.enabledLegend, .disabledLegend {
+	display: inline-block;
+	margin: 7%;
+	font-weight: bold;
+	font-size: 90%;
+}
+
+.enabledLegend {
+	color: black;
+}
+
+.disabledLegend {
+	color: rgb(150, 150, 150);
+}
+
+.enabledLegend:hover, .disabledLegend:hover {
+	cursor: pointer;
+}
