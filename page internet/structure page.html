@@ -17,8 +17,9 @@
 	<div id="graphWindow" class="window">
 		<div id="graphWindowTitle" class="windowTitle">
 			<h2>Courbes</h2>
+			<img src="minus.png" class="reduce" id="reduceGraphBox" />
 		</div>
-		<div id="graphBox">
+		<div id="graphBox" class="dataBox">
 			<div id="graphLegend">Lorem ipsum dolor sit amet, consectetur
 				adipiscing elit. Praesent dictum, leo quis posuere ultrices, orci
 				nisi placerat dolor, vel aliquam libero purus in velit</div>
@@ -35,12 +36,16 @@
 	<div id="automataWindow" class="window">
 		<div id="automataWindowTitle" class="windowTitle">
 			<h2>Automates</h2>
+			<img src="minus.png" class="reduce" id="reduceAutomataBox" />
 		</div>
-		<div id="automata">
-			<form>
-				<input id="anFile" type="file" accept=".an" />
-			</form>
+		<div id="automataBox" class="dataBox">
+			<div id="automata">
+				<form>
+					<input id="anFile" type="file" accept=".an" />
+				</form>
+			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="windows.js"></script>
 </body>
 </html>
