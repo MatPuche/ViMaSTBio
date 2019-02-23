@@ -1,3 +1,6 @@
+var x = 10;
+var y = 10;
+
 var transitions = {
   a: [[["0","1"],"b=1","c=1"]],
   b: [[["0","1"],"d=1"],[["0", "2"]],[["2", "1"]]],
@@ -13,6 +16,13 @@ function setup() {
 
 
  function draw(){
+   if (mouseIsPressed){
+     x = mouseX;
+     y = mouseY;
+     clear();
+   }
+   ellipse(x, y, 50, 50);
+
    for (var i=0, c=auto.length ; i<c;i++){
      automate(auto[i], 140+i*230,140,30,30);
    }
