@@ -5,26 +5,23 @@
 }
 
 .window {
+	border: solid black 1px;
+	position: absolute;
     display: inline-block;
-    width: 41%;
-    height: 20%;
-    min-height: 20%;
-    margin-left: 4%;
-    margin-right: 2%;
-}
-
-#graphWindow, #automataWindow {
+    width: 48%;
 	vertical-align: top;
+	overflow: hidden;
 }
 
-#graphBox {
-    border: solid black 1px;
-    padding: 2%;
+#graphWindow {
+	background-color: blue;
+}
+#automataWindow {
+	background-color: green;
 }
 
 #graph {
-	min-width: 80%;
-	max-width: 80%;
+	min-width: 100%;
 	text-align: center;
 }
 
@@ -33,14 +30,34 @@
 }
 
 #graphLegend {
+	padding-top: 2%;
 	display: inline-block;
-	min-width: 15%;
-	max-width: 15%;
+}
+
+#tsvFile, #anFile {
+	display: inline-block;
 	vertical-align: top;
 }
 
-#tsvFile {
-	vertical-align: top;
+.dataBox {
+    padding: 2%;
+}
+
+#graphBox {
+	background-color: #00FFFF;
+}
+
+#automataBox {
+	background-color: #FFFF00;
+}
+
+.reduce {
+	width: 30px;
+	float: right;
+}
+
+.reduce:hover {
+	cursor: pointer;
 }
 
 input {
@@ -48,9 +65,7 @@ input {
 }
 
 .windowTitle {
-	border-left: solid black 1px;
-	border-right: solid black 1px;
-	border-top: solid black 1px;
+    border-bottom: solid black 1px;
 	padding: 1%;
 }
 
@@ -66,6 +81,7 @@ h1 {
 
 h2 {
 	margin-left: 1%;
+	display: inline-block;
 }
 
 .enabledLegend, .disabledLegend {
