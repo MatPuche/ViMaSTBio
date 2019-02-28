@@ -6,6 +6,10 @@ var transitions = {
   initial_context: " \"a\" = 0, \"b\" = 0, \"c\" = 0, \"d\" = 0"};
 
 var auto = [2,3,2,2];
+var overBox = false;
+var locked = false;
+var texte = "click"
+const reducer = (x, y) => x + y
 
 function setup() {
   createCanvas(900, 800);
@@ -13,6 +17,7 @@ function setup() {
 
 
  function draw(){
+
    for (var i=0, c=auto.length ; i<c;i++){
      automate(auto[i], 140+i*230,140,30,30);
    }
@@ -31,8 +36,38 @@ function setup() {
          else{
            k=1;
          }
+
          drawArc(parseInt(curTrans[0][0]), parseInt(curTrans[0][1]),n,k);
+
+
+
+           var x = 155+(n-1)*230, y= 140+(4-parseInt(curTrans[0][0]))*50-(parseInt(curTrans[0][1])-parseInt(curTrans[0][0]))*25, h = 2+(parseInt(curTrans[0][1])-parseInt(curTrans[0][0]))*50;
+           overBox = (dist(mouseX, mouseY, x+8,y-h/2-8) < 50);
+
+
+           try{texte =  transitions[id][i].slice(1).reduce(reducer);}
+           catch{
+             
+           }
+
+
+           if(!locked) {
+             fill(255);
+             afficheTrans(texte, parseInt(curTrans[0][0]), parseInt(curTrans[0][1]),n,k);
+
+           }
+           else {
+
+             fill(255);
+             overBox = false;
+           }
+
+
+
+
          e1=curTrans[0][0];
+
+
        }
      }
      n+=1;
@@ -48,6 +83,36 @@ function automate(n,x1,y1,x2,y2){
     rect((x1-x2), (y1-y2+(5-n)*50), 2*y2, 110+(n-2)*50, 20, 20, 20);
 }
 
+function afficheTrans(texte, e1, e2, a, k){
+
+  var x = 155+(a-1)*230, y= 140+(4-e1)*50-(e2-e1)*25, h = 2+(e2-e1)*50;
+
+  if(dist(mouseX, mouseY, x+8,y-h/2-8) < 50) {
+
+    fill(0);
+    noStroke();
+     text(texte,x+8,y-h/2-8);
+
+}
+
+}
+
+function mousePressed() {
+  if(overBox) {
+    locked = true;
+    fill(255);
+  } else {
+    locked = false;
+    fill(255);
+  }
+
+
+}
+
+function mouseReleased() {
+  locked = false;
+}
+
 //Pour dessiner l'arc en passant de l'état e1 à l'état e2.
 //La variable a contient le numéro de l'automate concerné.
 //L'entier k représente le numéro de cette transition sur l'automate (si ce n'est
@@ -59,6 +124,8 @@ function drawArc(e1,e2,a,k){
       arc(x,y,50+(e2-e1)*30,h, 3 * PI / 2,  PI / 2, OPEN);
       line(x,y-h/2, x+8,y-h/2-8);
       line(x,y-h/2, x+8,y-h/2+8);
+
+
     }
     else {
       arc(x-30,y, 50+(e1-e2)*30, h, 3 * PI / 2,  PI / 2, OPEN);
