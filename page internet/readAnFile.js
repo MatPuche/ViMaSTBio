@@ -1,4 +1,4 @@
-document.getElementById('file').onchange = function(){
+document.getElementById('anFile').onchange = function(){
 
   var file = this.files[0];
   var reader = new FileReader();
@@ -17,20 +17,11 @@ document.getElementById('file').onchange = function(){
     var auto = [];
     while (lines[line].length > 1){
 
-      //Pour les afficher sur la page
-      var d = document.createElement('div');
-      d.appendChild(document.createTextNode(lines[line]));
-      document.body.appendChild(d);
-
       //Pour les stocker dans la variable auto, on récupère les états possibles
       var nbre_etats = (lines[line].match(/\b[0-9]+\b/g)).length;
       auto.push(nbre_etats);
       line+=1;
     }
-
-    //on saute les lignes inutiles
-    rien = document.createElement('br');
-    document.body.appendChild(rien);
 
     //le dictionnaire qui stocke les différentes transitions possibles pour chaque automate
     var transitions = {}
@@ -40,11 +31,6 @@ document.getElementById('file').onchange = function(){
       line+=1;
       var trans = [] // la liste représentant toutes les transitions de l'automate auto
       while (lines[line].length > 1){
-
-        //Pour afficher sur la page
-        var d = document.createElement('div');
-        d.appendChild(document.createTextNode(lines[line]));
-        document.body.appendChild(d);
 
         //Pour ajouter la transition à la liste des transitions
         var curTrans = []; // la liste représentant la transition en cours d'analyse
@@ -71,8 +57,6 @@ document.getElementById('file').onchange = function(){
       //on ajoute la liste des transitions de l'automate auto au dictionnaire des transitions
       transitions[autom]=trans;
 
-      rien = document.createElement('br');
-      document.body.appendChild(rien);
     }
 
     //on récupère le contexte initial
@@ -80,11 +64,6 @@ document.getElementById('file').onchange = function(){
     /initial_context (.+)/.exec(lines[line]);
     transitions['initial_context'] = (RegExp.$1);
 
-    for (id in transitions){
-
-      alert(transitions[id]);
-    }
-    console.log(transitions);
   };
 
   reader.readAsText(file);
