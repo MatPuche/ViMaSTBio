@@ -1,0 +1,28 @@
+<head>
+<script type="text/javascript" src="parseTsv.js"></script>
+<script type="text/javascript" src="grafica.js"></script>
+<script type="text/javascript" src="p5.js"></script>
+<script type="text/javascript" src="draw.js"></script>
+</head>
+
+<body>
+	<section id="widthRef">
+		<form>
+			<input id="file" type="file" accept=".tsv" />
+		</form>
+		<div id="sketch-canvas"></div>
+		<script type="text/javascript">
+			document.getElementById('file').onchange = function() {
+				var file = this.files[0];
+				var reader = new FileReader();
+				var array = [];
+				reader.onload = function() {
+					array = parseTsv(reader.result);
+					var defaultPlotSketch = draw(array);
+					var sketch = new p5(defaultPlotSketch, "sketch-canvas");
+				}
+				reader.readAsText(file);
+			}
+		</script>
+	</section>
+</body>

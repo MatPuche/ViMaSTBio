@@ -1,0 +1,49 @@
+
+// Before setup () declare arrays
+float[] x = new float [3];
+float[] y = new float [3];
+String [] text = new String [3];
+
+void setup() {
+
+  size(900, 600);
+
+  // Now in setup() put the data in the 3 parallel arrays:
+
+  // first automata
+  x[0] = 100;
+  y[0] = 200; // adjust
+  text[0] = "first automata";
+
+  //2nd automata
+  x[1]=333;
+  y[1]=444; // adjust
+  text[1]= "2nd automata whatever…";
+
+  //3rd automata
+  x[2]=333;
+  y[2]=144; // adjust
+  text[2]= "Third automata....\nVery Nice";
+  //
+}//function
+
+void draw() {
+
+  background(0);
+
+  // for loop i over arrays and display them
+  for (int i=0; i<x.length; i++) {
+    fill(255);
+    rect( x[i], y[i],
+      17, 17);
+  }//for
+
+  // Now for loop i over arrays and check the distance to the mouse
+  for (int i=0; i<x.length; i++) {
+    if (dist(mouseX, mouseY, x[i], y[i]) < 50) {
+      fill(255, 0, 0);
+      text( text[i],
+        x[i], y[i] -17 );
+    }//if
+  }//for
+}//function

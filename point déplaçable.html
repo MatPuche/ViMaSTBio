@@ -1,0 +1,39 @@
+<head>
+<style>
+    div:hover {
+        cursor: pointer;
+    }
+    div {
+         background-color: black;
+         position: absolute;
+         height: 5px;
+         width: 5px;
+    }
+</style>
+</head>
+<body>
+<div></div>
+<script>
+var dragged = false;
+var point = document.body.getElementsByTagName("div")[0];
+
+point.onmousedown = function(evt) {
+    dragged = true;
+}
+
+function move(evt) {
+    if (dragged) {
+    point.style.top = evt.clientY + "px";
+    point.style.left = evt.clientX + "px";
+    }
+}
+
+function stopDrag() {
+    dragged = false;
+}
+
+document.onmousemove = move;
+document.onmouseup = stopDrag;
+
+</script>
+</body>
