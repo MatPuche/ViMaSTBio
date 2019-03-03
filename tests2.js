@@ -15,7 +15,7 @@ var transitions = {
   c: [[["0","1"],"d=1"]],
   d: [[["0","1"],"b=1"],[["0","1"],"c=1"]],
   initial_context: " \"a\" = 0, \"b\" = 0, \"c\" = 0, \"d\" = 0",
-  nbre_arcs: 9};
+  nbre_arcs: 7};
 
 var auto = [2,4,2,2];
 
@@ -41,7 +41,7 @@ function draw(){
     automate(auto[i], 140+i*230,140,30,30);
   }
 
-  var k = 1, n=1, num_arc=0;
+  var k = 1, n=1, num_arc=1;
   for (var id in transitions){
     if (id!= "initial_context"){
       //la variable e1 permet de savoir si c'est le premier arc sortant de auto ou non;
@@ -55,9 +55,8 @@ function draw(){
         else{
           k=1;
         }
-        drawArc(parseInt(curTrans[0][0]), parseInt(curTrans[0][1]),n,k, num_arc, coordonnees);
+        drawArc(parseInt(curTrans[0][0]), parseInt(curTrans[0][1]),n,k, num_arc);
         num_arc+=1;
-
         e1=curTrans[0][0];
       }
     }
@@ -129,7 +128,7 @@ function automate(n,x1,y1,x2,y2){
 
 
 
-function drawArc(e1,e2,a,k,num_arc, coordonnees){
+function drawArc(e1,e2,a,k,num_arc){
 
   var x = 155+(a-1)*230,
       y= 140+(4-e1)*50-(e2-e1)*25,
@@ -163,16 +162,13 @@ function drawArc(e1,e2,a,k,num_arc, coordonnees){
 
     if (e2>=e1){
       x1 = x4 = x;
-      coordonnees[num_arc][0] = x+50*((k+1)/2)+(e2-e1-1)*15;
-      coordonnees[num_arc][1] = y ;
+      x2 = x3 = x+50*((k+1)/2)+(e2-e1-1)*15;
       y1 = y+26+(e2-e1-1)*25;
+      y2 = y+(e2-e1-1)*25+20;
+      y3 = y-(e2-e1-1)*25-20;
       y4 =  y-26-(e2-e1-1)*25;
       line(x,y-h/2, x+8,y-h/2-8);
       line(x,y-h/2, x+8,y-h/2+8);
-      bezier(x1, y1, coordonnees[num_arc][0], coordonnees[num_arc][1]+(e2-e1-1)*25+20, coordonnees[num_arc][0],   coordonnees[num_arc][1]-(e2-e1-1)*25-20, x4, y4);
-      xx = bezierPoint(x1, coordonnees[num_arc][0], coordonnees[num_arc][0], x4, 1/2);
-      yy = bezierPoint(y1, coordonnees[num_arc][1]+(e2-e1-1)*25+20,  coordonnees[num_arc][1]-(e2-e1-1)*25-20, y4, 1/2);
-
       }
     else {
       x1 = x4 = x-30;
@@ -185,7 +181,7 @@ function drawArc(e1,e2,a,k,num_arc, coordonnees){
       line(x-38,y-h/2+7, x-30,y-h/2-1);
     }
   }
-  // bezier(x1,  y1, x2, y2, x3, y3, x4, y4);
+  bezier(x1,  y1, x2, y2, x3, y3, x4, y4);
   // xx = bezierPoint(x1, coordonnees[0][0], coordonnees[0][0], x4, 1/2);
   // yy = bezierPoint(y1, coordonnees[0][1]-30, coordonnees[0][1]+30, y4, 1/2);
 
