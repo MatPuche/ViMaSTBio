@@ -1,13 +1,4 @@
-// var x=180, y=40;
-// var x1 = x4 =100, y1 = 20, y4 = 60;
 var xx, yy;
-
-
-
-// coordonnees.push([x,y]);
-//
-// var x = 380, y=40;
-// coordonnees.push([x,y]);
 
 var transitions = {
   a: [[["0","1"],"b=1","c=1"]],
@@ -63,30 +54,14 @@ function draw(){
     n+=1;
     k=1;
   }
-
-
-  // bezier(x1, y1, coordonnees[0][0], coordonnees[0][1]-30, coordonnees[0][0], coordonnees[0][1]+30, x4, y4);
-  // xx = bezierPoint(x1, coordonnees[0][0], coordonnees[0][0], x4, 1/2);
-  // yy = bezierPoint(y1, coordonnees[0][1]-30, coordonnees[0][1]+30, y4, 1/2);
-  //
-  // pt1.style.top = yy+ "px";
-  // pt1.style.left = xx + "px";
-  // fill(255);
-  // ellipse(xx, yy, 5, 5);
-  //
-  // noFill();
-  // bezier(x1, y1, coordonnees[1][0], coordonnees[1][1]-30, coordonnees[1][0], coordonnees[1][1]+30, x4, y4);
-  // xx2 = bezierPoint(x1, coordonnees[1][0], coordonnees[1][0], x4, 1/2);
-  // yy2 = bezierPoint(y1, coordonnees[1][1]-30, coordonnees[1][1]+30, y4, 1/2);
-  //
-  // pt2.style.top = yy2+ "px";
-  // pt2.style.left = xx2 + "px";
-  // fill(255);
-  // ellipse(xx2, yy2, 5, 5);
   first = false;
 }
 
+
+
 var xi, xj, yi, yj;
+
+var divs = document.getElementsByClassName('arc');
 
 function move(evt) {
     if (dragged) {
@@ -100,17 +75,6 @@ function stopDrag() {
     dragged = false;
 }
 
-pt1.onmousedown = function(evt) {
-    dragged = true;
-    xi = pt1.id-1; xj=0;
-    yi = pt1.id-1; yj = 1;
-}
-//
-// pt2.onmousedown = function(evt) {
-//     dragged = true;
-//      xi = 1; xj=0;
-//      yi = 1; yj = 1;
-// }
 
 document.onmousemove = move;
 document.onmouseup = stopDrag;
@@ -143,8 +107,6 @@ function drawArc(e1,e2,a,k,num_arc, coordonnees, first){
       if (e2<e1){
         coordonnees[num_arc][0] = x-30+50*((k+1)/2)+(e1-e2-1)*15;
         coordonnees[num_arc][1] = y;
-        console.log("hey");
-        console.log(coordonnees[num_arc][0], coordonnees[num_arc][1], num_arc);
         }
       else {
         coordonnees[num_arc][0] = x-30-50*((k+1)/2)-(e1-e2-1)*15;
@@ -161,16 +123,26 @@ function drawArc(e1,e2,a,k,num_arc, coordonnees, first){
         }
 
       else {
-        coordonnees[num_arc][0] = x-55-50*(k+1)/2-(e2-e1-1)*15;
+        coordonnees[num_arc][0] = x-55-50*(k+1)/2-(e2-e1-1)*15+30;
         coordonnees[num_arc][1] = y ;
       }
     }
+    var arc_div = document.createElement('div');
+    arc_div.className = "arc";
+    arc_div.id = num_arc;
+    document.body.appendChild(arc_div);
+    arc_div.onmousedown = function(evt) {
+        dragged = true;
+        xi = num_arc; xj = 0;
+        yi = num_arc; yj = 1;
+    }
+
   }
+
 
   if (k%2==0){
 
     if (e2<e1){
-      console.log(coordonnees[num_arc][0], coordonnees[num_arc][1], num_arc);
       x1 = x4 = x;
       y1 = y+26+(e1-e2-1)*25;
       y4 = y-26-(e1-e2-1)*25;
@@ -188,8 +160,8 @@ function drawArc(e1,e2,a,k,num_arc, coordonnees, first){
       line(x-38,y-h/2-9, x-30,y-h/2-1);
       line(x-38,y-h/2+7, x-30,y-h/2-1);
       noFill();
-      bezier(x1, y1, coordonnees[num_arc][0], coordonnees[num_arc][1]+(e2-e1-1)*25+20, coordonnees[num_arc][0],coordonnees[num_arc][1]-(e2-e1-1)*25-20, x4, y4);
-      xx = bezierPoint(x1, coordonnees[num_arc][0], coordonnees[num_arc][0], x4, 1/2);
+      bezier(x1, y1, coordonnees[num_arc][0]-30, coordonnees[num_arc][1]+(e2-e1-1)*25+20, coordonnees[num_arc][0]-30,coordonnees[num_arc][1]-(e2-e1-1)*25-20, x4, y4);
+      xx = bezierPoint(x1, coordonnees[num_arc][0]-30, coordonnees[num_arc][0]-30, x4, 1/2);
       yy = bezierPoint(y1, coordonnees[num_arc][1]+(e2-e1-1)*25+20,  coordonnees[num_arc][1]-(e2-e1-1)*25-20, y4, 1/2);
      }
   }
@@ -206,30 +178,23 @@ function drawArc(e1,e2,a,k,num_arc, coordonnees, first){
       bezier(x1, y1, coordonnees[num_arc][0], coordonnees[num_arc][1]+(e2-e1-1)*25+20, coordonnees[num_arc][0], coordonnees[num_arc][1]-(e2-e1-1)*25-20, x4, y4);
       xx = bezierPoint(x1, coordonnees[num_arc][0], coordonnees[num_arc][0], x4, 1/2);
       yy = bezierPoint(y1, coordonnees[num_arc][1]+(e2-e1-1)*25+20,  coordonnees[num_arc][1]-(e2-e1-1)*25-20, y4, 1/2);
-      pt1.style.top = yy+ "px";
-      pt1.style.left = xx + "px";
-
-      fill(255);
-      ellipse(xx, yy, 5,5);
       }
     else {
       x1 = x4 = x-30;
       x2 = x3 = x-55-50*(k+1)/2-(e2-e1-1)*15;
-      y1 = y+25+(e1-e2-1)*25;
+      y1 = y+24+(e1-e2-1)*25;
       y4 = y-26-(e1-e2-1)*25;
       line(x-38,y-h/2-9, x-30,y-h/2-1);
       line(x-38,y-h/2+7, x-30,y-h/2-1);
       noFill();
-      bezier(x1, y1, coordonnees[num_arc][0], coordonnees[num_arc][1]+(e1-e2-1)*25+20, coordonnees[num_arc][0],coordonnees[num_arc][1]-(e1-e2-1)*25-20, x4, y4);
-      xx = bezierPoint(x1, coordonnees[num_arc][0], coordonnees[num_arc][0], x4, 1/2);
+      bezier(x1, y1, coordonnees[num_arc][0]-30, coordonnees[num_arc][1]+(e1-e2-1)*25+20, coordonnees[num_arc][0]-30,coordonnees[num_arc][1]-(e1-e2-1)*25-20, x4, y4);
+      xx = bezierPoint(x1, coordonnees[num_arc][0]-30, coordonnees[num_arc][0]-30, x4, 1/2);
       yy = bezierPoint(y1, coordonnees[num_arc][1]+(e1-e2-1)*25+20,  coordonnees[num_arc][1]-(e1-e2-1)*25-20, y4, 1/2);
       }
   }
+  divs[num_arc].style.top = yy + "px";
+  divs[num_arc].style.left = xx + "px";
+  fill(255);
+  ellipse(xx, yy, 5,5);
 
-  // bezier(x1,  y1, x2, y2, x3, y3, x4, y4);
-  // xx = bezierPoint(x1, coordonnees[0][0], coordonnees[0][0], x4, 1/2);
-  // yy = bezierPoint(y1, coordonnees[0][1]-30, coordonnees[0][1]+30, y4, 1/2);
-
-  var arc_div = document.createElement('div');
-  arc_div.id = 'pt' + num_arc;
 }
