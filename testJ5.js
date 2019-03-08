@@ -1,6 +1,6 @@
 var transitions = {
   a: [[["0","1"],"b=1","c=1"]],
-  b: [[["0","1"],"d=1"],[["0", "2"]],[["2", "1"]]],
+  b: [[["0","1"],"d=1"],[["0", "2"]], [["0","1"],"c=1"], [["0","1"],"d=1"]],
   c: [[["0","1"],"d=1"]],
   d: [[["0","1"],"b=1"],[["0","1"],"c=1"]],
   initial_context: " \"a\" = 0, \"b\" = 0, \"c\" = 0, \"d\" = 0"};
@@ -27,7 +27,7 @@ function setup() {
 
    for (var id in transitions){
      if (id!= "initial_context"){
-       //la variable e1 permet de savoir si c'est le premier arc sortant de e1 ou non;
+       //la variable e1 permet de savoir si c'est le premier arc sortant de auto ou non;
        //On initialise à -1 car le premier est forcément la première transition sortante
        var e1 = -1;
        for (var i=0, c=transitions[id].length; i<c; i++){

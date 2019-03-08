@@ -15,12 +15,8 @@ document.getElementById('file').onchange = function(){
 
     //On compte le nombre d'automates et on stocke le nombre d'états qu'ils peuvent chacun prendre
     var auto = [];
-    while (lines[line].length > 1){
 
-      //Pour les afficher sur la page
-      var d = document.createElement('div');
-      d.appendChild(document.createTextNode(lines[line]));
-      document.body.appendChild(d);
+    while (lines[line].length > 1){
 
       //Pour les stocker dans la variable auto, on récupère les états possibles
       var nbre_etats = (lines[line].match(/\b[0-9]+\b/g)).length;
@@ -28,23 +24,16 @@ document.getElementById('file').onchange = function(){
       line+=1;
     }
 
-    //on saute les lignes inutiles
-    rien = document.createElement('br');
-    document.body.appendChild(rien);
-
     //le dictionnaire qui stocke les différentes transitions possibles pour chaque automate
     var transitions = {}
+    //On compte le nombre d'arcs qu'il faudra dessiner pour ses transitions
+    var nbre_arcs = 0;
 
     //On itère sur chaque automate
     for (var i=0, c=auto.length; i<c; i++){
       line+=1;
       var trans = [] // la liste représentant toutes les transitions de l'automate auto
       while (lines[line].length > 1){
-
-        //Pour afficher sur la page
-        var d = document.createElement('div');
-        d.appendChild(document.createTextNode(lines[line]));
-        document.body.appendChild(d);
 
         //Pour ajouter la transition à la liste des transitions
         var curTrans = []; // la liste représentant la transition en cours d'analyse
@@ -66,26 +55,22 @@ document.getElementById('file').onchange = function(){
         }
         //on ajoute la transition actuellement analysée à la liste des transitions de l'automate auto
         trans.push(curTrans);
+        //il y a donc un arc à dessiner pour cette transition
+        nbre_arcs+=1;
         line+=1;
       }
       //on ajoute la liste des transitions de l'automate auto au dictionnaire des transitions
       transitions[autom]=trans;
 
-      rien = document.createElement('br');
-      document.body.appendChild(rien);
     }
 
     //on récupère le contexte initial
     line +=1;
     /initial_context (.+)/.exec(lines[line]);
     transitions['initial_context'] = (RegExp.$1);
-
-    for (id in transitions){
-
-      alert(transitions[id]);
-    }
-    console.log(transitions);
+    transitions['nbre_arcs'] = nbre_arcs;
   };
+
 
   reader.readAsText(file);
 }
