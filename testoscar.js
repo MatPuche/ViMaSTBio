@@ -1,49 +1,27 @@
+var x1; //starting vertex
+var x2; //ending vertex
+var r = 16; //vertex radius
 
-// Before setup () declare arrays
-float[] x = new float [3];
-float[] y = new float [3];
-String [] text = new String [3];
 
-void setup() {
+function setup() {
+    createCanvas(640, 480);
+    x1 = createVector(random(0, width/2), random(0, height/2)); //random position to the upper left
+    x2 = createVector(random(width/2, width), random(height/2, height)); //random position to the lower right
+}
 
-  size(900, 600);
+function draw() {
+    background(200);
+    stroke(0);
+    var offset = r;
+    ellipse(x1.x, x1.y, r, r); //starting vertex
+    ellipse(x2.x, x2.y, r, r); //ending vertex
+    line(x1.x, x1.y, x2.x, x2.y); //draw a line beetween the vertices
 
-  // Now in setup() put the data in the 3 parallel arrays:
-
-  // first automata
-  x[0] = 100;
-  y[0] = 200; // adjust
-  text[0] = "first automata";
-
-  //2nd automata
-  x[1]=333;
-  y[1]=444; // adjust
-  text[1]= "2nd automata whatever…";
-
-  //3rd automata
-  x[2]=333;
-  y[2]=144; // adjust
-  text[2]= "Third automata....\nVery Nice";
-  //
-}//function
-
-void draw() {
-
-  background(0);
-
-  // for loop i over arrays and display them
-  for (int i=0; i<x.length; i++) {
-    fill(255);
-    rect( x[i], y[i],
-      17, 17);
-  }//for
-
-  // Now for loop i over arrays and check the distance to the mouse
-  for (int i=0; i<x.length; i++) {
-    if (dist(mouseX, mouseY, x[i], y[i]) < 50) {
-      fill(255, 0, 0);
-      text( text[i],
-        x[i], y[i]  );
-    }//if
-  }//for
-}//function
+    // this code is to make the arrow point
+    push() //start new drawing state
+    var angle = atan2(x1.y - x2.y, x1.x - x2.x); //gets the angle of the line
+    translate(x2.x, x2.y); //translates to the destination vertex
+    rotate(angle); //rotates the arrow point
+    triangle(-offset*0.5, offset, offset*0.5, offset, 0, -offset/2); //draws the arrow point as a triangle
+    pop();
+}
