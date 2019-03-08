@@ -10,6 +10,11 @@ var transitions = {
 
 var auto = [2,4,2,2];
 
+// oscar
+var texte = "click"
+const reducer = (x, y) => x + " and " +  y
+//
+
 
 var coordonnees = [];
 for (i=0; i<transitions['nbre_arcs']; i++){
@@ -27,6 +32,9 @@ var pt2 = document.getElementById("2");
 
 
 function draw(){
+
+
+  background(200);  // oscar
   for (var i=0, c=auto.length ; i<c;i++){
     automate(auto[i], 140+i*230,140,30,30);
   }
@@ -37,7 +45,11 @@ function draw(){
       //la variable e1 permet de savoir si c'est le premier arc sortant de auto ou non;
       //On initialise à -1 car le premier est forcément la première transition sortante
       var e1 = -1;
+
+
       for (var i=0, c=transitions[id].length; i<c; i++){
+
+
         var curTrans = transitions[id][i];
         if (curTrans[0][0]==e1){
           k+=1;
@@ -45,11 +57,37 @@ function draw(){
         else{
           k=1;
         }
-        drawArc(parseInt(curTrans[0][0]), parseInt(curTrans[0][1]),n,k, num_arc, coordonnees, first);
+        var overBox = false;
+        var locked = false;
+
+        drawArc(parseInt(curTrans[0][0]), parseInt(curTrans[0][1]), n, k, num_arc, coordonnees, first);
         num_arc+=1;
+
+        // oscar
+        var x = 155+(n-1)*230;
+        var y = 140+(4-parseInt(curTrans[0][0]))*50-(parseInt(curTrans[0][1])-parseInt(curTrans[0][0]))*25;
+        var h = 2+(parseInt(curTrans[0][1])-parseInt(curTrans[0][0]))*50;
+        overBox = (dist(mouseX, mouseY, x+8,y-h/2-8) < 50);
+
+        try{texte =  curTrans.slice(1).reduce(reducer);}
+        catch{texte = "r"}
+
+
+        if(!locked) {
+          fill(200);
+          afficheTrans(texte, parseInt(curTrans[0][0]), parseInt(curTrans[0][1]),n,k);
+
+        }
+
+        else {
+          //fill(200);
+          overBox = false;
+        }
+      //
 
         e1=curTrans[0][0];
       }
+
     }
     n+=1;
     k=1;
@@ -91,7 +129,37 @@ function automate(n,x1,y1,x2,y2){
     rect((x1-x2), (y1-y2+(5-n)*50), 2*y2, 110+(n-2)*50, 20, 20, 20);
 }
 
+// oscar
+function mousePressed() {
+  if(overBox) {
+    locked = true;
+  //  fill(200);
+  } else {
+    locked = false;
+  //  fill(200);
+  }
 
+
+}
+
+function mouseReleased() {
+  locked = false;
+}
+
+function afficheTrans(texte, e1, e2, a, k){
+
+  var x = 155+(a-1)*230;
+  var y= 140+(4-e1)*50-(e2-e1)*25;
+  var h = 2+(e2-e1)*50;
+
+  if(dist(mouseX, mouseY, x+8,y-h/2-8) < 50) {
+    fill(255, 0, 0); //rouge
+    //noStroke();
+     text(texte,x+8,y-h/2-8);
+}
+
+}
+//
 
 function drawArc(e1,e2,a,k,num_arc, coordonnees, first){
 
