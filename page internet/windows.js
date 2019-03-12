@@ -6,20 +6,27 @@
  * Reduce button handler
  */
 
+var windows = document.getElementsByClassName("window");
 var boxes = document.getElementsByClassName("dataBox");
 var buttons = document.getElementsByClassName("reduce");
 var currentWidth, currentHeight;
 
-for (var i = 0; i < boxes.length; i++) {
+for (var i = 0; i < windows.length; i++) {
 	(function(i) {
+		boxes[i].style.height = "300px";
+		var windowHeight;
+		var titleHeight = windows[i].getElementsByClassName("windowTitle")[0].clientHeight;
 		buttons[i].addEventListener("click", function() {
 			if (buttons[i].getAttribute("src") === "minus.png") {
 				buttons[i].setAttribute("src", "plus.png");
 				currentHeight = boxes[i].clientHeight;
 				boxes[i].style.height = "0px";
+				windows[i].style.height = titleHeight + "px";
+				
 			} else {
 				buttons[i].setAttribute("src", "minus.png");
 				boxes[i].style.height = currentHeight + "px";
+				windows[i].style.height = currentHeight + titleHeight + "px";
 			}
 		}, false);
 	})(i);
@@ -152,6 +159,7 @@ function prepareResizing(evt, window) {
 
 function resize(evt) {
 	if (resized) {
+		var resizeBoxY = false;
 		var minWidth = selectedWindow.getElementsByTagName("h2")[0].clientWidth * 1.5;
 		var minHeight = selectedWindow.getElementsByClassName("windowTitle")[0].clientHeight;
 		var newWidth, newHeight;
@@ -167,6 +175,7 @@ function resize(evt) {
 		}
 		
 		if (direction.includes("s")) {
+			resizeBoxY = true;
 			newHeight = previousHeight + resizeY;
 			if (newHeight < minHeight) {
 				newHeight = minHeight;
@@ -174,13 +183,14 @@ function resize(evt) {
 		}
 		
 		newWidth += "px";
-		//resizeY += "px"
 		
 		var box = selectedWindow.getElementsByClassName("dataBox")[0];
 		selectedWindow.style.width = newWidth;
 		box.style.width = newWidth;
 		selectedWindow.style.height = newHeight + "px";
-		//box.style.height = resizeY;
+		if (resizeBoxY) {
+			box.style.height = newHeight - minHeight + "px";	
+		}
 	}
 }
 
