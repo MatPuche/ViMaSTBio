@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="description" content="Outil ViMaSTBio" />
+<title>ViMaSTBio</title>
+<link rel="stylesheet" href="style.css" />
+<script type="text/javascript" src="parseTsv.js"></script>
+<script type="text/javascript" src="grafica.js"></script>
+<script type="text/javascript" src="p5.js"></script>
+<script type="text/javascript" src="draw.js"></script>
+</head>
+
+<body>
+	<h1>ViMaSTBio</h1>
+
+	<div id="graphWindow" class="window">
+		<div id="graphWindowTitle" class="windowTitle">
+			<h2>Courbes</h2>
+			<img src="minus.png" class="reduce" id="reduceGraphBox" />
+		</div>
+		<div id="graphBox" class="dataBox">
+			<div id="graph">
+				<div id="sketch-canvas"></div>
+				<form>
+					<input id="tsvFile" type="file" accept=".tsv" />
+				</form>
+				<script type="text/javascript" src="readTsvFile.js"></script>
+			</div>
+			<div id="graphLegend">Lorem ipsum dolor sit amet, consectetur
+				adipiscing elit. Praesent dictum, leo quis posuere ultrices, orci
+				nisi placerat dolor, vel aliquam libero purus in velit</div>
+		</div>
+	</div>
+
+	<div id="automataWindow" class="window">
+		<div id="automataWindowTitle" class="windowTitle">
+			<h2>Automates</h2>
+			<img src="minus.png" class="reduce" id="reduceAutomataBox" />
+		</div>
+		<div id="automataBox" class="dataBox">
+			<div id="automata">
+				<form>
+					<input id="anFile" type="file" accept=".an" />
+				</form>
+			</div>
+			<script>
+				document.getElementById("automataBox").addEventListener("click", function() {
+					alert(array);
+				}, false);
+			</script>
+		</div>
+	</div>
+	<script type="text/javascript" src="windows.js"></script>
+</body>
+</html>
