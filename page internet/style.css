@@ -30,7 +30,8 @@
 }
 
 #graphLegend {
-	padding-top: 2%;
+	margin: 2%;
+	min-width: 80%;
 	display: inline-block;
 }
 
@@ -40,7 +41,7 @@
 }
 
 .dataBox {
-    padding: 2%;
+	overflow: hidden;
 }
 
 #graphBox {
@@ -52,7 +53,6 @@
 }
 
 .reduce {
-	width: 30px;
 	float: right;
 }
 
@@ -62,6 +62,9 @@
 
 input {
 	display: inline-block;
+	margin-top: 3%;
+	margin-left: 2%;
+	margin-right: 2%;
 }
 
 .windowTitle {
