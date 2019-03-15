@@ -6,65 +6,72 @@ document.getElementById('anFile').onchange = function(){
     // By lines
     var lines = this.result.split('\n');
 
-    //On retire les première lignes inutiles
+    // Remove the first unnecessary lines
     var rien, line=0;
     while (lines[line].length > 1){
       line+=1;
     }
     line+=1;
 
-    //On compte le nombre d'automates et on stocke le nombre d'états qu'ils peuvent chacun prendre
+    // We count the number of automata and store the number of states they can each take
     var auto = [];
+
     while (lines[line].length > 1){
 
-      //Pour les stocker dans la variable auto, on récupère les états possibles
+      // To store them in the auto variable, we retrieve the possible states
       var nbre_etats = (lines[line].match(/\b[0-9]+\b/g)).length;
       auto.push(nbre_etats);
       line+=1;
     }
 
-    //le dictionnaire qui stocke les différentes transitions possibles pour chaque automate
+    // the dictionary that stores the different possible transitions for each automaton
     var transitions = {}
+    // We count the number of arcs that will have to be drawn for its transitions
+    var nbre_arcs = 0;
 
-    //On itère sur chaque automate
+    //We iterate on each automaton
     for (var i=0, c=auto.length; i<c; i++){
       line+=1;
-      var trans = [] // la liste représentant toutes les transitions de l'automate auto
+      var trans = [] // the list representing all the transitions of the automaton auto
       while (lines[line].length > 1){
 
-        //Pour ajouter la transition à la liste des transitions
-        var curTrans = []; // la liste représentant la transition en cours d'analyse
+        // to add the transition to the list of transitions
+        var curTrans = []; // the list representing the transition being analyzed
 
-        // On coupe d'abord la chaîne en deux :
-        //le premier élément est la transition de l'automate considéré
-        //le deuxième élement (éventuellement vide)contient les conditions sur les autres automates
+        // We first cut the string in two parts:
+        // the first element is the transition of the automaton considered
+        // the second element (possibly empty) contains the conditions on the other automata
         var words = lines[line].split('when');
         var test = /"([a-z])" ([0-9]) -> ([0-9])/.exec(words[0]);
         var autom = RegExp.$1;
         curTrans.push([RegExp.$2,RegExp.$3]);
-        //On découpe ensuite selon le nombre de conditions sur les autres automates, si il y en a
+        // We then cut according to the number of conditions on the other automata, if there are any
         if (words[1]){
-          var cond = words[1] .split('and');
+          var cond = words[1].split('and');
           for(var k=0, l=cond.length; k<l;k++){
              /"([a-z])"=([0-9]+)/.exec(cond[k]);
              curTrans.push(RegExp.$1 + "=" + RegExp.$2);
           }
         }
-        //on ajoute la transition actuellement analysée à la liste des transitions de l'automate auto
+        // add the currently analyzed transition to the list of automatons transitions
         trans.push(curTrans);
+        // there is one more arc to draw for this transition
+        nbre_arcs+=1;
         line+=1;
       }
-      //on ajoute la liste des transitions de l'automate auto au dictionnaire des transitions
+      // add the list of transitions of the automat autom to the dictionary of transitions
       transitions[autom]=trans;
 
     }
 
-    //on récupère le contexte initial
+    //we store the initial context
     line +=1;
     /initial_context (.+)/.exec(lines[line]);
     transitions['initial_context'] = (RegExp.$1);
-
+    //and finally the total number of arrowq
+    transitions['nbre_arcs'] = nbre_arcs;
   };
+
 
   reader.readAsText(file);
 }

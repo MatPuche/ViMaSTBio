@@ -102,3 +102,12 @@ h2 {
 .enabledLegend:hover, .disabledLegend:hover {
 	cursor: pointer;
 }
+
+#arc:hover {
+    cursor: pointer;
+}
+#arc {
+     position: absolute;
+     height: 15px;
+     width: 15px;
+}
