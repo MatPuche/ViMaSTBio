@@ -31,7 +31,7 @@
 
 #graphLegend {
 	margin: 2%;
-	min-width: 80%;
+	min-width: 99%;
 	display: inline-block;
 }
 
@@ -89,9 +89,9 @@ h2 {
 
 .enabledLegend, .disabledLegend {
 	display: inline-block;
-	margin: 7%;
+	margin: 3%;
 	font-weight: bold;
-	font-size: 90%;
+	font-size: 85%;
 }
 
 .enabledLegend {
@@ -104,13 +104,4 @@ h2 {
 
 .enabledLegend:hover, .disabledLegend:hover {
 	cursor: pointer;
-}
-
-#arc:hover {
-    cursor: pointer;
-}
-#arc {
-     position: absolute;
-     height: 15px;
-     width: 15px;
 }
