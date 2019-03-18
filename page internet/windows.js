@@ -13,20 +13,20 @@ var currentWidth, currentHeight;
 
 for (var i = 0; i < windows.length; i++) {
 	(function(i) {
+		windows[i].getElementsByClassName("reduce")[0].style.width = 0.05 * windows[i].clientWidth + "px";
 		boxes[i].style.height = "300px";
 		var windowHeight;
-		var titleHeight = windows[i].getElementsByClassName("windowTitle")[0].clientHeight;
 		buttons[i].addEventListener("click", function() {
 			if (buttons[i].getAttribute("src") === "minus.png") {
 				buttons[i].setAttribute("src", "plus.png");
 				currentHeight = boxes[i].clientHeight;
 				boxes[i].style.height = "0px";
-				windows[i].style.height = titleHeight + "px";
+				windows[i].style.height = windows[i].getElementsByClassName("windowTitle")[0].clientHeight + "px";
 				
 			} else {
 				buttons[i].setAttribute("src", "minus.png");
 				boxes[i].style.height = currentHeight + "px";
-				windows[i].style.height = currentHeight + titleHeight + "px";
+				windows[i].style.height = currentHeight + windows[i].getElementsByClassName("windowTitle")[0].clientHeight + "px";
 			}
 		}, false);
 	})(i);
@@ -77,7 +77,6 @@ function prepareDragging(evt, window) {
 	mouseStartY = evt.clientY;
 	windowStartX = selectedWindow.offsetLeft;
 	windowStartY = selectedWindow.offsetTop;
-	evt.preventDefault();
 }
 
 function drag(evt) {
@@ -154,7 +153,6 @@ function prepareResizing(evt, window) {
 		mouseStartX = evt.clientX;
 		mouseStartY = evt.clientY;
 	}
-	evt.preventDefault();
 }
 
 function resize(evt) {

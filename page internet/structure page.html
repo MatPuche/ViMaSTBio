@@ -5,13 +5,13 @@
 <meta name="description" content="Outil ViMaSTBio" />
 <title>ViMaSTBio</title>
 <link rel="stylesheet" href="style.css" />
-<script type="text/javascript" src="parseTsv.js"></script>
 <script type="text/javascript" src="grafica.js"></script>
 <script type="text/javascript" src="p5.js"></script>
-<script type="text/javascript" src="draw.js"></script>
 </head>
 
 <body>
+	<script type="text/javascript" src="global variables.js"></script>
+	<script type="text/javascript" src="parseTsv.js"></script>
 	<h1>ViMaSTBio</h1>
 
 	<div id="graphWindow" class="window">
@@ -25,11 +25,10 @@
 				<form>
 					<input id="tsvFile" type="file" accept=".tsv" />
 				</form>
+				<script type="text/javascript" src="paint.js"></script>
 				<script type="text/javascript" src="readTsvFile.js"></script>
 			</div>
-			<div id="graphLegend">Lorem ipsum dolor sit amet, consectetur
-				adipiscing elit. Praesent dictum, leo quis posuere ultrices, orci
-				nisi placerat dolor, vel aliquam libero purus in velit</div>
+			<div id="graphLegend"></div>
 		</div>
 	</div>
 
@@ -40,7 +39,6 @@
 		</div>
 		<div id="automataBox" class="dataBox">
 			<div id="automata">
-				<div id="automata-canvas"></div>
 				<form>
 					<input id="anFile" type="file" accept=".an" />
 				</form>
