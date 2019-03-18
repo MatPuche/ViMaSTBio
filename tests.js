@@ -2,7 +2,7 @@ var xx, yy;
 
 var transitions = {
   a: [[["0","1"],"b=1","c=1"],[["1","0"],"XXXXX"]],
-  b: [[["2","1"],"d=1"], [["2","1"],"c=1"], [["2", "1"]],[["3","1"],"d=1"], [["2","1"],"d=1"]],
+  b: [[["2","2"],"d=1"], [["2","1"],"c=1"], [["2", "1"]],[["3","1"],"d=1"], [["2","1"],"d=1"]],
   c: [[["1","0"],"d=1"]],
   d: [[["1","0"],"b=1"],[["1","0"],"c=1"]],
   initial_context: " \"a\" = 0, \"b\" = 0, \"c\" = 0, \"d\" = 0",
@@ -264,7 +264,7 @@ if (dist(mouseX, mouseY, x+8,y-h/2-8) < 50) {
 //k : the number of the arrow of this automata ; num_arc : the number of the arrow in total (to allow the displacement)
 //coordonnees : array containing the coordinates of each arrow ; first : boolean that indicates if it's the first time arrows are
 //drawn (to create divs if it the case)
-function drawArc(e1,e2,a,k,num_arc, coordonnees, first){
+function drawArc(e1,e2,a,k,num_arc, coordonnees, first, p){
 
   var x = 155+(a-1)*230,
       y= 140+(4-e1)*50-(e2-e1)*25,

@@ -27,3 +27,14 @@ var tsvFileLoaded, anFileLoaded;
 // p5 object which paints the graph in the tsv file
 // Mainly used in paint.js
 var graphSketch;
+
+// p5 object which paint the automatons
+// Mainly used in drawAutom.js
+var autoSketch;
+
+// the dictionary that stores the different possible transitions for each automaton
+// Instantiated in readAnFile and used in drawAutom.js
+var transitions = {};
+
+// array which contains the number of states thath each automaton can take
+var auto = [];
