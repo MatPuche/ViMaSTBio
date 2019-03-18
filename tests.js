@@ -167,7 +167,7 @@ function afficheTrans(texte, e1, e2, a, k){
 //k : the number of the arrow of this automata ; num_arc : the number of the arrow in total (to allow the displacement)
 //coordonnees : array containing the coordinates of each arrow ; first : boolean that indicates if it's the first time arrows are
 //drawn (to create divs if it the case)
-function drawArc(e1,e2,a,k,num_arc, coordonnees, first){
+function drawArc(e1,e2,a,k,num_arc, coordonnees, first, p){
 
   var x = 155+(a-1)*230,
       y= 140+(4-e1)*50-(e2-e1)*25,

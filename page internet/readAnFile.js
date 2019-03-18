@@ -1,3 +1,6 @@
+var auto =[];
+var transitions = {};
+
 document.getElementById('anFile').onchange = function(){
 
   var file = this.files[0];
@@ -12,7 +15,6 @@ document.getElementById('anFile').onchange = function(){
       line+=1;
     }
     line+=1;
-
     while (lines[line].length > 1){
 
       // To store them in the auto variable, we retrieve the possible states
@@ -21,21 +23,24 @@ document.getElementById('anFile').onchange = function(){
       line+=1;
     }
 
+
     // We count the number of arcs that will have to be drawn for its transitions
     var nbre_arcs = 0;
 
     //We iterate on each automaton
     for (var i=0, c=auto.length; i<c; i++){
       line+=1;
-      var trans = [] // the list representing all the transitions of the automaton auto
+      console.log(line);
+      console.log(lines[line]);
+      var trans = []; // the list representing all the transitions of the automaton auto
       while (lines[line].length > 1){
 
-        // to add the transition to the list of transitions
-        var curTrans = []; // the list representing the transition being analyzed
+        // to add the transition to the list of transition
+        var curTrans = []; // the list representing the transition being analyzed
 
         // We first cut the string in two parts:
-        // the first element is the transition of the automaton considered
-        // the second element (possibly empty) contains the conditions on the other automata
+        // the first element is the transition of the automaton considered
+        // the second element (possibly empty) contains the conditions on the other automata
         var words = lines[line].split('when');
         var test = /"([a-z])" ([0-9]) -> ([0-9])/.exec(words[0]);
         var autom = RegExp.$1;
@@ -65,9 +70,10 @@ document.getElementById('anFile').onchange = function(){
     transitions['initial_context'] = (RegExp.$1);
     //and finally the total number of arrowq
     transitions['nbre_arcs'] = nbre_arcs;
+    console.log(transitions);
+
+    paintAuto(transitions, auto);
   };
-  var defaultAutoSketch = paint2(transitions, auto);
-  sketch = new p5(defaultAutoSketch, "automata-canvas");
 
   reader.readAsText(file);
 }
