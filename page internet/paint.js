@@ -4,7 +4,7 @@
 
 function paintGraph(array, geneList, curveNo) {
 	var plotGraph = function(p) {
-
+			var plot;
 		// Creates and adds the canvas element
 		function addCanvas() {
 			var referenceElement, maxCanvasWidth, canvas;
@@ -22,7 +22,7 @@ function paintGraph(array, geneList, curveNo) {
 
 		// Initial setup
 		p.setup = function() {
-			var points, plot;
+			var points;
 
 			// Add the canvas element
 			addCanvas();
@@ -58,12 +58,27 @@ function paintGraph(array, geneList, curveNo) {
 			// Set the plot title and the axis labels
 			plot.setTitleText("Gene expression");
 			plot.getXAxis().setAxisLabelText(array[0][0]);
+			plot.activatePanning();
+			plot.activateZooming(1.1, p.CENTER, p.CENTER);
 
 			// Draw it!
-			plot.defaultDraw();
+			};
+			// Execute the sketch
+	p.draw = function() {
+		// Clean the canvas
+		p.background(255);
 
-			p.noLoop();
-		};
+		// Draw the plot
+		plot.beginDraw();
+		plot.drawBox();
+		plot.drawXAxis();
+		plot.drawYAxis();
+		plot.drawTitle();
+		plot.drawLines();
+		plot.drawPoints();
+		plot.drawLabels();
+		plot.endDraw();
+	};
 	};
 
 	graphSketch = new p5(plotGraph, "sketch-canvas");
