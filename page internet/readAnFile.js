@@ -13,9 +13,6 @@ document.getElementById('anFile').onchange = function(){
     }
     line+=1;
 
-    // We count the number of automata and store the number of states they can each take
-    var auto = [];
-
     while (lines[line].length > 1){
 
       // To store them in the auto variable, we retrieve the possible states
@@ -24,8 +21,6 @@ document.getElementById('anFile').onchange = function(){
       line+=1;
     }
 
-    // the dictionary that stores the different possible transitions for each automaton
-    var transitions = {}
     // We count the number of arcs that will have to be drawn for its transitions
     var nbre_arcs = 0;
 
