@@ -17,120 +17,124 @@ var auto = [2,4,2,2];
 var texte = "click"
 const reducer = (x, y) => x + " and " +  y
 
-var coordonnees = [];
-for (i=0; i<transitions['nbre_arcs']; i++){
-  coordonnees.push([0,0]);
-}
 
-function setup() {
+function paint2(transitions, auto) {
 
-  var defaultPlotSketch = function(p) {
-
-  // Creates and adds the canvas element
-  function addCanvas(canvasWidth, canvasHeight) {
-    var referenceElement, maxCanvasWidth, canvas;
-
-    // Calculate the canvas dimensions
-    referenceElement = document.getElementById("automata-canvas");
-    maxCanvasWidth = referenceElement.clientWidth - 1;
-
-    if (canvasWidth > maxCanvasWidth) {
-      canvasHeight = maxCanvasWidth * canvasHeight / canvasWidth;
-      canvasWidth = maxCanvasWidth;
-    }
-
-    // Create the canvas
-    canvas = p.createCanvas(maxCanvasWidth, 0.7*maxCanvasWidth);
-
-    // Resize the canvas if necessary
-    maxCanvasWidth = referenceElement.clientWidth - 1;
-
-    if (canvasWidth > maxCanvasWidth) {
-      p.resizeCanvas(maxCanvasWidth, maxCanvasWidth * canvasHeight
-          / canvasWidth, true);
-    }
-
-    return canvas;
+  var coordonnees = [];
+  for (i=0; i<transitions['nbre_arcs']; i++){
+    coordonnees.push([0,0]);
   }
 
-  // Initial setup
-  p.setup = function() {
+	var defaultAutoSketch = function(p) {
 
-    // Add the canvas element
-    addCanvas(500, 350);
-  };
-  return defaultPlotSketch;
-};
-}
+		// Creates and adds the canvas element
+		function addCanvas(canvasWidth, canvasHeight) {
+			var referenceElement, maxCanvasWidth, canvas;
 
-var dragged = false, first = true;
+			// Calculate the canvas dimensions
+			referenceElement = document.getElementById("automata");
+			maxCanvasWidth = referenceElement.clientWidth - 1;
+
+			if (canvasWidth > maxCanvasWidth) {
+				canvasHeight = maxCanvasWidth * canvasHeight / canvasWidth;
+				canvasWidth = maxCanvasWidth;
+			}
+
+			// Create the canvas
+			canvas = p.createCanvas(0.7*maxCanvasWidth, 0.49*maxCanvasWidth);
+
+			// Resize the canvas if necessary
+			maxCanvasWidth = referenceElement.clientWidth - 1;
+
+			if (canvasWidth > maxCanvasWidth) {
+				p.resizeCanvas(maxCanvasWidth, maxCanvasWidth * canvasHeight
+						/ canvasWidth, true);
+			}
+
+			return canvas;
+		}
+
+		// Initial setup
+		p.setup = function() {
+
+			// Add the canvas element
+			addCanvas(150, 75);
+
+      var dragged = false, first = true;
 
 
-function draw(){
-  //background(200);  // oscar
+      function draw(){
+        //background(200);  // oscar
 
-  //Fisrt, we draw automatons.
-  for (var i=0, c=auto.length ; i<c;i++){
-    automate(auto[i], 140+i*230,140,30,30);
-  }
-
-  //Then, we draw arrows that represent transitions of each automata
-  var k = 1, n=1, num_arc=0;
-  for (var id in transitions){
-    if (id!= "initial_context"){
-      // the variable e1 enables to know if it is the first arrow coming out of auto or not;
-      //It takes the value of the outgoing state of the precedent drawn arrow and we will check each time if
-      //the outgoing state of the next transition is identic or not
-      // We initialize to -1 because the first one is necessarily the first outgoing transition
-      var e1 = -1;
-
-      for (var i=0, c=transitions[id].length; i<c; i++){
-
-        var curTrans = transitions[id][i];
-        if (curTrans[0][0]==e1){
-          k+=1;
+        //Fisrt, we draw automatons.
+        for (var i=0, c=auto.length ; i<c;i++){
+          automate(auto[i], 140+i*230,140,30,30);
         }
-        else{
+
+        //Then, we draw arrows that represent transitions of each automata
+        var k = 1, n=1, num_arc=0;
+        for (var id in transitions){
+          if (id!= "initial_context"){
+            // the variable e1 enables to know if it is the first arrow coming out of auto or not;
+            //It takes the value of the outgoing state of the precedent drawn arrow and we will check each time if
+            //the outgoing state of the next transition is identic or not
+            // We initialize to -1 because the first one is necessarily the first outgoing transition
+            var e1 = -1;
+
+            for (var i=0, c=transitions[id].length; i<c; i++){
+
+              var curTrans = transitions[id][i];
+              if (curTrans[0][0]==e1){
+                k+=1;
+              }
+              else{
+                k=1;
+              }
+              var overBox = false;
+              var locked = false;
+
+              drawArc(parseInt(curTrans[0][0]), parseInt(curTrans[0][1]), n, k, num_arc, coordonnees, first);
+              num_arc+=1;
+
+              // oscar
+              var x = 155+(n-1)*230;
+              var y = 140+(4-parseInt(curTrans[0][0]))*50-(parseInt(curTrans[0][1])-parseInt(curTrans[0][0]))*25;
+              var h = 2+(parseInt(curTrans[0][1])-parseInt(curTrans[0][0]))*50;
+              overBox = (dist(mouseX, mouseY, x+8,y-h/2-8) < 50);
+
+              try{texte =  curTrans.slice(1).reduce(reducer);}
+              catch{texte = "r"}//c'est pas une erreur que tu devrais catch ici ??
+
+
+              if(!locked) {
+                // fill(200);
+                afficheTrans(texte, parseInt(curTrans[0][0]), parseInt(curTrans[0][1]),n,k);
+
+              }
+
+              else {
+                //fill(200);
+                overBox = false;
+              }
+            //
+
+              e1=curTrans[0][0];
+            }
+
+          }
+          n+=1;
           k=1;
         }
-        var overBox = false;
-        var locked = false;
-
-        drawArc(parseInt(curTrans[0][0]), parseInt(curTrans[0][1]), n, k, num_arc, coordonnees, first);
-        num_arc+=1;
-
-        // oscar
-        var x = 155+(n-1)*230;
-        var y = 140+(4-parseInt(curTrans[0][0]))*50-(parseInt(curTrans[0][1])-parseInt(curTrans[0][0]))*25;
-        var h = 2+(parseInt(curTrans[0][1])-parseInt(curTrans[0][0]))*50;
-        overBox = (dist(mouseX, mouseY, x+8,y-h/2-8) < 50);
-
-        try{texte =  curTrans.slice(1).reduce(reducer);}
-        catch{texte = "r"}//c'est pas une erreur que tu devrais catch ici ??
-
-
-        if(!locked) {
-          // fill(200);
-          afficheTrans(texte, parseInt(curTrans[0][0]), parseInt(curTrans[0][1]),n,k);
-
-        }
-
-        else {
-          //fill(200);
-          overBox = false;
-        }
-      //
-
-        e1=curTrans[0][0];
+        first = false;
       }
 
-    }
-    n+=1;
-    k=1;
-  }
-  first = false;
-}
 
+
+		};
+	};
+
+	return defaultAutoSketch;
+}
 
 
 //To enable arrows to be displaced

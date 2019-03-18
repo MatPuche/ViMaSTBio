@@ -71,7 +71,8 @@ document.getElementById('anFile').onchange = function(){
     //and finally the total number of arrowq
     transitions['nbre_arcs'] = nbre_arcs;
   };
-
+  var defaultAutoSketch = paint2(transitions, auto);
+  sketch = new p5(defaultAutoSketch, "automata-canvas");
 
   reader.readAsText(file);
 }
