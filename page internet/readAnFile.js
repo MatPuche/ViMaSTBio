@@ -9,12 +9,7 @@ document.getElementById('anFile').onchange = function(){
     // By lines
     var lines = this.result.split('\n');
 
-    // Remove the first unnecessary lines
-    var rien, line=0;
-    while (lines[line].length > 1){
-      line+=1;
-    }
-    line+=1;
+    var line=0;
     while (lines[line].length > 1){
 
       // To store them in the auto variable, we retrieve the possible states
@@ -40,8 +35,10 @@ document.getElementById('anFile').onchange = function(){
         // the first element is the transition of the automaton considered
         // the second element (possibly empty) contains the conditions on the other automata
         var words = lines[line].split('when');
-        var test = /"([a-z])" ([0-9]) -> ([0-9])/.exec(words[0]);
+
+        var test = /"G([0-9]*)" ([0-9]) -> ([0-9])/.exec(words[0]);
         var autom = RegExp.$1;
+
         curTrans.push([RegExp.$2,RegExp.$3]);
         // We then cut according to the number of conditions on the other automata, if there are any
         if (words[1]){
@@ -69,6 +66,7 @@ document.getElementById('anFile').onchange = function(){
     //and finally the total number of arrowq
     transitions['nbre_arcs'] = nbre_arcs;
     console.log(transitions);
+    console.log(auto);
 
     paintAuto(transitions, auto);
   };

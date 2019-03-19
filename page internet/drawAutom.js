@@ -4,18 +4,6 @@ var xx, yy;
 var overBox;
 var traine = false;
 
-var transitions = {
-  a: [[["0","1"],"b=1","c=1"],[["1","0"],"XXXXX"]],
-  b: [[["2","2"],"d=1"], [["2","1"],"c=1"], [["2", "1"]],[["3","1"],"d=1"], [["2","1"],"d=1"]],
-  c: [[["1","0"],"d=1"]],
-  d: [[["1","0"],"b=1"],[["1","0"],"c=1"]],
-  initial_context: " \"a\" = 0, \"b\" = 0, \"c\" = 0, \"d\" = 0",
-  nbre_arcs: 10};
-
-auto = [2, 4, 2, 2];
-
-
-
 // oscar
 var texte = "click"
 const reducer = (x, y) => x + " and " + y
@@ -35,14 +23,10 @@ function paintAuto(transitions, auto) {
 
     // Creates and adds the canvas element
     function addCanvas(canvasWidth, canvasHeight) {
-      var referenceElement, maxCanvasWidth, canvas;
-
-      // Calculate the canvas dimensions
-      referenceElement = document.getElementById("automata");
-      maxCanvasWidth = referenceElement.clientWidth - 1;
+      var canvas;
 
       // Create the canvas
-			canvas = p.createCanvas(3 * maxCanvasWidth, 3 * maxCanvasWidth);
+			canvas = p.createCanvas(400*auto.length, 350);
 
       return canvas;
     }
@@ -56,50 +40,57 @@ function paintAuto(transitions, auto) {
     };
 
     // Now we draw
-    p.draw = function(){
+    if (selectedGenes.length == auto.length){
 
-      // Fisrt, we draw automatons.
-      for (var i=0, c=auto.length ; i<c;i++){
-        automate(auto[i], 130+i*180,70,18,18, p);
-      }
-
-      // Then, we draw arrows that represent transitions of each automaton
-      var k = 1, n = 1, num_arc = 0;
-      for (var id in transitions) {
-        if (id != "initial_context") {
-          // the variable e1 enables to know if it is the first arrow coming
-			// out of auto or not;
-          // It takes the value of the outgoing state of the precedent drawn
-			// arrow and we will check each time if
-          // the outgoing state of the next transition is identic or not
-          // We initialize to -1 because the first one is necessarily the
-			// first outgoing transition
-          var e1 = -1;
-
-          for (var i = 0, c = transitions[id].length; i < c; i++) {
-
-            var curTrans = transitions[id][i];
-            if (curTrans[0][0] == e1) {
-              k += 1;
-            } else {
-              k = 1;
-            }
-            var overBox = false;
-            var locked = false;
-
-            drawArc(parseInt(curTrans[0][0]), parseInt(curTrans[0][1]), n, k, num_arc, coordonnees, first, p);
-            num_arc += 1;
-
-            e1 = curTrans[0][0];
+      p.draw = function(){
+        p.clear();
+        // Fisrt, we draw automatons.
+        for (var i=0, c=auto.length ; i<c;i++){
+          if (selectedGenes[i]==true){
+            console.log(i);
+            automate(auto[i], 130+i*180,40,18,18, p,(i+1));
           }
-
         }
-        n += 1;
-        k = 1;
-      }
-      first = false;
-     };
-  };
+
+        // Then, we draw arrows that represent transitions of each automaton
+        var num_arc = 0;
+        for (var id in transitions) {
+          var k=1;
+          if (id != "initial_context") {
+
+
+
+            // the variable e1 enables to know if it is the first arrow coming
+    			  // out of auto or not;
+            // It takes the value of the outgoing state of the precedent drawn
+    			  // arrow and we will check each time if
+            // the outgoing state of the next transition is identic or not
+            // We initialize to -1 because the first one is necessarily the
+    			  // first outgoing transition
+
+              var e1 = -1;
+
+              for (var i = 0, c = transitions[id].length; i < c; i++) {
+
+                var curTrans = transitions[id][i];
+                if (curTrans[0][0] == e1) {
+                  k += 1;
+                } else {
+                  k = 1;
+                }
+
+                drawArc(parseInt(curTrans[0][0]), parseInt(curTrans[0][1]), id, k, num_arc, coordonnees, first, p);
+                num_arc += 1;
+
+                e1 = curTrans[0][0];
+              }
+            }
+        }
+        first = false;
+       };
+     }
+
+   };
 
 autoSketch = new p5(defaultAutoSketch, "sketch-auto");
 }
@@ -116,13 +107,15 @@ var divs = document.getElementsByClassName('arc');
 // Function automate draw automata with paramaters :
 // n = number of transitions for this auomata
 // x1,y1,x2 and y2 allows to place correctly the automata
-function automate(n, x1, y1, x2, y2, p) {
+function automate(n, x1, y1, x2, y2, p, a) {
   for (var i = 0; i < n; i++) {
     p.fill(255);
     p.ellipse(x1+0.5, y1+14+ (5 - i - 1) * 50, x2, y2);
   }
   p.noFill();
   p.rect((x1 - x2), (y1 - y2 + (5 - n) * 50), 2 * y2, 110 + (n - 2) * 50, 20, 20, 20);
+  p.fill(0);
+  p.text("G"+a, x1-7, y1+275 + (n - 2) * 50);
 }
 
 // function drawArc draw arrows with parameters :
@@ -136,7 +129,7 @@ function automate(n, x1, y1, x2, y2, p) {
 function drawArc(e1, e2, a, k, num_arc, coordonnees, first, p) {
 
   var x = 140 + (a - 1) * 180,
-    y = 85 + (4 - e1) * 50 - (e2 - e1) * 25,
+    y = 55 + (4 - e1) * 50 - (e2 - e1) * 25,
     h = 2 + (e2 - e1) * 50,
     x1, x2, x3, x4, y1, y2, y3, y4;
 
@@ -177,75 +170,77 @@ function drawArc(e1, e2, a, k, num_arc, coordonnees, first, p) {
 
   }
 
+  if (selectedGenes[a-1]){
+    if (k % 2 == 0) {
 
-  if (k % 2 == 0) {
-
-    if (e2 < e1) {
-      x1 = x4 = x;
-      y1 = y + 26 + (e1 - e2 - 1) * 25;
-      y4 = y - 26 - (e1 - e2 - 1) * 25;
-      p.line(x, y - h / 2, x + 8, y - h / 2 - 8);
-      p.line(x, y - h / 2, x + 8, y - h / 2 + 8);
-      p.noFill();
-      p.bezier(x1, y1, coordonnees[num_arc][0], coordonnees[num_arc][1] + (e1 - e2 - 1) * 25 + 20, coordonnees[num_arc][0], coordonnees[num_arc][1] - (e1 - e2 - 1) * 25 - 20, x4, y4);
-      xx = p.bezierPoint(x1, coordonnees[num_arc][0], coordonnees[num_arc][0], x4, 1 / 2);
-      yy = p.bezierPoint(y1, coordonnees[num_arc][1] + (e1 - e2 - 1) * 25 + 20, coordonnees[num_arc][1] - (e1 - e2 - 1) * 25 - 20, y4, 1 / 2);
+      if (e2 < e1) {
+        x1 = x4 = x;
+        y1 = y + 26 + (e1 - e2 - 1) * 25;
+        y4 = y - 26 - (e1 - e2 - 1) * 25;
+        p.line(x, y - h / 2, x + 8, y - h / 2 - 8);
+        p.line(x, y - h / 2, x + 8, y - h / 2 + 8);
+        p.noFill();
+        p.bezier(x1, y1, coordonnees[num_arc][0], coordonnees[num_arc][1] + (e1 - e2 - 1) * 25 + 20, coordonnees[num_arc][0], coordonnees[num_arc][1] - (e1 - e2 - 1) * 25 - 20, x4, y4);
+        xx = p.bezierPoint(x1, coordonnees[num_arc][0], coordonnees[num_arc][0], x4, 1 / 2);
+        yy = p.bezierPoint(y1, coordonnees[num_arc][1] + (e1 - e2 - 1) * 25 + 20, coordonnees[num_arc][1] - (e1 - e2 - 1) * 25 - 20, y4, 1 / 2);
+      } else {
+        x1 = x4 = x - 18;
+        y1 = y + 24 + (e2 - e1 - 1) * 25;
+        y4 = y - 26 - (e2 - e1 - 1) * 25;
+        p.line(x - 26, y - h / 2 - 9, x - 19, y - h / 2 - 1);
+        p.line(x - 26, y - h / 2 + 7, x - 19, y - h / 2 - 1);
+        p.noFill();
+        p.bezier(x1, y1, coordonnees[num_arc][0] - 18, coordonnees[num_arc][1] + (e2 - e1 - 1) * 25 + 20, coordonnees[num_arc][0] - 18, coordonnees[num_arc][1] - (e2 - e1 - 1) * 25 - 20, x4, y4);
+        xx = p.bezierPoint(x1, coordonnees[num_arc][0] - 18, coordonnees[num_arc][0] - 18, x4, 1 / 2);
+        yy = p.bezierPoint(y1, coordonnees[num_arc][1] + (e2 - e1 - 1) * 25 + 20, coordonnees[num_arc][1] - (e2 - e1 - 1) * 25 - 20, y4, 1 / 2);
+      }
     } else {
-      x1 = x4 = x - 18;
-      y1 = y + 24 + (e2 - e1 - 1) * 25;
-      y4 = y - 26 - (e2 - e1 - 1) * 25;
-      p.line(x - 26, y - h / 2 - 9, x - 19, y - h / 2 - 1);
-      p.line(x - 26, y - h / 2 + 7, x - 19, y - h / 2 - 1);
-      p.noFill();
-      p.bezier(x1, y1, coordonnees[num_arc][0] - 18, coordonnees[num_arc][1] + (e2 - e1 - 1) * 25 + 20, coordonnees[num_arc][0] - 18, coordonnees[num_arc][1] - (e2 - e1 - 1) * 25 - 20, x4, y4);
-      xx = p.bezierPoint(x1, coordonnees[num_arc][0] - 18, coordonnees[num_arc][0] - 18, x4, 1 / 2);
-      yy = p.bezierPoint(y1, coordonnees[num_arc][1] + (e2 - e1 - 1) * 25 + 20, coordonnees[num_arc][1] - (e2 - e1 - 1) * 25 - 20, y4, 1 / 2);
-    }
-  } else {
 
-    if (e2 >= e1) {
-      x1 = x4 = x;
-      y1 = y + 26 + (e2 - e1 - 1) * 25;
-      y4 = y - 26 - (e2 - e1 - 1) * 25;
-      p.line(x, y - h / 2, x + 7, y - h / 2 - 8);
-      p.line(x, y - h / 2, x + 7, y - h / 2 + 8);
-      p.noFill();
-      p.bezier(x1, y1, coordonnees[num_arc][0], coordonnees[num_arc][1] + (e2 - e1 - 1) * 25 + 20, coordonnees[num_arc][0], coordonnees[num_arc][1] - (e2 - e1 - 1) * 25 - 20, x4, y4);
-      xx = p.bezierPoint(x1, coordonnees[num_arc][0], coordonnees[num_arc][0], x4, 1 / 2);
-      yy = p.bezierPoint(y1, coordonnees[num_arc][1] + (e2 - e1 - 1) * 25 + 20, coordonnees[num_arc][1] - (e2 - e1 - 1) * 25 - 20, y4, 1 / 2);
-    } else {
-      x1 = x4 = x - 18;
-      x2 = x3 = x - 55 - 50 * (k + 1) / 2 - (e2 - e1 - 1) * 15;
-      y1 = y + 24 + (e1 - e2 - 1) * 25;
-      y4 = y - 26 - (e1 - e2 - 1) * 25;
-      p.line(x - 26, y - h / 2 - 9, x - 19, y - h / 2 - 1);
-      p.line(x - 26, y - h / 2 + 7, x - 19, y - h / 2 - 1);
-      p.noFill();
-      p.bezier(x1, y1, coordonnees[num_arc][0] - 18, coordonnees[num_arc][1] + (e1 - e2 - 1) * 25 + 20, coordonnees[num_arc][0] - 18, coordonnees[num_arc][1] - (e1 - e2 - 1) * 25 - 20, x4, y4);
-      xx = p.bezierPoint(x1, coordonnees[num_arc][0] - 18, coordonnees[num_arc][0] - 18, x4, 1 / 2);
-      yy = p.bezierPoint(y1, coordonnees[num_arc][1] + (e1 - e2 - 1) * 25 + 20, coordonnees[num_arc][1] - (e1 - e2 - 1) * 25 - 20, y4, 1 / 2);
+      if (e2 >= e1) {
+        x1 = x4 = x;
+        y1 = y + 26 + (e2 - e1 - 1) * 25;
+        y4 = y - 26 - (e2 - e1 - 1) * 25;
+        p.line(x, y - h / 2, x + 7, y - h / 2 - 8);
+        p.line(x, y - h / 2, x + 7, y - h / 2 + 8);
+        p.noFill();
+        p.bezier(x1, y1, coordonnees[num_arc][0], coordonnees[num_arc][1] + (e2 - e1 - 1) * 25 + 20, coordonnees[num_arc][0], coordonnees[num_arc][1] - (e2 - e1 - 1) * 25 - 20, x4, y4);
+        xx = p.bezierPoint(x1, coordonnees[num_arc][0], coordonnees[num_arc][0], x4, 1 / 2);
+        yy = p.bezierPoint(y1, coordonnees[num_arc][1] + (e2 - e1 - 1) * 25 + 20, coordonnees[num_arc][1] - (e2 - e1 - 1) * 25 - 20, y4, 1 / 2);
+      } else {
+        x1 = x4 = x - 18;
+        x2 = x3 = x - 55 - 50 * (k + 1) / 2 - (e2 - e1 - 1) * 15;
+        y1 = y + 24 + (e1 - e2 - 1) * 25;
+        y4 = y - 26 - (e1 - e2 - 1) * 25;
+        p.line(x - 26, y - h / 2 - 9, x - 19, y - h / 2 - 1);
+        p.line(x - 26, y - h / 2 + 7, x - 19, y - h / 2 - 1);
+        p.noFill();
+        p.bezier(x1, y1, coordonnees[num_arc][0] - 18, coordonnees[num_arc][1] + (e1 - e2 - 1) * 25 + 20, coordonnees[num_arc][0] - 18, coordonnees[num_arc][1] - (e1 - e2 - 1) * 25 - 20, x4, y4);
+        xx = p.bezierPoint(x1, coordonnees[num_arc][0] - 18, coordonnees[num_arc][0] - 18, x4, 1 / 2);
+        yy = p.bezierPoint(y1, coordonnees[num_arc][1] + (e1 - e2 - 1) * 25 + 20, coordonnees[num_arc][1] - (e1 - e2 - 1) * 25 - 20, y4, 1 / 2);
+      }
     }
+    var margeY = document.getElementById("automata").offsetTop;
+    var margeX = document.getElementById("automata").offsetLeft;
+    divs[num_arc].style.top = margeY + yy - 7.5 + "px" ;
+    divs[num_arc].style.left = margeX + xx - 7.5 + "px";
+    p.fill(255);
+    p.ellipse(xx, yy, 5, 5);
+
+    function move(evt) {
+      if (traine) {
+        p.clear();
+        coordonnees[xi][xj] = p.mouseX + 15;
+        coordonnees[yi][yj] = p.mouseY;
+      }
+    }
+
+    function stopTraine() {
+      traine = false;
+    }
+
+    document.getElementById("automataWindow").onmousemove =	move;
+    document.getElementById("automataWindow").onmouseup = stopTraine;
+
   }
-  var margeY = document.getElementById("automata").offsetTop;
-  var margeX = document.getElementById("automata").offsetLeft;
-  divs[num_arc].style.top = margeY + yy - 7.5 + "px" ;
-  divs[num_arc].style.left = margeX + xx - 7.5 + "px";
-  p.fill(255);
-  p.ellipse(xx, yy, 5, 5);
-  
-  function move(evt) {
-	  if (traine) {
-	    p.clear();
-	    coordonnees[xi][xj] = p.mouseX + 15;
-	    coordonnees[yi][yj] = p.mouseY;
-	  }
-	}
-
-	function stopTraine() {
-	  traine = false;
-	}
-
-	document.getElementById("automataWindow").onmousemove =	move;
-	document.getElementById("automataWindow").onmouseup = stopTraine;
 
 }
