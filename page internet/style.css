@@ -18,6 +18,7 @@
 }
 #automataWindow {
 	background-color: green;
+	overflow: scroll;
 }
 
 #graph {

@@ -2,6 +2,7 @@
 
 var xx, yy;
 var overBox;
+var traine = false;
 
 var transitions = {
   a: [[["0","1"],"b=1","c=1"],[["1","0"],"XXXXX"]],
@@ -30,7 +31,7 @@ function paintAuto(transitions, auto) {
       for (i = 0; i < transitions['nbre_arcs']; i++) {
         coordonnees.push([0, 0]);
       }
-      var traine = false, first = true;
+      var first = true;
 
     // Creates and adds the canvas element
     function addCanvas(canvasWidth, canvasHeight) {
@@ -57,19 +58,22 @@ function paintAuto(transitions, auto) {
     // Now we draw
     p.draw = function(){
 
-      //Fisrt, we draw automatons.
+      // Fisrt, we draw automatons.
       for (var i=0, c=auto.length ; i<c;i++){
         automate(auto[i], 130+i*180,70,18,18, p);
       }
 
-      //Then, we draw arrows that represent transitions of each automaton
+      // Then, we draw arrows that represent transitions of each automaton
       var k = 1, n = 1, num_arc = 0;
       for (var id in transitions) {
         if (id != "initial_context") {
-          // the variable e1 enables to know if it is the first arrow coming out of auto or not;
-          //It takes the value of the outgoing state of the precedent drawn arrow and we will check each time if
-          //the outgoing state of the next transition is identic or not
-          // We initialize to -1 because the first one is necessarily the first outgoing transition
+          // the variable e1 enables to know if it is the first arrow coming
+			// out of auto or not;
+          // It takes the value of the outgoing state of the precedent drawn
+			// arrow and we will check each time if
+          // the outgoing state of the next transition is identic or not
+          // We initialize to -1 because the first one is necessarily the
+			// first outgoing transition
           var e1 = -1;
 
           for (var i = 0, c = transitions[id].length; i < c; i++) {
@@ -101,31 +105,17 @@ autoSketch = new p5(defaultAutoSketch, "sketch-auto");
 }
 
 
-//To enable arrows to be displaced
+// To enable arrows to be displaced
 var xi, xj, yi, yj;
 
 var divs = document.getElementsByClassName('arc');
 
-function move(evt) {
-  if (traine) {
-    clear();
-    coordonnees[xi][xj] = p.mouseX + 25;
-    coordonnees[yi][yj] = p.mouseY;
-    alert("yo");
-  }
-}
-
-function stopTraine() {
-  traine = false;
-}
-
-document.onmousemove = move;
-document.onmouseup = stopTraine;
 
 
-//Function automate draw automata with paramaters :
-//n = number of transitions for this auomata
-//x1,y1,x2 and y2 allows to place correctly the automata
+
+// Function automate draw automata with paramaters :
+// n = number of transitions for this auomata
+// x1,y1,x2 and y2 allows to place correctly the automata
 function automate(n, x1, y1, x2, y2, p) {
   for (var i = 0; i < n; i++) {
     p.fill(255);
@@ -135,11 +125,14 @@ function automate(n, x1, y1, x2, y2, p) {
   p.rect((x1 - x2), (y1 - y2 + (5 - n) * 50), 2 * y2, 110 + (n - 2) * 50, 20, 20, 20);
 }
 
-//function drawArc draw arrows with parameters :
-//e1 : the outgoing state ; e2 : the incoming state ; a : the number of the automata
-//k : the number of the arrow of this automata ; num_arc : the number of the arrow in total (to allow the displacement)
-//coordonnees : array containing the coordinates of each arrow ; first : boolean that indicates if it's the first time arrows are
-//drawn (to create divs if it the case)
+// function drawArc draw arrows with parameters :
+// e1 : the outgoing state ; e2 : the incoming state ; a : the number of the
+// automata
+// k : the number of the arrow of this automata ; num_arc : the number of the
+// arrow in total (to allow the displacement)
+// coordonnees : array containing the coordinates of each arrow ; first :
+// boolean that indicates if it's the first time arrows are
+// drawn (to create divs if it the case)
 function drawArc(e1, e2, a, k, num_arc, coordonnees, first, p) {
 
   var x = 140 + (a - 1) * 180,
@@ -173,7 +166,7 @@ function drawArc(e1, e2, a, k, num_arc, coordonnees, first, p) {
     arc_div.className = "arc";
     arc_div.id = num_arc;
 
-    document.body.appendChild(arc_div);
+    document.getElementById("automata").appendChild(arc_div);
     arc_div.onmousedown = function(evt) {
       traine = true;
       xi = num_arc;
@@ -233,11 +226,26 @@ function drawArc(e1, e2, a, k, num_arc, coordonnees, first, p) {
       yy = p.bezierPoint(y1, coordonnees[num_arc][1] + (e1 - e2 - 1) * 25 + 20, coordonnees[num_arc][1] - (e1 - e2 - 1) * 25 - 20, y4, 1 / 2);
     }
   }
-  var margeY = document.getElementById("automataWindow").scrollTop;
-  var margeX = document.getElementById("automataWindow").scrollWidth;;
-  divs[num_arc].style.top = yy + "px";
-  divs[num_arc].style.left = margeX + xx + "px";
+  var margeY = document.getElementById("automata").offsetTop;
+  var margeX = document.getElementById("automata").offsetLeft;
+  divs[num_arc].style.top = margeY + yy - 7.5 + "px" ;
+  divs[num_arc].style.left = margeX + xx - 7.5 + "px";
   p.fill(255);
   p.ellipse(xx, yy, 5, 5);
+  
+  function move(evt) {
+	  if (traine) {
+	    p.clear();
+	    coordonnees[xi][xj] = p.mouseX + 15;
+	    coordonnees[yi][yj] = p.mouseY;
+	  }
+	}
+
+	function stopTraine() {
+	  traine = false;
+	}
+
+	document.getElementById("automataWindow").onmousemove =	move;
+	document.getElementById("automataWindow").onmouseup = stopTraine;
 
 }
