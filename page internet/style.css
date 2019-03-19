@@ -18,7 +18,6 @@
 }
 #automataWindow {
 	background-color: green;
-	overflow: scroll;
 }
 
 #graph {
@@ -51,6 +50,7 @@
 
 #automataBox {
 	background-color: #FFFF00;
+	overflow: scroll;
 }
 
 .reduce {
