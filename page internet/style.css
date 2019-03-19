@@ -106,13 +106,13 @@ h2 {
 	cursor: pointer;
 }
 
-#arc:hover {
+.arc:hover {
   cursor: pointer;
 }
 
-#arc {
-  position: absolute;
-  height: 15px;
-  width: 15px;
-  background-color: red;
+.arc {
+   position: absolute;
+   height: 15px;
+   width: 15px;
+   background-color: blue;
 }

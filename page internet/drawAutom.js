@@ -2,7 +2,6 @@
 
 var xx, yy;
 var overBox;
-  var prop = 0.5;
 
 var transitions = {
   a: [[["0","1"],"b=1","c=1"],[["1","0"],"XXXXX"]],
@@ -13,6 +12,8 @@ var transitions = {
   nbre_arcs: 10};
 
 auto = [2, 4, 2, 2];
+
+
 
 // oscar
 var texte = "click"
@@ -29,7 +30,7 @@ function paintAuto(transitions, auto) {
       for (i = 0; i < transitions['nbre_arcs']; i++) {
         coordonnees.push([0, 0]);
       }
-      var dragged = false, first = true;
+      var traine = false, first = true;
 
     // Creates and adds the canvas element
     function addCanvas(canvasWidth, canvasHeight) {
@@ -85,28 +86,6 @@ function paintAuto(transitions, auto) {
             drawArc(parseInt(curTrans[0][0]), parseInt(curTrans[0][1]), n, k, num_arc, coordonnees, first, p);
             num_arc += 1;
 
-            // oscar
-            var x = 155 + (n - 1) * 230;
-            var y = 140 + (4 - parseInt(curTrans[0][0])) * 50 - (parseInt(curTrans[0][1]) - parseInt(curTrans[0][0])) * 25;
-            var h = 2 + (parseInt(curTrans[0][1]) - parseInt(curTrans[0][0])) * 50;
-            overBox = (p.dist(p.mouseX, p.mouseY, x + 8, y - h / 2 - 8) < 50);
-
-            try {
-              texte = curTrans.slice(1).reduce(reducer);
-            } catch {
-              texte = "r"
-            }
-
-
-            if (!locked) {
-              // fill(200);
-              afficheTrans(texte, parseInt(curTrans[0][0]), parseInt(curTrans[0][1]), n, k,p);
-
-            } else {
-              //fill(200);
-              overBox = false;
-            }
-
             e1 = curTrans[0][0];
           }
 
@@ -128,19 +107,20 @@ var xi, xj, yi, yj;
 var divs = document.getElementsByClassName('arc');
 
 function move(evt) {
-  if (dragged) {
+  if (traine) {
     clear();
     coordonnees[xi][xj] = p.mouseX + 25;
     coordonnees[yi][yj] = p.mouseY;
+    alert("yo");
   }
 }
 
-function stopDrag() {
-  dragged = false;
+function stopTraine() {
+  traine = false;
 }
 
 document.onmousemove = move;
-document.onmouseup = stopDrag;
+document.onmouseup = stopTraine;
 
 
 //Function automate draw automata with paramaters :
@@ -153,37 +133,6 @@ function automate(n, x1, y1, x2, y2, p) {
   }
   p.noFill();
   p.rect((x1 - x2), (y1 - y2 + (5 - n) * 50), 2 * y2, 110 + (n - 2) * 50, 20, 20, 20);
-}
-
-// oscar
-function mousePressed() {
-  if (overBox) {
-    locked = true;
-    //  fill(200);
-  } else {
-    locked = false;
-    //  fill(200);
-  }
-
-
-}
-
-function mouseReleased() {
-  locked = false;
-}
-
-function afficheTrans(texte, e1, e2, a, k,p) {
-
-  var x = 155 + (a - 1) * 230;
-  var y = 140 + (4 - e1) * 50 - (e2 - e1) * 25;
-  var h = 2 + (e2 - e1) * 50;
-
-  if (p.dist(p.mouseX, p.mouseY, x + 8, y - h / 2 - 8) < 50) {
-    p.fill(255, 0, 0); //rouge
-    //noStroke();
-    p.text(texte, x + 8, y - h / 2 - 8);
-  }
-
 }
 
 //function drawArc draw arrows with parameters :
@@ -223,9 +172,10 @@ function drawArc(e1, e2, a, k, num_arc, coordonnees, first, p) {
     var arc_div = document.createElement('div');
     arc_div.className = "arc";
     arc_div.id = num_arc;
+
     document.body.appendChild(arc_div);
     arc_div.onmousedown = function(evt) {
-      dragged = true;
+      traine = true;
       xi = num_arc;
       xj = 0;
       yi = num_arc;
@@ -283,8 +233,10 @@ function drawArc(e1, e2, a, k, num_arc, coordonnees, first, p) {
       yy = p.bezierPoint(y1, coordonnees[num_arc][1] + (e1 - e2 - 1) * 25 + 20, coordonnees[num_arc][1] - (e1 - e2 - 1) * 25 - 20, y4, 1 / 2);
     }
   }
+  var margeY = document.getElementById("automataWindow").scrollTop;
+  var margeX = document.getElementById("automataWindow").scrollWidth;;
   divs[num_arc].style.top = yy + "px";
-  divs[num_arc].style.left = xx + "px";
+  divs[num_arc].style.left = margeX + xx + "px";
   p.fill(255);
   p.ellipse(xx, yy, 5, 5);
 

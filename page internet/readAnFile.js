@@ -30,8 +30,6 @@ document.getElementById('anFile').onchange = function(){
     //We iterate on each automaton
     for (var i=0, c=auto.length; i<c; i++){
       line+=1;
-      console.log(line);
-      console.log(lines[line]);
       var trans = []; // the list representing all the transitions of the automaton auto
       while (lines[line].length > 1){
 
