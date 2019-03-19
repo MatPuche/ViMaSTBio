@@ -1,0 +1,14 @@
+régler le problème de la fenêtre plus large que la box
+flèches de redimensionnement dures à avoir
+redimensionnement automates impossible quand le fichier est chargé
+empêcher le dépassement de la page du navigateur
+
+seuils -> récupérer le nombre d'états (auto)
+barre de sélection du temps -> envoyer les valeurs des seuils aux automates
+retirer l'automate correspondant quand le gène est retiré de la courbe
+changer la manière de cacher la courbe quand on retire un gène
+
+Revoir le parser des automates 
+Afficher les transitions
+
+Afficher la troisième fenêtre

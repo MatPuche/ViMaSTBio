@@ -36,5 +36,5 @@ var autoSketch;
 // Instantiated in readAnFile and used in drawAutom.js
 var transitions = {};
 
-// array which contains the number of states thath each automaton can take
+// array which contains the number of states that each automaton can take
 var auto = [];
