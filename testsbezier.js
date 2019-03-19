@@ -2,7 +2,7 @@ var xx, yy;
 
 var transitions = {
   a: [[["0","1"],"b=1","c=1"],[["1","0"],"XXXXX"]],
-  b: [[["2","2"],"d=1"], [["2","1"],"c=1"], [["2", "1"]],[["3","1"],"d=1"], [["2","1"],"d=1"]],
+  b: [[["2","1"],"d=1"], [["2","1"],"c=1"], [["2", "1"]],[["3","1"],"d=1"], [["2","1"],"d=1"]],
   c: [[["1","0"],"d=1"]],
   d: [[["1","0"],"b=1"],[["1","0"],"c=1"]],
   initial_context: " \"a\" = 0, \"b\" = 0, \"c\" = 0, \"d\" = 0",
@@ -62,7 +62,7 @@ function draw(){
         }
 
         drawArc(parseInt(curTrans[0][0]), parseInt(curTrans[0][1]), n, k, num_arc, coordonnees, first);
-        num_arc+=1;
+    //    num_arc+=1;
 
         // oscar
         var x = 155+(n-1)*230;
@@ -84,10 +84,12 @@ function draw(){
         }
 
         else {
-          noFill;
+      //    noFill;
           overBox = false;
         }
       //
+
+      num_arc+=1;
 
         e1=curTrans[0][0];
       }
@@ -173,8 +175,7 @@ function afficheTransBezier(texte, e1,e2,a,k,num_arc, coordonnees, first){
   var h = 2+(e2-e1)*50;
   var x1, x2, x3, x4,y1, y2, y3, y4;
 
-if (dist(mouseX, mouseY, x+8,y-h/2-8) < 50) {
-  fill(255, 0, 0); //rouge
+   fill(255, 0, 0); //rouge
 
   if (first){
     first = false;
@@ -218,7 +219,8 @@ if (dist(mouseX, mouseY, x+8,y-h/2-8) < 50) {
     //  noFill();
       xx = bezierPoint(x1, coordonnees[num_arc][0], coordonnees[num_arc][0], x4, 1/2);
       yy = bezierPoint(y1, coordonnees[num_arc][1]+(e1-e2-1)*25+20,  coordonnees[num_arc][1]-(e1-e2-1)*25-20, y4, 1/2);
-      text(texte, xx, yy);
+      if (dist(mouseX, mouseY, xx, yy) < 50) {
+      text(texte, xx, yy);}
       }
     else {
       x1 = x4 = x-30;
@@ -227,7 +229,8 @@ if (dist(mouseX, mouseY, x+8,y-h/2-8) < 50) {
     //  noFill();
       xx = bezierPoint(x1, coordonnees[num_arc][0]-30, coordonnees[num_arc][0]-30, x4, 1/2);
       yy = bezierPoint(y1, coordonnees[num_arc][1]+(e2-e1-1)*25+20,  coordonnees[num_arc][1]-(e2-e1-1)*25-20, y4, 1/2);
-      text(texte, xx, yy);
+      if (dist(mouseX, mouseY, xx, yy) < 50) {
+      text(texte, xx, yy);}
      }
   }
 
@@ -240,7 +243,8 @@ if (dist(mouseX, mouseY, x+8,y-h/2-8) < 50) {
     //  noFill();
       xx = bezierPoint(x1, coordonnees[num_arc][0], coordonnees[num_arc][0], x4, 1/2);
       yy = bezierPoint(y1, coordonnees[num_arc][1]+(e2-e1-1)*25+20,  coordonnees[num_arc][1]-(e2-e1-1)*25-20, y4, 1/2);
-      text(texte, xx, yy);
+      if (dist(mouseX, mouseY, xx, yy) < 50){
+      text(texte, xx, yy);}
       }
     else {
       x1 = x4 = x-30;
@@ -250,11 +254,12 @@ if (dist(mouseX, mouseY, x+8,y-h/2-8) < 50) {
     //  noFill();
       xx = bezierPoint(x1, coordonnees[num_arc][0]-30, coordonnees[num_arc][0]-30, x4, 1/2);
       yy = bezierPoint(y1, coordonnees[num_arc][1]+(e1-e2-1)*25+20,  coordonnees[num_arc][1]-(e1-e2-1)*25-20, y4, 1/2);
-      text(texte, xx, yy);
+      if (dist(mouseX, mouseY, xx, yy) < 50){
+      text(texte, xx, yy);}
       }
   }
 
-}
+
   }
 
 
@@ -264,7 +269,7 @@ if (dist(mouseX, mouseY, x+8,y-h/2-8) < 50) {
 //k : the number of the arrow of this automata ; num_arc : the number of the arrow in total (to allow the displacement)
 //coordonnees : array containing the coordinates of each arrow ; first : boolean that indicates if it's the first time arrows are
 //drawn (to create divs if it the case)
-function drawArc(e1,e2,a,k,num_arc, coordonnees, first, p){
+function drawArc(e1,e2,a,k,num_arc, coordonnees, first){
 
   var x = 155+(a-1)*230,
       y= 140+(4-e1)*50-(e2-e1)*25,
