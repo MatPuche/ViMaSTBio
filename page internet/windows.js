@@ -64,7 +64,6 @@ for (var i = 0; i < windowsTitle.length; i++) {
 	})(i);
 }
 
-var dragged = false;
 var mouseStartX, mouseStartY;
 var windowStartX, windowStartY;
 var newWindowX, newWindowY;
@@ -80,7 +79,7 @@ function prepareDragging(evt, window) {
 }
 
 function drag(evt) {
-	if (dragged) {
+	if (dragged && !traine) {
 		newWindowX = evt.clientX - mouseStartX + windowStartX;
 		newWindowY = evt.clientY - mouseStartY + windowStartY;
 
@@ -113,7 +112,6 @@ function stopDrag() {
  */
 
 // Event handlers are set below with the sendForeground function
-var resized = false;
 var mouseStartX, mouseStartY;
 var previousWidth, previousHeight;
 var direction = "";
@@ -156,7 +154,7 @@ function prepareResizing(evt, window) {
 }
 
 function resize(evt) {
-	if (resized) {
+	if (resized && !traine) {
 		var resizeBoxY = false;
 		var minWidth = selectedWindow.getElementsByTagName("h2")[0].clientWidth * 1.5;
 		var minHeight = selectedWindow.getElementsByClassName("windowTitle")[0].clientHeight;

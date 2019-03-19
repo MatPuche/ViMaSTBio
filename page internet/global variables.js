@@ -38,3 +38,10 @@ var transitions = {};
 
 // array which contains the number of states that each automaton can take
 var auto = [];
+
+
+
+
+var dragged = false;
+var resized = false;
+var traine = false;

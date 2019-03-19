@@ -2,7 +2,6 @@
 
 var xx, yy;
 var overBox;
-var traine = false;
 
 // oscar
 var texte = "click"
