@@ -13,7 +13,7 @@ var currentWidth, currentHeight;
 
 for (var i = 0; i < windows.length; i++) {
 	(function(i) {
-		windows[i].getElementsByClassName("reduce")[0].style.width = 0.85 * windows[i].getElementsByClassName("windowTitle")[0].clientHeight + "px";
+		windows[i].getElementsByClassName("reduce")[0].style.width = 0.80 * windows[i].getElementsByClassName("windowTitle")[0].clientHeight + "px";
 		boxes[i].style.height = "450px";
 		var windowHeight;
 		buttons[i].addEventListener("click", function() {
