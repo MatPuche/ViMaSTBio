@@ -6,6 +6,7 @@ var overBox;
 // oscar
 var texte = "click"
 const reducer = (x, y) => x + " and " + y
+var etatsEnCours = [0,0,0,0,0,0,0,0,1,0];
 
 
 function paintAuto(transitions, auto) {
@@ -46,8 +47,7 @@ function paintAuto(transitions, auto) {
         // Fisrt, we draw automatons.
         for (var i=0, c=auto.length ; i<c;i++){
           if (selectedGenes[i]==true){
-            console.log(i);
-            automate(auto[i], 130+i*180,40,18,18, p,(i+1));
+            automate(auto[i], etatsEnCours[i], 130+i*180,40,18,18, p,(i+1));
           }
         }
 
@@ -105,10 +105,16 @@ var divs = document.getElementsByClassName('arc');
 
 // Function automate draw automata with paramaters :
 // n = number of transitions for this auomata
+// enCours = numero of the state actualemente activated
 // x1,y1,x2 and y2 allows to place correctly the automata
-function automate(n, x1, y1, x2, y2, p, a) {
+function automate(n, enCours, x1, y1, x2, y2, p, a) {
   for (var i = 0; i < n; i++) {
-    p.fill(255);
+    if (enCours==i){
+      p.fill(237, 0, 0);
+    }
+    else{
+      p.fill(255);
+    }
     p.ellipse(x1+0.5, y1+14+ (5 - i - 1) * 50, x2, y2);
   }
   p.noFill();

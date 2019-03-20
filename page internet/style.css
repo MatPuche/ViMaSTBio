@@ -7,8 +7,8 @@
 .window {
 	border: solid black 1px;
 	position: absolute;
-    display: inline-block;
-    width: 48%;
+  display: inline-block;
+  width: 48%;
 	vertical-align: top;
 	overflow: hidden;
 }
@@ -50,7 +50,7 @@
 
 #automataBox {
 	background-color: #FFFF00;
-	overflow: auto;
+  overflow: auto;
 }
 
 ::-webkit-scrollbar {
@@ -59,15 +59,15 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: #888;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+  background: #555;
 }
 
 .reduce {

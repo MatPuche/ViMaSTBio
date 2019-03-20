@@ -39,6 +39,9 @@ var transitions = {};
 // array which contains the number of states that each automaton can take
 var auto = [];
 
+// arry which contains the current activated state for each of the automaton
+var etatsEnCours = [];
+
 
 
 
