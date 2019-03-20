@@ -13,8 +13,8 @@ var currentWidth, currentHeight;
 
 for (var i = 0; i < windows.length; i++) {
 	(function(i) {
-		windows[i].getElementsByClassName("reduce")[0].style.width = 0.05 * windows[i].clientWidth + "px";
-		boxes[i].style.height = "300px";
+		windows[i].getElementsByClassName("reduce")[0].style.width = 0.85 * windows[i].getElementsByClassName("windowTitle")[0].clientHeight + "px";
+		boxes[i].style.height = "450px";
 		var windowHeight;
 		buttons[i].addEventListener("click", function() {
 			if (buttons[i].getAttribute("src") === "minus.png") {
@@ -119,7 +119,7 @@ var selectedWindow;
 const catchMargin = 15;
 
 function resizeCursor(evt, window) {
-	if (!resized) {
+	if (!resized && !traine) {
 		var cursor = "";
 
 		if (evt.clientY > window.offsetTop + window.offsetHeight - catchMargin) {

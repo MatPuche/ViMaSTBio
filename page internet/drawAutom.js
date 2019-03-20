@@ -1,11 +1,6 @@
 //this script enable to draw automatas and its transitions
 
-var xx, yy;
-var overBox;
 
-// oscar
-var texte = "click"
-const reducer = (x, y) => x + " and " + y
 var etatsEnCours = [0,0,0,0,0,0,0,0,1,0];
 
 
@@ -91,7 +86,7 @@ function paintAuto(transitions, auto) {
 
    };
 
-autoSketch = new p5(defaultAutoSketch, "sketch-auto");
+var autoSketch = new p5(defaultAutoSketch, "sketch-auto");
 }
 
 
@@ -164,7 +159,7 @@ function drawArc(e1, e2, a, k, num_arc, coordonnees, first, p) {
     arc_div.className = "arc";
     arc_div.id = num_arc;
 
-    document.getElementById("automata").appendChild(arc_div);
+    document.getElementById("sketch-auto").appendChild(arc_div);
     arc_div.onmousedown = function(evt) {
       traine = true;
       xi = num_arc;
@@ -224,8 +219,8 @@ function drawArc(e1, e2, a, k, num_arc, coordonnees, first, p) {
         yy = p.bezierPoint(y1, coordonnees[num_arc][1] + (e1 - e2 - 1) * 25 + 20, coordonnees[num_arc][1] - (e1 - e2 - 1) * 25 - 20, y4, 1 / 2);
       }
     }
-    var margeY = document.getElementById("automata").offsetTop;
-    var margeX = document.getElementById("automata").offsetLeft;
+    var margeY = document.getElementById("sketch-auto").offsetTop;
+    var margeX = document.getElementById("sketch-auto").offsetLeft;
     divs[num_arc].style.top = margeY + yy - 7.5 + "px" ;
     divs[num_arc].style.left = margeX + xx - 7.5 + "px";
     p.fill(255);
@@ -242,9 +237,10 @@ function drawArc(e1, e2, a, k, num_arc, coordonnees, first, p) {
     function stopTraine() {
       traine = false;
     }
-
-    document.getElementById("automataWindow").onmousemove =	move;
-    document.getElementById("automataWindow").onmouseup = stopTraine;
+    
+    
+    document.getElementById("sketch-auto").onmousemove = move;
+    document.getElementById("sketch-auto").onmouseup = stopTraine;
 
   }
 

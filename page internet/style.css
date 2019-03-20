@@ -1,14 +1,14 @@
 * {
-    margin: 0;
-    padding: 0;
-    font-family: Verdana;
+	margin: 0;
+	padding: 0;
+	font-family: Verdana;
 }
 
 .window {
 	border: solid black 1px;
 	position: absolute;
-  display: inline-block;
-  width: 48%;
+	display: inline-block;
+	width: 48%;
 	vertical-align: top;
 	overflow: hidden;
 }
@@ -16,6 +16,7 @@
 #graphWindow {
 	background-color: blue;
 }
+
 #automataWindow {
 	background-color: green;
 }
@@ -26,7 +27,8 @@
 }
 
 #automata, #graph {
-    display: inline-block;
+	display: inline-block;
+	position: relative;
 }
 
 #graphLegend {
@@ -50,7 +52,7 @@
 
 #automataBox {
 	background-color: #FFFF00;
-  overflow: auto;
+	overflow: auto;
 }
 
 ::-webkit-scrollbar {
@@ -59,15 +61,15 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+	background: #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+	background: #888;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+	background: #555;
 }
 
 .reduce {
@@ -86,7 +88,7 @@ input {
 }
 
 .windowTitle {
-    border-bottom: solid black 1px;
+	border-bottom: solid black 1px;
 	padding: 1%;
 }
 
@@ -95,9 +97,9 @@ input {
 }
 
 h1 {
-    margin-top: 2%;
-    margin-bottom: 2%;
-    text-align: center;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	text-align: center;
 }
 
 h2 {
@@ -125,11 +127,12 @@ h2 {
 }
 
 .arc:hover {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .arc {
-   position: absolute;
-   height: 15px;
-   width: 15px;
+	position: absolute;
+	height: 15px;
+	width: 15px;
+	background-color: black;
 }

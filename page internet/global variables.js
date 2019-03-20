@@ -30,7 +30,7 @@ var graphSketch;
 
 // p5 object which paint the automatons
 // Mainly used in drawAutom.js
-var autoSketch;
+//var autoSketch;
 
 // the dictionary that stores the different possible transitions for each automaton
 // Instantiated in readAnFile and used in drawAutom.js
@@ -48,3 +48,13 @@ var etatsEnCours = [];
 var dragged = false;
 var resized = false;
 var traine = false;
+var xx, yy;
+
+var resetAutomata = function() {
+	auto =[];
+	transitions = {};
+	coordonnees = [];
+	var ocanva=document.getElementById('defaultCanvas1');
+	if (ocanva){
+		ocanva.parentNode.removeChild(ocanva);}
+}
