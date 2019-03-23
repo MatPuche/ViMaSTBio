@@ -17,6 +17,10 @@ var displayCurveNo;
 // Instantiated and used in readTsvFile.js
 var selectedGenes = [];
 
+// contain genes states thresholds
+// Instantiated in and used in paint.js
+var statesThresholds = [];
+
 
 // booleans which are set to true in onload function when corresponding file are read
 // Instantiated in their respective onload function (in readTsvFile.js and readAnFile.js <- A CHANGER !!!), and used
@@ -57,4 +61,20 @@ var resetAutomata = function() {
 	var ocanva=document.getElementById('defaultCanvas1');
 	if (ocanva){
 		ocanva.parentNode.removeChild(ocanva);}
+}
+
+var resetGraph = function() {
+	graphArray = [];
+	selectedGenes = [];
+	graphSketch = null;
+	statesThresholds = [];
+	displayCurveNo = 0;
+	var graphCanvas = document.getElementById("defaultCanvas0");
+	if (graphCanvas) {
+		graphCanvas.parentNode.removeChild(graphCanvas);
+	}
+	var curveSelectElt = document.getElementById("curvesList");
+	if(curveSelectElt) {
+		curveSelectElt.parentNode.removeChild(curveSelectElt);
+	}
 }

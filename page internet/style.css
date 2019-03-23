@@ -1,8 +1,14 @@
 * {
 	margin: 0;
 	padding: 0;
-	font-family: Verdana;
+	font-family: Calibri;
+	font-size: 1em;
 }
+
+body {
+	background: #666666 url("nom vimastbio.png") no-repeat 50% -150%;
+}
+
 
 .window {
 	border: solid black 1px;
@@ -11,14 +17,8 @@
 	width: 48%;
 	vertical-align: top;
 	overflow: hidden;
-}
-
-#graphWindow {
-	background-color: blue;
-}
-
-#automataWindow {
-	background-color: green;
+	top: 10%;
+	background-color: white;
 }
 
 #graph {
@@ -32,7 +32,8 @@
 }
 
 #graphLegend {
-	margin: 2%;
+	margin-top: 2%;
+	text-align: center;
 	min-width: 99%;
 	display: inline-block;
 }
@@ -43,15 +44,6 @@
 }
 
 .dataBox {
-	overflow: hidden;
-}
-
-#graphBox {
-	background-color: #00FFFF;
-}
-
-#automataBox {
-	background-color: #FFFF00;
 	overflow: auto;
 }
 
@@ -75,6 +67,7 @@
 
 .reduce {
 	float: right;
+	vertical-align: center;
 }
 
 .reduce:hover {
@@ -86,6 +79,7 @@ input {
 	margin-top: 3%;
 	margin-left: 2%;
 	margin-right: 2%;
+	max-height: 5%;
 }
 
 .windowTitle {
@@ -106,13 +100,14 @@ h1 {
 h2 {
 	margin-left: 1%;
 	display: inline-block;
+	font-size: 2em;
 }
 
 .enabledLegend, .disabledLegend {
 	display: inline-block;
 	margin: 3%;
 	font-weight: bold;
-	font-size: 85%;
+	font-size: 1.3em;
 }
 
 .enabledLegend {
@@ -125,6 +120,11 @@ h2 {
 
 .enabledLegend:hover, .disabledLegend:hover {
 	cursor: pointer;
+}
+
+select {
+	margin-left: 0.5%;
+	margin-top: 0.5%;
 }
 
 .arc:hover {
