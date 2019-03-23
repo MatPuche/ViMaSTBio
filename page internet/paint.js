@@ -5,6 +5,8 @@
 function paintGraph(array, geneList, curveNo) {
 	var plot;
 	
+	softResetGraph();
+	
 	var plotGraph = function(p) {
 		// Creates and adds the canvas element
 		function addCanvas() {
@@ -50,11 +52,12 @@ function paintGraph(array, geneList, curveNo) {
 			// Add the points
 			for (var i = 1; i < array[0].length; i++) {
 				plot.addLayer(array[0][i], points[curveNo][i - 1]);
-				var c = p.color("hsb("+ Math.floor(360*i/array[0].length) + ", 100%, 100%)");
+				var c = p.color("hsb("+ Math.floor(360*i/array[0].length) + ", 100%, 80%)");
 				plot.getLayer(array[0][i]).setLineColor(c);
 				plot.getLayer(array[0][i]).setLineWidth(2);
 			}
 			plot.activatePointLabels();
+			
 			
 			// Empty the legend div
 			var legendDiv = document.getElementById("graphLegend");
@@ -67,6 +70,7 @@ function paintGraph(array, geneList, curveNo) {
 				(function(i) {
 					selectedGenes.push(true);
 					var geneLegend = document.createElement("div");
+					
 					geneLegend.textContent = array[0][i];
 					geneLegend.setAttribute("class", "enabledLegend");
 					geneLegend.id = array[0][i];
@@ -89,6 +93,13 @@ function paintGraph(array, geneList, curveNo) {
 					}, false);
 
 					legendDiv.appendChild(geneLegend);
+					
+					var colourSample = document.createElement("div");
+					geneLegend.appendChild(colourSample);
+					colourSample.className = "colourSample";
+					colourSample.style.backgroundColor = layer.getLineColor().toString("#rrggbb");
+					colourSample.style.height = 0.5 * colourSample.parentNode.offsetHeight + "px";
+					colourSample.style.width = colourSample.parentNode.offsetWidth + "px";
 				})(i);
 			}
 
@@ -103,9 +114,10 @@ function paintGraph(array, geneList, curveNo) {
 			}
 			curvesListElt.onchange = function() {
 				displayCurveNo = curvesListElt.selectedIndex;
-				repaintGraph(graphArray, selectedGenes, displayCurveNo);
+				paintGraph(graphArray, selectedGenes, displayCurveNo);
 			};
 			document.getElementById("graphBox").insertBefore(curvesListElt, document.getElementById("graph"));
+			curvesListElt.selectedIndex = displayCurveNo;
 
 			// Set the plot title and the axis labels
 			plot.setTitleText("Gene expression");
@@ -123,6 +135,7 @@ function paintGraph(array, geneList, curveNo) {
 		plot.drawBox();
 		plot.drawXAxis();
 		plot.drawYAxis();
+		plot.drawGridLines(GPlot.BOTH);
 		plot.drawTitle();
 		plot.drawLines();
 		plot.drawLabels();
@@ -131,10 +144,5 @@ function paintGraph(array, geneList, curveNo) {
 	};
 
 	graphSketch = new p5(plotGraph, "sketch-canvas");
-}
-
-function repaintGraph(array, geneList, curveNo) {
-	graphSketch.remove();
-	paintGraph(array, geneList, curveNo);
 }
 

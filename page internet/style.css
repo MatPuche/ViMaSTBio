@@ -6,12 +6,12 @@
 }
 
 body {
-	background: #666666 url("logo_vimastbio.png") no-repeat 50% -150%;
+	background: #6A6A6A url("logo_vimastbio.png") no-repeat 50% -150%;
 }
 
 
 .window {
-	border: solid black 1px;
+	border: solid black 2px;
 	position: absolute;
 	display: inline-block;
 	width: 48%;
@@ -55,7 +55,6 @@ form {
 
 ::-webkit-scrollbar-thumb {
 	background: #888;
-	border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -111,6 +110,7 @@ h2 {
 .enabledLegend:hover, .disabledLegend:hover {
 	cursor: pointer;
 }
+
 
 select {
 	margin-left: 0.5%;
