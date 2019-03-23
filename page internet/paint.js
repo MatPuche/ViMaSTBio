@@ -3,8 +3,8 @@
  */
 
 function paintGraph(array, geneList, curveNo) {
+	
 	var plotGraph = function(p) {
-			var plot;
 		// Creates and adds the canvas element
 		function addCanvas() {
 			var referenceElement, maxCanvasWidth, canvas;
@@ -14,8 +14,7 @@ function paintGraph(array, geneList, curveNo) {
 			maxCanvasWidth = referenceElement.clientWidth - 1;
 
 			// Create the canvas
-			canvas = p
-					.createCanvas(0.7 * maxCanvasWidth, 0.49 * maxCanvasWidth);
+			canvas = p.createCanvas(0.95 * maxCanvasWidth, 0.64 * maxCanvasWidth);
 
 			return canvas;
 		}
@@ -51,6 +50,9 @@ function paintGraph(array, geneList, curveNo) {
 			for (var i = 1; i < array[0].length; i++) {
 				if (geneList[i - 1]) {
 					plot.addLayer(array[0][i], points[curveNo][i - 1]);
+					var c = p.color("hsb("+ Math.floor(360*i/array[0].length) + ", 100%, 100%)");
+					plot.getLayer(array[0][i]).setLineColor(c);
+					plot.getLayer(array[0][i]).setLineWidth(2);
 				}
 			}
 			plot.activatePointLabels();
@@ -75,7 +77,6 @@ function paintGraph(array, geneList, curveNo) {
 		plot.drawYAxis();
 		plot.drawTitle();
 		plot.drawLines();
-		plot.drawPoints();
 		plot.drawLabels();
 		plot.endDraw();
 	};

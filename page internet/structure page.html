@@ -16,14 +16,14 @@
 	<div id="graphWindow" class="window">
 		<div id="graphWindowTitle" class="windowTitle">
 			<h2>Courbes</h2>
+			<form>
+				<input id="tsvFile" type="file" accept=".tsv" />
+			</form>
 			<img src="minus.png" class="reduce" id="reduceGraphBox" />
 		</div>
 		<div id="graphBox" class="dataBox">
 			<div id="graph">
 				<div id="sketch-canvas"></div>
-				<form>
-					<input id="tsvFile" type="file" accept=".tsv" />
-				</form>
 				<script type="text/javascript" src="paint.js"></script>
 				<script type="text/javascript" src="readTsvFile.js"></script>
 			</div>
@@ -34,14 +34,14 @@
 	<div id="automataWindow" class="window">
 		<div id="automataWindowTitle" class="windowTitle">
 			<h2>Automates</h2>
+			<form>
+				<input id="anFile" type="file" accept=".an" />
+			</form>
 			<img src="minus.png" class="reduce" id="reduceAutomataBox" />
 		</div>
 		<div id="automataBox" class="dataBox">
 			<div id="automata">
 				<div id="sketch-auto"></div>
-				<form>
-					<input id="anFile" type="file" accept=".an" />
-				</form>
 				<script type="text/javascript" src="drawAutom.js"></script>
 				<script type="text/javascript" src="readAnFile.js"></script>
 			</div>
