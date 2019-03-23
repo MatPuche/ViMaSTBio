@@ -74,6 +74,7 @@ form {
 .windowTitle {
 	border-bottom: solid black 1px;
 	padding: 1%;
+	background-color: #DDD;
 }
 
 .windowTitle:hover {

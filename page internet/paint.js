@@ -3,6 +3,7 @@
  */
 
 function paintGraph(array, geneList, curveNo) {
+	var plot;
 	
 	var plotGraph = function(p) {
 		// Creates and adds the canvas element
@@ -48,14 +49,63 @@ function paintGraph(array, geneList, curveNo) {
 
 			// Add the points
 			for (var i = 1; i < array[0].length; i++) {
-				if (geneList[i - 1]) {
-					plot.addLayer(array[0][i], points[curveNo][i - 1]);
-					var c = p.color("hsb("+ Math.floor(360*i/array[0].length) + ", 100%, 100%)");
-					plot.getLayer(array[0][i]).setLineColor(c);
-					plot.getLayer(array[0][i]).setLineWidth(2);
-				}
+				plot.addLayer(array[0][i], points[curveNo][i - 1]);
+				var c = p.color("hsb("+ Math.floor(360*i/array[0].length) + ", 100%, 100%)");
+				plot.getLayer(array[0][i]).setLineColor(c);
+				plot.getLayer(array[0][i]).setLineWidth(2);
 			}
 			plot.activatePointLabels();
+			
+			// Empty the legend div
+			var legendDiv = document.getElementById("graphLegend");
+			while (legendDiv.hasChildNodes()) {
+				legendDiv.removeChild(legendDiv.lastChild);
+			}
+
+			// Add new legend elements and add them support for click events
+			for (var i = 1; i < array[0].length; i++) {
+				(function(i) {
+					selectedGenes.push(true);
+					var geneLegend = document.createElement("div");
+					geneLegend.textContent = array[0][i];
+					geneLegend.setAttribute("class", "enabledLegend");
+					geneLegend.id = array[0][i];
+					var geneIndex = Number(geneLegend.textContent.substring(1,
+							geneLegend.textContent.length)) - 1;
+
+					var layer = plot.getLayer(array[0][geneIndex+1]);
+					geneLegend.addEventListener("click", function() {
+						if (this.getAttribute("class") === "enabledLegend") {
+							this.setAttribute("class", "disabledLegend");
+							selectedGenes[geneIndex] = false;
+							plot.removeLayer(array[0][geneIndex+1]);
+						} else {
+							this.setAttribute("class", "enabledLegend");
+							selectedGenes[geneIndex] = true;
+							plot.addLayer(array[0][geneIndex+1], layer.getPoints());
+							plot.getLayer(array[0][geneIndex+1]).setLineColor(layer.getLineColor());
+							plot.getLayer(array[0][geneIndex+1]).setLineWidth(layer.getLineWidth());
+						}
+					}, false);
+
+					legendDiv.appendChild(geneLegend);
+				})(i);
+			}
+
+			// Add form element to select which curve of the tsv file will be displayed.
+			var curvesListElt = document.createElement("select");
+			curvesListElt.setAttribute("id", "curvesList");
+			for (var i = 0; i < array.length - 1; i++) {
+				var curveOptionElt = document.createElement("option");
+				curveOptionElt.text = "Curve " + (i + 1);
+				curveOptionElt.value = i;
+				curvesListElt.appendChild(curveOptionElt);
+			}
+			curvesListElt.onchange = function() {
+				displayCurveNo = curvesListElt.selectedIndex;
+				repaintGraph(graphArray, selectedGenes, displayCurveNo);
+			};
+			document.getElementById("graphBox").insertBefore(curvesListElt, document.getElementById("graph"));
 
 			// Set the plot title and the axis labels
 			plot.setTitleText("Gene expression");
@@ -63,9 +113,7 @@ function paintGraph(array, geneList, curveNo) {
 			plot.activatePanning();
 			plot.activateZooming(1.1, p.CENTER, p.CENTER);
 
-			// Draw it!
 			};
-			// Execute the sketch
 	p.draw = function() {
 		// Clean the canvas
 		p.background(255);
@@ -90,51 +138,3 @@ function repaintGraph(array, geneList, curveNo) {
 	paintGraph(array, geneList, curveNo);
 }
 
-function paintLegend(array) {
-	// Empty the legend div
-	var legendDiv = document.getElementById("graphLegend");
-	while (legendDiv.hasChildNodes()) {
-		legendDiv.removeChild(legendDiv.lastChild);
-	}
-
-	// Add new legend elements and add them support for click events
-	for (var i = 1; i < array[0].length; i++) {
-		(function(i) {
-			selectedGenes.push(true);
-			var geneLegend = document.createElement("div");
-			geneLegend.textContent = array[0][i];
-			geneLegend.setAttribute("class", "enabledLegend");
-			geneLegend.id = array[0][i];
-			var geneIndex = Number(geneLegend.textContent.substring(1,
-					geneLegend.textContent.length)) - 1;
-
-			geneLegend.addEventListener("click", function() {
-				if (this.getAttribute("class") === "enabledLegend") {
-					this.setAttribute("class", "disabledLegend");
-					selectedGenes[geneIndex] = false;
-				} else {
-					this.setAttribute("class", "enabledLegend");
-					selectedGenes[geneIndex] = true;
-				}
-				repaintGraph(array, selectedGenes, displayCurveNo);
-			}, false);
-
-			legendDiv.appendChild(geneLegend);
-		})(i);
-	}
-
-	// Add form element to select which curve of the tsv file will be displayed.
-	var curvesListElt = document.createElement("select");
-	curvesListElt.setAttribute("id", "curvesList");
-	for (var i = 0; i < array.length - 1; i++) {
-		var curveOptionElt = document.createElement("option");
-		curveOptionElt.text = "Curve " + (i + 1);
-		curveOptionElt.value = i;
-		curvesListElt.appendChild(curveOptionElt);
-	}
-	curvesListElt.onchange = function() {
-		displayCurveNo = curvesListElt.selectedIndex;
-		repaintGraph(graphArray, selectedGenes, displayCurveNo);
-	};
-	document.getElementById("graphBox").insertBefore(curvesListElt, document.getElementById("graph"));
-}

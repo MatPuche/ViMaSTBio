@@ -17,9 +17,6 @@ var selectedGenes = [];
 // contain genes states thresholds
 var statesThresholds = [];
 
-// contain the grafica object GPlot which will be used to draw the graph
-var plot;
-
 
 // booleans which are set to true in onload function when corresponding file are read
 var tsvFileLoaded, anFileLoaded;

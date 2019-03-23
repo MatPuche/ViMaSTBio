@@ -10,7 +10,6 @@ document.getElementById("tsvFile").onchange = function() {
 		resetGraph();
 		graphArray = parseTsv(reader.result);
 		
-		paintLegend(graphArray);
 		paintGraph(graphArray, selectedGenes, displayCurveNo);
 	};
 	reader.readAsText(file);
