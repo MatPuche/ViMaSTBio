@@ -1,0 +1,138 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family: Calibri;
+	font-size: 1em;
+}
+
+body {
+	background: #6A6A6A url("images/logo_vimastbio.png") no-repeat 50% -150%;
+}
+
+
+.window {
+	border: solid black 2px;
+	position: absolute;
+	display: inline-block;
+	width: 48%;
+	vertical-align: top;
+	overflow: hidden;
+	top: 2%;
+	background-color: white;
+}
+
+#automata, #graph {
+	display: inline-block;
+	position: relative;
+	min-width: 100%;
+	text-align: center;
+}
+
+#graphLegend {
+	margin-top: 2%;
+	text-align: center;
+	min-width: 99%;
+	display: inline-block;
+}
+
+form {
+	display: inline-block;
+	margin-left: 15%;
+}
+
+.dataBox {
+	overflow: auto;
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+.reduce {
+	float: right;
+	vertical-align: center;
+}
+
+.reduce:hover {
+	cursor: pointer;
+}
+
+.windowTitle {
+	border-bottom: solid black 1px;
+	padding: 1%;
+	background-color: #DDD;
+}
+
+.windowTitle:hover {
+	cursor: move;
+}
+
+h1 {
+	margin-top: 2%;
+	margin-bottom: 2%;
+	text-align: center;
+}
+
+h2 {
+	margin-left: 1%;
+	display: inline-block;
+	font-size: 2em;
+}
+
+.enabledLegend, .disabledLegend {
+	display: inline-block;
+	margin: 2%;
+	cursor: pointer;
+}
+
+.enabledLegend {
+	color: black;
+}
+
+.disabledLegend {
+	color: rgb(150, 150, 150);
+}
+
+.textLegend {
+	font-weight: bold;
+	font-size: 1.3em;	
+}
+
+#thresholdEditor {
+	position: relative;
+	width: 100%;
+	height: 15%;
+	margin-top: 5%;
+	margin-bottom: 6%;
+}
+
+
+select {
+	margin-left: 0.5%;
+	margin-top: 0.5%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.arc:hover {
+	cursor: pointer;
+}
+
+.arc {
+	position: absolute;
+	height: 15px;
+	width: 15px;
+}

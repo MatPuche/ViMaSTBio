@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="description" content="Outil ViMaSTBio" />
+<title>ViMaSTBio</title>
+<link rel="stylesheet" href="stylesheets/style.css" />
+<link rel="stylesheet" href="stylesheets/RangeSlider_style.css" />
+<script type="text/javascript" src="scripts/grafica.js"></script>
+<script type="text/javascript" src="scripts/p5.js"></script>
+</head>
+
+<body>
+	<script type="text/javascript" src="scripts/global variables.js"></script>
+	<script type="text/javascript" src="scripts/RangeSlider.js"></script>
+	<script type="text/javascript" src="scripts/parseTsv.js"></script>
+
+	<div id="graphWindow" class="window">
+		<div id="graphWindowTitle" class="windowTitle">
+			<h2>Graph</h2>
+			<form>
+				<input id="tsvFile" type="file" accept=".tsv" />
+			</form>
+			<img src="images/minus.png" class="reduce" id="reduceGraphBox" />
+		</div>
+		<div id="graphBox" class="dataBox">
+			<div id="graph">
+				<div id="sketch-canvas"></div>
+				<script type="text/javascript" src="scripts/paint.js"></script>
+				<script type="text/javascript" src="scripts/readTsvFile.js"></script>
+			</div>
+			<div id="rangeSliderContainer"></div>
+			<div id="graphLegend"></div>
+		</div>
+	</div>
+
+	<div id="automataWindow" class="window">
+		<div id="automataWindowTitle" class="windowTitle">
+			<h2>Automata</h2>
+			<form>
+				<input id="anFile" type="file" accept=".an" />
+			</form>
+			<img src="images/minus.png" class="reduce" id="reduceAutomataBox" />
+		</div>
+		<div id="automataBox" class="dataBox">
+			<div id="automata">
+				<div id="sketch-auto"></div>
+				<script type="text/javascript" src="scripts/drawAutom.js"></script>
+				<script type="text/javascript" src="scripts/readAnFile.js"></script>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="scripts/windows.js"></script>
+</body>
+</html>
