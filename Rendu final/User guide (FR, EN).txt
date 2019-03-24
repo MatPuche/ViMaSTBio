@@ -1,0 +1,62 @@
+------------------------------------------------------------------------------------------------------------
+                                                    English
+------------------------------------------------------------------------------------------------------------
+
+START THE APPLICATION :
+	- Load the tsv file.
+	- Load the corresponding an file.
+Please respect this order else the app won't work correctly.
+
+FEATURES :
+	- Move the thumb on the permanent track to select a moment on the graph. States on the automata change
+	  accordingly to the activation values for each gene.
+
+	- Graph can be zoomed and moved.
+
+	- Clicking on a gene name forces the linked plot and the automaton to disappear, clicking again show them.
+
+	- Clicking on the colour below a gene name opens the thresholds edit menu : move the thumbs on the
+	  track to set the thresholds which determine when to jump from a state to another on the automata.
+	  Click again to quit this mode. It doesn't work when the gene plot is disabled.
+
+	- To move a transition arrow on an automaton, simply drag the point in the middle.
+
+	- If a tsv file contains several data sets, you can choose which one to display in the drop down
+	  list in the top left corner. It won't affect the thresholds already set.
+
+	- Windows can be moved by dragging the header, resized by catching the right and bottom edges or
+	  the bottom-right corner (edges can be hard to catch when there is a scrollbar in the window
+	  though), or reduced/developped by clicking on the minus/plus button.
+
+
+------------------------------------------------------------------------------------------------------------
+                                                   Français
+------------------------------------------------------------------------------------------------------------
+
+DÉMARRER L'APPLICATION
+	- Charger le fichier tsv
+	- Charger le fichier an correspondant
+Merci de charger les fichiers dans le bon ordre pour que l'outil fonctionne correctement.
+
+FONCTIONNALITÉS :
+	- Bouger le curseur sur le sélecteur qui est affiché en permanence permet de fixer un instant sur le
+	  graphe. Les états affichés sur les automates changent selon la valeur de l'activation des gènes.
+
+	- On peut zoomer sur le graphe et déplacer son contenu.
+
+	- Cliquer sur le nom d'un gène dans la légende fait disparaître la courbe associée du graphe ainsi que
+	  l'automate qui va avec. Cliquer à nouveau permet de les faire réapparaître.
+
+	- Cliquer sur la couleur sous le nom d'un gène ouvre le menu d'édition des seuils de transition. Bouger
+	  les curseurs sur le sélecteur permet de choisir les valeurs marquant la frontière entre les états des
+	  automates. Cliquer à nouveau sur la couleur permet de quitter l'édition. Elle ne fonctionne pas quand
+	  l'affichage du gène est désactivé.
+
+	- Pour déplacer les flèches de transition des automates, il suffit de déplaçer le point au milieu.
+
+	- Si un fichier tsv contient plusieurs jeux de données, on peut en changer avec la liste déroulante
+	  dans le coin en haut à gauche. Les seuils de transition ne sont pas affectés par cette opération.
+
+	- On peut déplacer les fenêtres en déplaçant leur en-tête, les agrandir ou les réduire avec le bouton
+	  plus ou moins, et les redimensionner par le bas et la droite. Les bords sont un peu plus durs à 
+	  attraper quand il y a des barres de défilement dans le fenêtre, il faut bien se placer vers l'extérieur.

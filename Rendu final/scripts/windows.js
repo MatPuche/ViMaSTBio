@@ -17,14 +17,14 @@ for (var i = 0; i < windows.length; i++) {
 		boxes[i].style.height = "550px";
 		var windowHeight;
 		buttons[i].addEventListener("click", function() {
-			if (buttons[i].getAttribute("src") === "minus.png") {
-				buttons[i].setAttribute("src", "plus.png");
+			if (buttons[i].getAttribute("src") === "images/minus.png") {
+				buttons[i].setAttribute("src", "images/plus.png");
 				currentHeight = boxes[i].clientHeight;
 				boxes[i].style.height = "0px";
 				windows[i].style.height = windows[i].getElementsByClassName("windowTitle")[0].clientHeight + "px";
 				
 			} else {
-				buttons[i].setAttribute("src", "minus.png");
+				buttons[i].setAttribute("src", "images/minus.png");
 				boxes[i].style.height = currentHeight + "px";
 				windows[i].style.height = currentHeight + windows[i].getElementsByClassName("windowTitle")[0].clientHeight + "px";
 			}

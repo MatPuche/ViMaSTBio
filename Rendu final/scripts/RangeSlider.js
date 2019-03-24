@@ -147,9 +147,9 @@ function RangeSlider(n, minValue, maxValue, startValues, parentId, trackColour) 
 
 		// Place the min and max values labels at the extremities of the track,
 		// vertically centered
-		minmaxLabelElts[0].style.top = 0.9*(refHeight - labelHeight) / 2 + "px";
+		minmaxLabelElts[0].style.top = trackElt.offsetTop + "px";
 		minmaxLabelElts[0].style.left = 0.025 * refWidth + "px";
-		minmaxLabelElts[1].style.top = 0.9*(refHeight - labelHeight) / 2 + "px";
+		minmaxLabelElts[1].style.top = trackElt.offsetTop + "px";
 		minmaxLabelElts[1].style.left = 0.925 * refWidth + "px";
 	};
 
@@ -176,11 +176,11 @@ function RangeSlider(n, minValue, maxValue, startValues, parentId, trackColour) 
 			var xShift = evt.clientX - mouseStartX;
 			// Check that thumbs stay strictly between their neighbours and inside the track and redefine xShift if necessary
 			if (nbThumbs === 1) {
-				if (xShift < trackElt.offsetLeft - thumbStartX + thumbWidth) {
-					xShift = trackElt.offsetLeft - thumbStartX + thumbWidth;
+				if (xShift < trackElt.offsetLeft - thumbStartX) {
+					xShift = trackElt.offsetLeft - thumbStartX;
 				}
-				if (xShift > trackElt.offsetRight - thumbStartX - thumbWidth) {
-					xShift = trackElt.offsetRight - thumbStartX - thumbWidth;
+				if (xShift > trackElt.offsetLeft + trackWidth - thumbStartX) {
+					xShift = trackElt.offsetLeft + trackWidth - thumbStartX;
 				}
 			} else if (movingThumbIndex === 0) {
 				if (xShift < trackElt.offsetLeft - thumbStartX) {
