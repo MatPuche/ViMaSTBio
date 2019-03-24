@@ -1,4 +1,4 @@
-function RangeSlider(n, minValue, maxValue, startValues, parentId) {
+function RangeSlider(n, minValue, maxValue, startValues, parentId, trackColour) {
 
 	// ---------------------------------------------------------------------------------------------
 	// General variables
@@ -49,6 +49,7 @@ function RangeSlider(n, minValue, maxValue, startValues, parentId) {
 	// Track element which will receive the thumbs
 	var trackElt = document.createElement("div");
 	trackElt.className = "rangeSliderTrack";
+	trackElt.style.backgroundColor = trackColour;
 	containerElt.appendChild(trackElt);
 
 	// Array containing all the thumbs
@@ -137,7 +138,7 @@ function RangeSlider(n, minValue, maxValue, startValues, parentId) {
 						+ trackWidth * (thumbValues[j] - minmax[0])/(minmax[1] - minmax[0]) - thumbWidth / 2 + "px";
 
 				// Place vertically the label above its thumb
-				thumbLabelElts[j].style.top = 0.6 * thumbElts[j].offsetTop + "px";
+				thumbLabelElts[j].style.top = thumbElts[j].offsetTop - 4*labelHeight + "px";
 				// Place horizontally the label centered on its thumb
 				thumbLabelElts[j].style.left = trackElt.offsetLeft
 						+ trackWidth * (thumbValues[j] - minmax[0])/(minmax[1] - minmax[0]) - labelWidth / 2 + "px";
@@ -211,7 +212,13 @@ function RangeSlider(n, minValue, maxValue, startValues, parentId) {
 			var newValue = Math.floor(100*(minmax[0] + (minmax[1] - minmax[0])*(thumbElts[movingThumbIndex].offsetLeft - trackElt.offsetLeft)/trackWidth))/100;
 			thumbValues[movingThumbIndex] = newValue;
 			thumbLabelElts[movingThumbIndex].textContent = newValue;
-			// statesThresholds[editedGenes][movingThumbIndex] = newValue;
+			var geneIndex;
+			for (var j = 0; j < editedGene.length; j++) {
+				if (editedGene[j]) {
+					geneIndex = j;
+				}
+			}
+			statesThresholds[geneIndex][movingThumbIndex] = newValue;
 		}
 	};
 

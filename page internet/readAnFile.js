@@ -15,6 +15,12 @@ document.getElementById('anFile').onchange = function(){
       var nbre_etats = (lines[line].match(/\b[0-9]+\b/g)).length;
       auto.push(nbre_etats);
       line+=1;
+      
+      var temp = [];
+      for (var i = 0; i < nbre_etats; i++) {
+    	   temp.push(Math.floor(100*(i+1)/(nbre_etats+1))/100);
+      }
+      statesThresholds.push(temp);
     }
 
 

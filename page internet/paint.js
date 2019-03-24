@@ -105,22 +105,33 @@ function paintGraph(array, geneList, curveNo) {
 					colourSample.style.height = 0.5 * document.getElementsByClassName("textLegend")[geneIndex].offsetHeight + "px";
 					colourSample.style.width = document.getElementsByClassName("textLegend")[geneIndex].offsetWidth + "px";
 					
-					colourSample.onmouseclick = function() {
+					var slider;
+					colourSample.onclick = function() {
 						if (!editedGene[geneIndex]) {
-							for (var j = 0; j < geneIndex; j++) {
+							for (var j = 0; j < editedGene.length; j++) {
 								if (geneIndex === j) {
 									editedGene[j] = true;
 								} else {
 									editedGene[j] = false;
 								}
 							}
+							slider = new RangeSlider(auto[i], 0, 1, statesThresholds[geneIndex], "thresholdEditor", colourSample.style.backgroundColor);
 						}
 						else {
 							editedGene[geneIndex] = false;
+							slider = null;
+							var eltToEmpty = document.getElementById("thresholdEditor");
+							while (eltToEmpty.hasChildNodes()) {
+								eltToEmpty.removeChild(eltToEmpty.lastChild);
+							}
 						}
 					}
 				})(i);
 			}
+			
+			var sliderContainer = document.createElement("div");
+			sliderContainer.id = "thresholdEditor";
+			legendDiv.appendChild(sliderContainer);
 
 			// Add form element to select which curve of the tsv file will be displayed.
 			var curvesListElt = document.createElement("select");
