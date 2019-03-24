@@ -1,0 +1,36 @@
+.rangeSliderTrack {
+    position: absolute;
+    background-color: #ccc;
+}
+
+.rangeSliderThumb {
+    border: solid 1px black;
+    background-color: #bbb;
+    position: absolute;
+    display: inline-block;
+}
+
+.rangeSliderThumb:hover {
+    background-color: #555;
+    cursor: pointer;
+}
+
+.rangeSliderThumbLabel {
+    position: absolute;
+    display: inline-block;
+    text-align: center;
+}
+
+.rangeSliderMinmaxLabel {
+    text-align: center;
+    position: absolute;
+    display: inline-block;
+}
+
+#container {
+    position: relative;
+    height: 320px;
+    width: 1000px;
+    top: 200px;
+    left: 150px;
+}
