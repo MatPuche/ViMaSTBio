@@ -92,7 +92,7 @@ function RangeSlider(n, minValue, maxValue, startValues, parentId) {
 		thumbWidth = 0.01 * refWidth;
 		thumbHeight = 0.06 * refWidth;
 		labelWidth = 0.05 * refWidth;
-		labelHeight = 0.1 * refHeight;
+		labelHeight = 0.0075 * refWidth;
 		trackWidth = 0.8 * refWidth;
 		// Track's definitive size
 		trackElt.style.width = trackWidth + "px";
@@ -134,13 +134,13 @@ function RangeSlider(n, minValue, maxValue, startValues, parentId) {
 				// Place horizontally the thumb and its label to their starting
 				// position on the track relatively to starting value
 				thumbElts[j].style.left = trackElt.offsetLeft
-						+ (thumbValues[j] * trackWidth) - thumbWidth / 2 + "px";
+						+ trackWidth * (thumbValues[j] - minmax[0])/(minmax[1] - minmax[0]) - thumbWidth / 2 + "px";
 
 				// Place vertically the label above its thumb
 				thumbLabelElts[j].style.top = 0.6 * thumbElts[j].offsetTop + "px";
 				// Place horizontally the label centered on its thumb
 				thumbLabelElts[j].style.left = trackElt.offsetLeft
-						+ (thumbValues[j] * trackWidth) - labelWidth / 2 + "px";
+						+ trackWidth * (thumbValues[j] - minmax[0])/(minmax[1] - minmax[0]) - labelWidth / 2 + "px";
 			})(i);
 		}
 
@@ -162,6 +162,7 @@ function RangeSlider(n, minValue, maxValue, startValues, parentId) {
 		mouseStartX = evt.clientX;
 		thumbStartX = thumbElts[movingThumbIndex].offsetLeft;
 		thumbLabelStartX = thumbLabelElts[movingThumbIndex].offsetLeft;
+		startValue = thumbValues[movingThumbIndex];
 		thumbElts[movingThumbIndex].style.backgroundColor = "#111";
 	};
 
@@ -181,8 +182,8 @@ function RangeSlider(n, minValue, maxValue, startValues, parentId) {
 					xShift = trackElt.offsetRight - thumbStartX - thumbWidth;
 				}
 			} else if (movingThumbIndex === 0) {
-				if (xShift < trackElt.offsetLeft - thumbStartX - thumbWidth/2) {
-					xShift = trackElt.offsetLeft - thumbStartX - thumbWidth/2;
+				if (xShift < trackElt.offsetLeft - thumbStartX) {
+					xShift = trackElt.offsetLeft - thumbStartX;
 				}
 				if (xShift > thumbElts[1].offsetLeft - thumbStartX - thumbWidth) {
 					xShift = thumbElts[1].offsetLeft - thumbStartX - thumbWidth;
@@ -191,8 +192,8 @@ function RangeSlider(n, minValue, maxValue, startValues, parentId) {
 				if (xShift < thumbElts[nbThumbs - 2].offsetLeft - thumbStartX + thumbWidth) {
 					xShift = thumbElts[nbThumbs - 2].offsetLeft - thumbStartX + thumbWidth;
 				}
-				if (xShift > trackElt.offsetLeft + trackWidth - thumbStartX - thumbWidth/2) {
-					xShift = trackElt.offsetLeft + trackWidth - thumbStartX - thumbWidth/2;
+				if (xShift > trackElt.offsetLeft + trackWidth - thumbStartX) {
+					xShift = trackElt.offsetLeft + trackWidth - thumbStartX;
 				}
 			} else {
 				if (xShift < thumbElts[movingThumbIndex - 1].offsetLeft - thumbStartX + thumbWidth) {
@@ -207,7 +208,7 @@ function RangeSlider(n, minValue, maxValue, startValues, parentId) {
 			thumbLabelElts[movingThumbIndex].style.left = thumbLabelStartX + xShift + "px";
 
 			// Update label values and threshold values
-			var newValue = Math.floor(100*(thumbElts[movingThumbIndex].offsetLeft - trackElt.offsetLeft + thumbWidth/2) / trackWidth)/100;
+			var newValue = Math.floor(100*(minmax[0] + (minmax[1] - minmax[0])*(thumbElts[movingThumbIndex].offsetLeft - trackElt.offsetLeft)/trackWidth))/100;
 			thumbValues[movingThumbIndex] = newValue;
 			thumbLabelElts[movingThumbIndex].textContent = newValue;
 			// statesThresholds[editedGenes][movingThumbIndex] = newValue;
