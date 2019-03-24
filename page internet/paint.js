@@ -3,7 +3,7 @@
  */
 
 function paintGraph(array, geneList, curveNo) {
-	var plot;
+	var plot, plotLayers, hiddenLayers;
 
 	softResetGraph();
 
@@ -51,12 +51,14 @@ function paintGraph(array, geneList, curveNo) {
 			plot.setOuterDim(p.width, p.height);
 
 			// Add the points
+			plotLayers = [];
 			for (var i = 1; i < array[0].length; i++) {
 				plot.addLayer(array[0][i], points[curveNo][i - 1]);
 				var c = p.color("hsb(" + Math.floor(360 * i / array[0].length)
 						+ ", 100%, 80%)");
 				plot.getLayer(array[0][i]).setLineColor(c);
 				plot.getLayer(array[0][i]).setLineWidth(2);
+				plotLayers.push(plot.getLayer(array[0][i]));
 			}
 
 			// Empty the legend div
@@ -84,16 +86,18 @@ function paintGraph(array, geneList, curveNo) {
 
 					var layer = plot.getLayer(array[0][geneIndex + 1]);
 					geneLegendText.addEventListener("click", function() {
-						if (this.parentNode.getAttribute("class") === "enabledLegend") {
-							this.parentNode.setAttribute("class", "disabledLegend");
-							selectedGenes[geneIndex] = false;
-							plot.removeLayer(array[0][geneIndex + 1]);
-						} else {
-							this.parentNode.setAttribute("class", "enabledLegend");
-							selectedGenes[geneIndex] = true;
-							plot.addLayer(array[0][geneIndex + 1], layer.getPoints());
-							plot.getLayer(array[0][geneIndex + 1]).setLineColor(layer.getLineColor());
-							plot.getLayer(array[0][geneIndex + 1]).setLineWidth(layer.getLineWidth());
+						if (!editedGene.some(function(a) {return a;})) {
+							if (this.parentNode.getAttribute("class") === "enabledLegend") {
+								this.parentNode.setAttribute("class", "disabledLegend");
+								selectedGenes[geneIndex] = false;
+								plot.removeLayer(array[0][geneIndex + 1]);
+							} else {
+								this.parentNode.setAttribute("class", "enabledLegend");
+								selectedGenes[geneIndex] = true;
+								plot.addLayer(array[0][geneIndex + 1], layer.getPoints());
+								plot.getLayer(array[0][geneIndex + 1]).setLineColor(layer.getLineColor());
+								plot.getLayer(array[0][geneIndex + 1]).setLineWidth(layer.getLineWidth());
+							}
 						}
 					}, false);
 
@@ -121,17 +125,44 @@ function paintGraph(array, geneList, curveNo) {
 									editedGene[j] = false;
 								}
 							}
-							slider = new RangeSlider(auto[i-1], 0, 1,	statesThresholds[geneIndex], "thresholdEditor",
+							slider = new RangeSlider(auto[i-1]-1, 0, 1,	statesThresholds[geneIndex], "thresholdEditor",
 									colourSample.style.backgroundColor);
+							displayOnlyLayer(array[0][geneIndex+1]);
 						} else {
 							editedGene[geneIndex] = false;
 							var eltToEmpty = document.getElementById("thresholdEditor");
 							while (eltToEmpty.hasChildNodes()) {
 								eltToEmpty.removeChild(eltToEmpty.lastChild);
 							}
+							displayAllLayers();
 						}
 					}
 				})(i);
+			}
+			
+			hiddenLayers = [];
+			function displayOnlyLayer(layerId) {
+				if (editedGene.some(function(a) {return a;})) {
+					displayAllLayers();
+					hiddenLayers = [];
+				}
+				var layers = [];
+				for (var i = 0; i < geneList.length; i++) {
+					if (layerId !== plotLayers[i].getId()) {
+						hiddenLayers.push(plotLayers[i]);
+						plot.removeLayer(plotLayers[i].getId());
+					}
+				}
+			}
+			
+			function displayAllLayers() {
+				for (var i = 0; i < hiddenLayers.length; i++) {
+					var layer = hiddenLayers[i];
+					plot.addLayer(layer.getId(), layer.getPoints());
+					plot.getLayer(layer.getId()).setLineColor(layer.getLineColor());
+					plot.getLayer(layer.getId()).setLineWidth(layer.getLineWidth());
+				}
+				hiddenLayers = [];
 			}
 
 			var sliderContainer = document.createElement("div");
@@ -176,7 +207,7 @@ function paintGraph(array, geneList, curveNo) {
 			for (var i = 0; i < editedGene.length; i++) {
 				if (editedGene[i]) {
 					for (var j = 0; j < auto[i]; j++) {
-						plot.getLayer(array[0][i + 1]).drawHorizontalLine(statesThresholds[i][j]);
+						plot.getLayer(array[0][i + 1]).drawHorizontalLine(statesThresholds[i][j], "#000000", 3);
 					}
 				}
 			}

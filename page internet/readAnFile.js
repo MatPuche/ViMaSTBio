@@ -17,8 +17,8 @@ document.getElementById('anFile').onchange = function(){
       line+=1;
       
       var temp = [];
-      for (var i = 0; i < nbre_etats; i++) {
-    	   temp.push(Math.floor(100*(i+1)/(nbre_etats+1))/100);
+      for (var i = 0; i < nbre_etats-1; i++) {
+    	   temp.push(Math.floor(100*(i+1)/(nbre_etats))/100);
       }
       statesThresholds.push(temp);
     }
