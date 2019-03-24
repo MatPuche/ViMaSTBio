@@ -56,7 +56,6 @@ function paintGraph(array, geneList, curveNo) {
 				plot.getLayer(array[0][i]).setLineColor(c);
 				plot.getLayer(array[0][i]).setLineWidth(2);
 			}
-			plot.activatePointLabels();
 			
 			
 			// Empty the legend div
@@ -69,22 +68,27 @@ function paintGraph(array, geneList, curveNo) {
 			for (var i = 1; i < array[0].length; i++) {
 				(function(i) {
 					selectedGenes.push(true);
+					editedGene.push(false);
 					var geneLegend = document.createElement("div");
+					var geneLegendText = document.createElement("div");
+					geneLegend.appendChild(geneLegendText);
 					
-					geneLegend.textContent = array[0][i];
+					geneLegendText.textContent = array[0][i];
+					geneLegendText.className = "textLegend"
+					
 					geneLegend.setAttribute("class", "enabledLegend");
 					geneLegend.id = array[0][i];
-					var geneIndex = Number(geneLegend.textContent.substring(1,
-							geneLegend.textContent.length)) - 1;
+					var geneIndex = Number(geneLegendText.textContent.substring(1,
+							geneLegendText.textContent.length)) - 1;
 
 					var layer = plot.getLayer(array[0][geneIndex+1]);
-					geneLegend.addEventListener("click", function() {
-						if (this.getAttribute("class") === "enabledLegend") {
-							this.setAttribute("class", "disabledLegend");
+					geneLegendText.addEventListener("click", function() {
+						if (this.parentNode.getAttribute("class") === "enabledLegend") {
+							this.parentNode.setAttribute("class", "disabledLegend");
 							selectedGenes[geneIndex] = false;
 							plot.removeLayer(array[0][geneIndex+1]);
 						} else {
-							this.setAttribute("class", "enabledLegend");
+							this.parentNode.setAttribute("class", "enabledLegend");
 							selectedGenes[geneIndex] = true;
 							plot.addLayer(array[0][geneIndex+1], layer.getPoints());
 							plot.getLayer(array[0][geneIndex+1]).setLineColor(layer.getLineColor());
@@ -98,8 +102,23 @@ function paintGraph(array, geneList, curveNo) {
 					geneLegend.appendChild(colourSample);
 					colourSample.className = "colourSample";
 					colourSample.style.backgroundColor = layer.getLineColor().toString("#rrggbb");
-					colourSample.style.height = 0.5 * colourSample.parentNode.offsetHeight + "px";
-					colourSample.style.width = colourSample.parentNode.offsetWidth + "px";
+					colourSample.style.height = 0.5 * document.getElementsByClassName("textLegend")[geneIndex].offsetHeight + "px";
+					colourSample.style.width = document.getElementsByClassName("textLegend")[geneIndex].offsetWidth + "px";
+					
+					colourSample.onmouseclick = function() {
+						if (!editedGene[geneIndex]) {
+							for (var j = 0; j < geneIndex; j++) {
+								if (geneIndex === j) {
+									editedGene[j] = true;
+								} else {
+									editedGene[j] = false;
+								}
+							}
+						}
+						else {
+							editedGene[geneIndex] = false;
+						}
+					}
 				})(i);
 			}
 
@@ -139,6 +158,9 @@ function paintGraph(array, geneList, curveNo) {
 		plot.drawTitle();
 		plot.drawLines();
 		plot.drawLabels();
+		
+		
+		
 		plot.endDraw();
 	};
 	};

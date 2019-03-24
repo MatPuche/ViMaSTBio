@@ -39,7 +39,7 @@ function paintAuto(transitions, auto) {
 
       p.draw = function(){
         p.clear();
-        // Fisrt, we draw automatons.
+        // Fisrt, we draw automata.
         for (var i=0, c=auto.length ; i<c;i++){
           if (selectedGenes[i]==true){
             automate(auto[i], etatsEnCours[i], 130+i*180,40,18,18, p,(i+1));

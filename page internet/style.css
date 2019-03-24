@@ -95,8 +95,7 @@ h2 {
 .enabledLegend, .disabledLegend {
 	display: inline-block;
 	margin: 3%;
-	font-weight: bold;
-	font-size: 1.3em;
+	cursor: pointer;
 }
 
 .enabledLegend {
@@ -107,8 +106,9 @@ h2 {
 	color: rgb(150, 150, 150);
 }
 
-.enabledLegend:hover, .disabledLegend:hover {
-	cursor: pointer;
+.textLegend {
+	font-weight: bold;
+	font-size: 1.3em;	
 }
 
 

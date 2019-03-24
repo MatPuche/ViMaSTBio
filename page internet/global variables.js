@@ -1,7 +1,6 @@
 /**
  * Contain all the useful global variables used to exchange file data through
- * the different windows. windows.js is not concerned because global variables
- * of this file are purely technical and concern only ergonomics
+ * the different windows.
  */
 
 // array which contains the tsv file data
@@ -12,6 +11,9 @@ var displayCurveNo;
 
 // array of boolean which describes which genes will be displayed
 var selectedGenes = [];
+
+// index of the edited genes (thresholds will appear on the graph)
+var editedGene = -1;
 
 // contain genes states thresholds
 var statesThresholds = [];
@@ -58,6 +60,7 @@ var resetGraph = function() {
 }
 
 var softResetGraph = function() {
+	editedGene = [];
 	var graphCanvas = document.getElementById("defaultCanvas0");
 	if (graphCanvas) {
 		graphCanvas.parentNode.removeChild(graphCanvas);
