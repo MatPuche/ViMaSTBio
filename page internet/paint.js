@@ -117,6 +117,7 @@ function paintGraph(array, geneList, curveNo) {
 
 					var slider;
 					colourSample.onclick = function() {
+						removeRangeSlider();
 						if (!editedGene[geneIndex]) {
 							for (var j = 0; j < editedGene.length; j++) {
 								if (geneIndex === j) {
@@ -130,10 +131,6 @@ function paintGraph(array, geneList, curveNo) {
 							displayOnlyLayer(array[0][geneIndex+1]);
 						} else {
 							editedGene[geneIndex] = false;
-							var eltToEmpty = document.getElementById("thresholdEditor");
-							while (eltToEmpty.hasChildNodes()) {
-								eltToEmpty.removeChild(eltToEmpty.lastChild);
-							}
 							displayAllLayers();
 						}
 					}
@@ -163,6 +160,13 @@ function paintGraph(array, geneList, curveNo) {
 					plot.getLayer(layer.getId()).setLineWidth(layer.getLineWidth());
 				}
 				hiddenLayers = [];
+			}
+			
+			function removeRangeSlider() {
+				var eltToEmpty = document.getElementById("thresholdEditor");
+				while (eltToEmpty.hasChildNodes()) {
+					eltToEmpty.removeChild(eltToEmpty.lastChild);
+				}
 			}
 
 			var sliderContainer = document.createElement("div");
