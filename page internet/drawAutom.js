@@ -4,6 +4,7 @@
 var etatsEnCours = [0,0,0,0,0,0,0,0,1,0];
 
 
+
 function paintAuto(transitions, auto) {
 
   var defaultAutoSketch = function(p) {
@@ -39,7 +40,7 @@ function paintAuto(transitions, auto) {
 
       p.draw = function(){
         p.clear();
-        // Fisrt, we draw automata.
+        // Fisrt, we draw automatons.
         for (var i=0, c=auto.length ; i<c;i++){
           if (selectedGenes[i]==true){
             automate(auto[i], etatsEnCours[i], 130+i*180,40,18,18, p,(i+1));
@@ -63,6 +64,8 @@ function paintAuto(transitions, auto) {
     			  // first outgoing transition
 
               var e1 = -1;
+              const reducer = (x, y) => x + " and " +  y;
+
 
               for (var i = 0, c = transitions[id].length; i < c; i++) {
 
@@ -73,9 +76,16 @@ function paintAuto(transitions, auto) {
                   k = 1;
                 }
 
-                drawArc(parseInt(curTrans[0][0]), parseInt(curTrans[0][1]), id, k, num_arc, coordonnees, first, p);
-                num_arc += 1;
+                var x = 155+(id-1)*230;
+                var y = 140+(4-parseInt(curTrans[0][0]))*50-(parseInt(curTrans[0][1])-parseInt(curTrans[0][0]))*25;
+                var h = 2+(parseInt(curTrans[0][1])-parseInt(curTrans[0][0]))*50;
 
+
+
+                try{texte =  curTrans.slice(1).reduce(reducer);}
+                catch{texte = ""}
+                drawArc(texte, parseInt(curTrans[0][0]), parseInt(curTrans[0][1]), id, k, num_arc, coordonnees, first, p);
+                num_arc+=1;
                 e1 = curTrans[0][0];
               }
             }
@@ -94,7 +104,6 @@ var autoSketch = new p5(defaultAutoSketch, "sketch-auto");
 var xi, xj, yi, yj;
 
 var divs = document.getElementsByClassName('arc');
-
 
 
 
@@ -118,6 +127,7 @@ function automate(n, enCours, x1, y1, x2, y2, p, a) {
   p.text("G"+a, x1-7, y1+275 + (n - 2) * 50);
 }
 
+
 // function drawArc draw arrows with parameters :
 // e1 : the outgoing state ; e2 : the incoming state ; a : the number of the
 // automata
@@ -126,7 +136,7 @@ function automate(n, enCours, x1, y1, x2, y2, p, a) {
 // coordonnees : array containing the coordinates of each arrow ; first :
 // boolean that indicates if it's the first time arrows are
 // drawn (to create divs if it the case)
-function drawArc(e1, e2, a, k, num_arc, coordonnees, first, p) {
+function drawArc(texte, e1, e2, a, k, num_arc, coordonnees, first, p) {
 
   var x = 140 + (a - 1) * 180,
     y = 55 + (4 - e1) * 50 - (e2 - e1) * 25,
@@ -183,6 +193,10 @@ function drawArc(e1, e2, a, k, num_arc, coordonnees, first, p) {
         p.bezier(x1, y1, coordonnees[num_arc][0], coordonnees[num_arc][1] + (e1 - e2 - 1) * 25 + 20, coordonnees[num_arc][0], coordonnees[num_arc][1] - (e1 - e2 - 1) * 25 - 20, x4, y4);
         xx = p.bezierPoint(x1, coordonnees[num_arc][0], coordonnees[num_arc][0], x4, 1 / 2);
         yy = p.bezierPoint(y1, coordonnees[num_arc][1] + (e1 - e2 - 1) * 25 + 20, coordonnees[num_arc][1] - (e1 - e2 - 1) * 25 - 20, y4, 1 / 2);
+        p.fill(0, 0, 255);
+        p.textSize(15);
+        p.text(texte, xx, yy + 10);
+        p.textSize(10);
       } else {
         x1 = x4 = x - 18;
         y1 = y + 24 + (e2 - e1 - 1) * 25;
@@ -193,6 +207,10 @@ function drawArc(e1, e2, a, k, num_arc, coordonnees, first, p) {
         p.bezier(x1, y1, coordonnees[num_arc][0] - 18, coordonnees[num_arc][1] + (e2 - e1 - 1) * 25 + 20, coordonnees[num_arc][0] - 18, coordonnees[num_arc][1] - (e2 - e1 - 1) * 25 - 20, x4, y4);
         xx = p.bezierPoint(x1, coordonnees[num_arc][0] - 18, coordonnees[num_arc][0] - 18, x4, 1 / 2);
         yy = p.bezierPoint(y1, coordonnees[num_arc][1] + (e2 - e1 - 1) * 25 + 20, coordonnees[num_arc][1] - (e2 - e1 - 1) * 25 - 20, y4, 1 / 2);
+        p.fill(0, 0, 255);
+        p.textSize(15);
+        p.text(texte, xx, yy - 10);
+        p.textSize(10);
       }
     } else {
 
@@ -206,6 +224,12 @@ function drawArc(e1, e2, a, k, num_arc, coordonnees, first, p) {
         p.bezier(x1, y1, coordonnees[num_arc][0], coordonnees[num_arc][1] + (e2 - e1 - 1) * 25 + 20, coordonnees[num_arc][0], coordonnees[num_arc][1] - (e2 - e1 - 1) * 25 - 20, x4, y4);
         xx = p.bezierPoint(x1, coordonnees[num_arc][0], coordonnees[num_arc][0], x4, 1 / 2);
         yy = p.bezierPoint(y1, coordonnees[num_arc][1] + (e2 - e1 - 1) * 25 + 20, coordonnees[num_arc][1] - (e2 - e1 - 1) * 25 - 20, y4, 1 / 2);
+        p.fill(0, 0, 255);
+        p.textSize(15);
+        p.text(texte, xx + 10, yy);
+        p.textSize(10);
+
+
       } else {
         x1 = x4 = x - 18;
         x2 = x3 = x - 55 - 50 * (k + 1) / 2 - (e2 - e1 - 1) * 15;
@@ -217,6 +241,11 @@ function drawArc(e1, e2, a, k, num_arc, coordonnees, first, p) {
         p.bezier(x1, y1, coordonnees[num_arc][0] - 18, coordonnees[num_arc][1] + (e1 - e2 - 1) * 25 + 20, coordonnees[num_arc][0] - 18, coordonnees[num_arc][1] - (e1 - e2 - 1) * 25 - 20, x4, y4);
         xx = p.bezierPoint(x1, coordonnees[num_arc][0] - 18, coordonnees[num_arc][0] - 18, x4, 1 / 2);
         yy = p.bezierPoint(y1, coordonnees[num_arc][1] + (e1 - e2 - 1) * 25 + 20, coordonnees[num_arc][1] - (e1 - e2 - 1) * 25 - 20, y4, 1 / 2);
+        p.fill(0, 0, 255);
+        p.textSize(15);
+        p.text(texte, xx - 10, yy);
+        p.textSize(10);
+
       }
     }
     var margeY = document.getElementById("sketch-auto").offsetTop;
@@ -237,8 +266,8 @@ function drawArc(e1, e2, a, k, num_arc, coordonnees, first, p) {
     function stopTraine() {
       traine = false;
     }
-    
-    
+
+
     document.getElementById("sketch-auto").onmousemove = move;
     document.getElementById("sketch-auto").onmouseup = stopTraine;
 

@@ -15,7 +15,7 @@ document.getElementById('anFile').onchange = function(){
       var nbre_etats = (lines[line].match(/\b[0-9]+\b/g)).length;
       auto.push(nbre_etats);
       line+=1;
-      
+
       var temp = [];
       for (var i = 0; i < nbre_etats-1; i++) {
     	   temp.push(Math.floor(100*(i+1)/(nbre_etats))/100);
@@ -49,7 +49,7 @@ document.getElementById('anFile').onchange = function(){
         if (words[1]){
           var cond = words[1].split('and');
           for(var k=0, l=cond.length; k<l;k++){
-             /"([a-z])"=([0-9]+)/.exec(cond[k]);
+            /"(G[0-9]*)"=([0-9]+)/.exec(cond[k]);
              curTrans.push(RegExp.$1 + "=" + RegExp.$2);
           }
         }
@@ -68,10 +68,11 @@ document.getElementById('anFile').onchange = function(){
     line +=1;
     /initial_context (.+)/.exec(lines[line]);
     transitions['initial_context'] = (RegExp.$1);
-    //and finally the total number of arrowq
+    //and finally the total number of arrows
     transitions['nbre_arcs'] = nbre_arcs;
     console.log(transitions);
     console.log(auto);
+    console.log("CLICK");
 
     paintAuto(transitions, auto);
   };
