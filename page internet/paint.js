@@ -121,13 +121,10 @@ function paintGraph(array, geneList, curveNo) {
 									editedGene[j] = false;
 								}
 							}
-							slider = new RangeSlider(auto[i], 0, 1,
-									statesThresholds[geneIndex],
-									"thresholdEditor",
+							slider = new RangeSlider(auto[i-1], 0, 1,	statesThresholds[geneIndex], "thresholdEditor",
 									colourSample.style.backgroundColor);
 						} else {
 							editedGene[geneIndex] = false;
-							slider = null;
 							var eltToEmpty = document.getElementById("thresholdEditor");
 							while (eltToEmpty.hasChildNodes()) {
 								eltToEmpty.removeChild(eltToEmpty.lastChild);

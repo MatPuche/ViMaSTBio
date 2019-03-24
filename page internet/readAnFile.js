@@ -31,7 +31,6 @@ document.getElementById('anFile').onchange = function(){
     for (var i=0, c=auto.length; i<c; i++){
       line+=1;
       var trans = []; // the list representing all the transitions of the automaton auto
-      console.log(line);
       while (lines[line].length > 1){
 
         // to add the transition to the list of transition

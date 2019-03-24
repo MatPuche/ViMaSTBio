@@ -147,9 +147,9 @@ function RangeSlider(n, minValue, maxValue, startValues, parentId, trackColour) 
 
 		// Place the min and max values labels at the extremities of the track,
 		// vertically centered
-		minmaxLabelElts[0].style.top = (refHeight - labelHeight) / 2 + "px";
+		minmaxLabelElts[0].style.top = 0.9*(refHeight - labelHeight) / 2 + "px";
 		minmaxLabelElts[0].style.left = 0.025 * refWidth + "px";
-		minmaxLabelElts[1].style.top = (refHeight - labelHeight) / 2 + "px";
+		minmaxLabelElts[1].style.top = 0.9*(refHeight - labelHeight) / 2 + "px";
 		minmaxLabelElts[1].style.left = 0.925 * refWidth + "px";
 	};
 
