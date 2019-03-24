@@ -13,7 +13,7 @@ var displayCurveNo;
 var selectedGenes = [];
 
 // index of the edited genes (thresholds will appear on the graph)
-var editedGene = -1;
+var editedGene = [];
 
 // contain genes states thresholds
 var statesThresholds = [];

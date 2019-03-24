@@ -4,9 +4,9 @@
 
 function paintGraph(array, geneList, curveNo) {
 	var plot;
-	
+
 	softResetGraph();
-	
+
 	var plotGraph = function(p) {
 		// Creates and adds the canvas element
 		function addCanvas() {
@@ -17,7 +17,8 @@ function paintGraph(array, geneList, curveNo) {
 			maxCanvasWidth = referenceElement.clientWidth - 1;
 
 			// Create the canvas
-			canvas = p.createCanvas(0.95 * maxCanvasWidth, 0.64 * maxCanvasWidth);
+			canvas = p.createCanvas(0.95 * maxCanvasWidth,
+					0.64 * maxCanvasWidth);
 
 			return canvas;
 		}
@@ -52,12 +53,12 @@ function paintGraph(array, geneList, curveNo) {
 			// Add the points
 			for (var i = 1; i < array[0].length; i++) {
 				plot.addLayer(array[0][i], points[curveNo][i - 1]);
-				var c = p.color("hsb("+ Math.floor(360*i/array[0].length) + ", 100%, 80%)");
+				var c = p.color("hsb(" + Math.floor(360 * i / array[0].length)
+						+ ", 100%, 80%)");
 				plot.getLayer(array[0][i]).setLineColor(c);
 				plot.getLayer(array[0][i]).setLineWidth(2);
 			}
-			
-			
+
 			// Empty the legend div
 			var legendDiv = document.getElementById("graphLegend");
 			while (legendDiv.hasChildNodes()) {
@@ -72,39 +73,44 @@ function paintGraph(array, geneList, curveNo) {
 					var geneLegend = document.createElement("div");
 					var geneLegendText = document.createElement("div");
 					geneLegend.appendChild(geneLegendText);
-					
+
 					geneLegendText.textContent = array[0][i];
 					geneLegendText.className = "textLegend"
-					
+
 					geneLegend.setAttribute("class", "enabledLegend");
 					geneLegend.id = array[0][i];
-					var geneIndex = Number(geneLegendText.textContent.substring(1,
-							geneLegendText.textContent.length)) - 1;
+					var geneIndex = Number(geneLegendText.textContent
+							.substring(1, geneLegendText.textContent.length)) - 1;
 
-					var layer = plot.getLayer(array[0][geneIndex+1]);
+					var layer = plot.getLayer(array[0][geneIndex + 1]);
 					geneLegendText.addEventListener("click", function() {
 						if (this.parentNode.getAttribute("class") === "enabledLegend") {
 							this.parentNode.setAttribute("class", "disabledLegend");
 							selectedGenes[geneIndex] = false;
-							plot.removeLayer(array[0][geneIndex+1]);
+							plot.removeLayer(array[0][geneIndex + 1]);
 						} else {
 							this.parentNode.setAttribute("class", "enabledLegend");
 							selectedGenes[geneIndex] = true;
-							plot.addLayer(array[0][geneIndex+1], layer.getPoints());
-							plot.getLayer(array[0][geneIndex+1]).setLineColor(layer.getLineColor());
-							plot.getLayer(array[0][geneIndex+1]).setLineWidth(layer.getLineWidth());
+							plot.addLayer(array[0][geneIndex + 1], layer.getPoints());
+							plot.getLayer(array[0][geneIndex + 1]).setLineColor(layer.getLineColor());
+							plot.getLayer(array[0][geneIndex + 1]).setLineWidth(layer.getLineWidth());
 						}
 					}, false);
 
 					legendDiv.appendChild(geneLegend);
-					
+
 					var colourSample = document.createElement("div");
 					geneLegend.appendChild(colourSample);
 					colourSample.className = "colourSample";
-					colourSample.style.backgroundColor = layer.getLineColor().toString("#rrggbb");
-					colourSample.style.height = 0.5 * document.getElementsByClassName("textLegend")[geneIndex].offsetHeight + "px";
-					colourSample.style.width = document.getElementsByClassName("textLegend")[geneIndex].offsetWidth + "px";
-					
+					colourSample.style.backgroundColor = layer.getLineColor()
+							.toString("#rrggbb");
+					colourSample.style.height = 0.5
+							* document.getElementsByClassName("textLegend")[geneIndex].offsetHeight
+							+ "px";
+					colourSample.style.width = document
+							.getElementsByClassName("textLegend")[geneIndex].offsetWidth
+							+ "px";
+
 					var slider;
 					colourSample.onclick = function() {
 						if (!editedGene[geneIndex]) {
@@ -115,9 +121,11 @@ function paintGraph(array, geneList, curveNo) {
 									editedGene[j] = false;
 								}
 							}
-							slider = new RangeSlider(auto[i], 0, 1, statesThresholds[geneIndex], "thresholdEditor", colourSample.style.backgroundColor);
-						}
-						else {
+							slider = new RangeSlider(auto[i], 0, 1,
+									statesThresholds[geneIndex],
+									"thresholdEditor",
+									colourSample.style.backgroundColor);
+						} else {
 							editedGene[geneIndex] = false;
 							slider = null;
 							var eltToEmpty = document.getElementById("thresholdEditor");
@@ -128,12 +136,13 @@ function paintGraph(array, geneList, curveNo) {
 					}
 				})(i);
 			}
-			
+
 			var sliderContainer = document.createElement("div");
 			sliderContainer.id = "thresholdEditor";
 			legendDiv.appendChild(sliderContainer);
 
-			// Add form element to select which curve of the tsv file will be displayed.
+			// Add form element to select which curve of the tsv file will be
+			// displayed.
 			var curvesListElt = document.createElement("select");
 			curvesListElt.setAttribute("id", "curvesList");
 			for (var i = 0; i < array.length - 1; i++) {
@@ -146,7 +155,8 @@ function paintGraph(array, geneList, curveNo) {
 				displayCurveNo = curvesListElt.selectedIndex;
 				paintGraph(graphArray, selectedGenes, displayCurveNo);
 			};
-			document.getElementById("graphBox").insertBefore(curvesListElt, document.getElementById("graph"));
+			document.getElementById("graphBox").insertBefore(curvesListElt,
+					document.getElementById("graph"));
 			curvesListElt.selectedIndex = displayCurveNo;
 
 			// Set the plot title and the axis labels
@@ -155,27 +165,31 @@ function paintGraph(array, geneList, curveNo) {
 			plot.activatePanning();
 			plot.activateZooming(1.1, p.CENTER, p.CENTER);
 
-			};
-	p.draw = function() {
-		// Clean the canvas
-		p.background(255);
+		};
+		p.draw = function() {
+			// Clean the canvas
+			p.background(255);
 
-		// Draw the plot
-		plot.beginDraw();
-		plot.drawBox();
-		plot.drawXAxis();
-		plot.drawYAxis();
-		plot.drawGridLines(GPlot.BOTH);
-		plot.drawTitle();
-		plot.drawLines();
-		plot.drawLabels();
-		
-		
-		
-		plot.endDraw();
-	};
+			// Draw the plot
+			plot.beginDraw();
+			plot.drawBox();
+			plot.drawXAxis();
+			plot.drawYAxis();
+			plot.drawGridLines(GPlot.BOTH);
+			for (var i = 0; i < editedGene.length; i++) {
+				if (editedGene[i]) {
+					for (var j = 0; j < auto[i]; j++) {
+						plot.getLayer(array[0][i + 1]).drawHorizontalLine(statesThresholds[i][j]);
+					}
+				}
+			}
+			plot.drawTitle();
+			plot.drawLines();
+			plot.drawLabels();
+
+			plot.endDraw();
+		};
 	};
 
 	graphSketch = new p5(plotGraph, "sketch-canvas");
 }
-
