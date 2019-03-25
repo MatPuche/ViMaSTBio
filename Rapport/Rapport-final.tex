@@ -3,6 +3,7 @@
 
 \input{Preambule.tex}
 
+
 \title{\textbf{Projet de groupe : {\bfseries Outil interactif de Visualisation et Manipulation de Séries Temporelles Biologiques }- "ViMaSTBio"}}
 
 
@@ -14,12 +15,17 @@
   Mathilde \textsc{Puche}, Oscar \textsc{Saadate}}
 
 \begin{document}
-\vbox{\vspace{-2cm}
+
+\vbox{\vspace{-1cm}
 
     \centering
-    \includegraphics[scale = .2]{images/LogoECN.png}
-    \maketitle 
-}
+    \includegraphics[scale = .35]{images/LogoECN.png}
+    \vspace{1.5cm}
+    \maketitle
+  }
+  
+\thispagestyle{empty}
+  
 \vfill
 \begin{flushright} 
       Encadrants du projet : Olivier \textsc{Roux} et Samuel \textsc{Buchet}
@@ -34,6 +40,7 @@
 \begingroup
 \let\cleardoublepage\clearpage
 \tableofcontents
+\setcounter{page}{1}
 \endgroup
 \newpage
 \section{Introduction}
@@ -92,5 +99,10 @@
 \bigbreak
 
 \input{fichiers/conclusion.tex}
+
+\newpage
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{fichiers/bibliographie}
 
 \end{document}
