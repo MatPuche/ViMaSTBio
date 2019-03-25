@@ -80,8 +80,10 @@ function paintAuto(transitions, auto) {
                 var y = 140+(4-parseInt(curTrans[0][0]))*50-(parseInt(curTrans[0][1])-parseInt(curTrans[0][0]))*25;
                 var h = 2+(parseInt(curTrans[0][1])-parseInt(curTrans[0][0]))*50;
 
+
+
                 try{texte =  curTrans.slice(1).reduce(reducer);}
-                catch(e){texte = ""};
+                catch{texte = ""}
                 drawArc(texte, parseInt(curTrans[0][0]), parseInt(curTrans[0][1]), id, k, num_arc, coordonnees, first, p);
                 num_arc+=1;
                 e1 = curTrans[0][0];
