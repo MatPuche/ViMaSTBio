@@ -3,15 +3,12 @@
 "G2" [0,1]
 "G3" [0,1]
 
-"G0" 0 -> 1 when "b"=1 and "c"=1
+"G0" 0 -> 1 when "G1"=1 and "G2"=1
 
-"G1" 0 -> 1 when "d"=1
+"G1" 0 -> 1 when "G3"=1
 "G1" 0 -> 2
 "G1" 2 -> 1
 
-"G2" 0 -> 1 when "d"=1
+"G2" 0 -> 1 when "G1"=1
 
-"G3" 0 -> 1 when "b"=1
-"G4" 0 -> 1 when "c"=1
-
-initial_context "a" = 0, "b" = 0, "c" = 0, "d" = 0
+"G3" 0 -> 1 when "G2"=1
