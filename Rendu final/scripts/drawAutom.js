@@ -22,7 +22,7 @@ function paintAuto(transitions, auto) {
       var canvas;
 
       // Create the canvas
-			canvas = p.createCanvas(400*auto.length, 350);
+			canvas = p.createCanvas(200*auto.length, 350);
 
       return canvas;
     }
