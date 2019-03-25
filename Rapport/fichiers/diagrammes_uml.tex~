@@ -16,9 +16,7 @@ Nous avons réalisé les diagrammes de séquence et d'utilisation de notre proje
 \bigbreak
 \begin{figure}[!h]
     \center
-    \includegraphics[scale = .65]{images/utilisation.png}
+    \includegraphics[scale = .45]{images/utilisation.png}
    \caption{Diagramme d'utilisation}
- \end{figure}
+\end{figure}
 
-\bigbreak
-\bigbreak
