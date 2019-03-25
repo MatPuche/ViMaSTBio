@@ -64,7 +64,7 @@ function paintAuto(transitions, auto) {
     			  // first outgoing transition
 
               var e1 = -1;
-              const reducer = (x, y) => x + " and " +  y;
+              const reducer = (x, y) => x + "\n" +  y;
 
 
               for (var i = 0, c = transitions[id].length; i < c; i++) {
