@@ -1,0 +1,28 @@
+
+Notre application a été écrite en Javascript. Elle assure plusieurs fonctionnalités, permettant à l'utilisateur d'effectuer les différentes actions expliquées ci-dessous.
+\bigbreak
+\subsection{Chargement des fichiers .tsv et .an}
+
+\bigbreak
+Le programme doit permettre de charger les fichiers .tsv et .an correspondants à des automates et à des chronogrammes. Au lancement du programme deux fenêtres s’affichent, avec un bouton dans chaque  afin de charger le fichier correspondant. On ne peut dans chaque fenêtre charger que le bon type de fichier. Attention cependant, les fichiers à rentrer sont laissés aux choix de l’utilisateur mais s’il ne sont pas correspondant le logiciel marchera tout de même, il convient donc de faire attention au fichier chargés.
+Une fois les fichiers chargés ils sont directement affichés dans les fenêtres correspondantes.
+\bigbreak
+
+\subsection{Selection des gènes}
+\bigbreak
+Le logiciel permet de sélectionner les gènes à afficher, pour cela il y a une légende sous les chronogrammes avec tous les numéros de gènes affichés si l’on clique dessus on n’affiche plus le gène et l’automate correspondant, si l’on reclique ils apparaissent à nouveau.
+\bigbreak
+
+\subsection{Selection d'une fenêtre temporelle}
+\bigbreak
+Le chronogramme est déplaçable et il est possible de zoomer afin mieux ajuster les niveaux. Le zoom se fait avec la molette de la souris ou à deux doigts sur un pad. Pour le déplacement de l’affichage, il faut cliquer puis déplacer la fenêtre et relâcher le bouton de la souris.
+\bigbreak
+
+\subsection{Selection d'un instant}
+\bigbreak
+Le logiciel permet de sélectionner un instant à l’aide d’un range slider,  cette instant est modifiable en prenant le sélecteur sur le range slider et en le faisant glisser. Lorsque le sélecteur se déplace d’instant en instant les états sur les automates s’allument en fonction des seuils définis sur les gènes correspondants.
+\bigbreak
+
+\subsection{Positionnement des seuils}
+\bigbreak
+Le logiciel permet de changer les seuils de chaques gènes pour l’activation des différents états. Pour cela lorsque l’on clique sur le carré de couleur sous un numéro de gène on affiche un slider contenant le nombre de seuils correspondant à l’automate auquel il est lié. En faisant bouger les différentes barres on modifie les valeurs des seuils ce qui influe sur l’état activé à chaque instant.

@@ -1,0 +1,27 @@
+
+\subsection{Estimation des coûts}
+
+\noindent Les différentes étapes de notre projet ainsi que le temps dédié à celles-ci sont résumées dans le tableau suivant.
+
+\begin{flushleft}
+\begin{tabular}{|l|c|r|}
+  \hline
+   Étape & Volume horaire \\
+  \hline
+   &  \\
+  \hline
+  Redaction du rapport & 4h\\
+ \hline
+ \end{tabular}
+ \end{flushleft}
+
+\noindent Au total, nous avons consacré environs ... heures pour ce projet. 
+  
+\bigbreak
+\bigbreak
+\subsection{Difficultés rencontrées}
+\bigbreak
+\subsubsubsection{Manque de documentation}
+Très peu de documentation sur la librairie
+\subsubsubsection{Représentation quasi manuelle}
+Dessin manuel des automates était très fastidieux
