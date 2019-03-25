@@ -83,7 +83,7 @@ function paintAuto(transitions, auto) {
 
 
                 try{texte =  curTrans.slice(1).reduce(reducer);}
-                catch{texte = ""}
+                catch(e){texte = ""};
                 drawArc(texte, parseInt(curTrans[0][0]), parseInt(curTrans[0][1]), id, k, num_arc, coordonnees, first, p);
                 num_arc+=1;
                 e1 = curTrans[0][0];
