@@ -213,13 +213,24 @@ function RangeSlider(n, minValue, maxValue, startValues, parentId, trackColour) 
 			thumbValues[movingThumbIndex] = newValue;
 			thumbLabelElts[movingThumbIndex].textContent = newValue;
 			var geneIndex;
-			for (var j = 0; j < editedGene.length; j++) {
-				if (editedGene[j]) {
-					geneIndex = j;
+			if (containerId==="thresholdEditor"){
+				for (var j = 0; j < editedGene.length; j++) {
+					if (editedGene[j]) {
+						geneIndex = j;
+					}
 				}
+				statesThresholds[geneIndex][movingThumbIndex] = newValue;
 			}
-			statesThresholds[geneIndex][movingThumbIndex] = newValue;
+			else if (containerId==="rangeSliderContainer"){
+			newValue = Math.floor((minmax[0] + (minmax[1] - minmax[0])*(thumbElts[movingThumbIndex].offsetLeft - trackElt.offsetLeft)/trackWidth));
+			var pointNb=0;
+			while (graphArray[1][0][pointNb]< newValue && (graphArray[1][0].length-1>pointNb) ){
+				pointNb=pointNb+1
+			}
+			time=graphArray[1][0][pointNb];
+			}
 		}
+		
 	};
 
 	// Release the focus on the thumb
