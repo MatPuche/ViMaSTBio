@@ -1,0 +1,22 @@
+Nous avons réalisé les diagrammes de séquence et d'utilisation de notre projet afin de mieux en comprendre les enjeux et de visualiser la conception de notre système.
+\bigbreak
+\bigbreak
+\bigbreak
+
+\begin{figure}[!h]
+\bigbreak
+\bigbreak
+   \centering
+    \includegraphics[scale = .6]{images/sequence.png}
+   \caption{Diagramme de séquence}
+\end{figure}
+\bigbreak
+\bigbreak
+\bigbreak
+\bigbreak
+\begin{figure}[!h]
+    \center
+    \includegraphics[scale = .45]{images/utilisation.png}
+   \caption{Diagramme d'utilisation}
+\end{figure}
+

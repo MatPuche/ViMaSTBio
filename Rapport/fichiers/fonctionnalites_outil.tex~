@@ -1,0 +1,12 @@
+
+Notre application a été écrite en Javascript. Elle assure plusieurs fonctionnalités, permettant à l'utilisateur d'effectuer les différentes actions expliquées ci-dessous.
+\bigbreak
+\subsection{Chargement des fichiers .tsv et .an}
+\bigbreak
+\subsection{Selection des gènes}
+\bigbreak
+\subsection{Selection d'une fenêtre temporelle}
+\bigbreak
+\subsection{Selection d'un instant}
+\bigbreak
+\subsection{Positionnement des seuils}

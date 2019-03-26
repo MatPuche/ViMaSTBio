@@ -1,0 +1,52 @@
+\subsection{Contexte}
+Pour analyser les données biologiques et comprendre les mécanismes qui régissent le passage d'un gène d'un état à un autre, il est nécessaire de prendre en compte plusieurs paramètres. 
+\newline 
+
+Premièrement, les échantillons d'étude pouvant aller jusqu'à regrouper plusieurs milliers de gènes, il faut sélectionner ceux qui sont pertinents pour effectuer une analyse précise. De même, une fenêtre temporelle d'étude doit être définie afin d'étudier les instants contenant les données exploitables.
+\newline 
+
+Une fois les gènes et la fenêtre de temps sélectionnés, il est intéressant pour les biologistes de pouvoir visualiser, dans une même représentation graphique, l'évolution temporelle de tous ces gènes.
+\newline 
+
+De plus, il leur faut pouvoir observer, à un instant donné, l'état de tous les gènes sélectionnés. Cela permet de trouver des correlations entre la transition d'un gène d'un état à un autre et l'état courant de chacun des autres gènes. M. Samuel Buchet et M. Olivier Roux ont choisi de représenter les gènes par des automates et ont déjà trouvé des conditions sur les transitions.
+\newline 
+
+Afin de vérifier ces dernières, une représentation graphique de l'évolution supposée par les automates et leurs transitions peut permettre aux biologistes d'effectuer une comparaison rapide avec la première courbe réelle.
+\newline 
+
+Ainsi, l'analyse des mécanismes biologiques requiert plusieurs étapes de manipulation et de représentation de données qui peuvent s'avérer être très fastidieuses et chronophages si elles sont effectuées à la main. 
+\bigbreak
+\bigbreak
+\subsection{Objectifs}
+Notre objectif a alors été de créer un outil facilitant la mise en oeuvre des étapes précédemment décrites. Cet outil devait afficher les représentations dynamiques suivantes :
+\begin{itemize}[leftmargin=1.5cm]
+    \item[•] Représentation temporelle des données fournies sur l'évolution des gènes, sous forme de chronogramme. Nous l'appellerons "\textit{chronogramme réel}" par la suite ;
+    \item[•] Représentation des automates étant liés aux états des gènes à un instant donné. Les différents états activés devaient être mis en évidence par une couleur ; 
+    \item[•] Représentation de l'évolution des gènes supposée par les automates sous forme de chronogramme discrétisé. Nous l'appellerons "\textit{chronogramme estimé}" par la suite.
+\end{itemize}
+\bigbreak
+\noindent De plus, l'outil devait assurer les fonctionnalités suivantes :
+
+\begin{itemize}[leftmargin=1.5cm]
+
+
+\item[•]\textbf{sélection des gènes} retenus pour l'étude, par la selection d'un fichier donné  ;
+
+\item[•]\textbf{sélection d'un gène} en particulier sur le chronogramme réel. Les seuils du gène ainsi isolé seront alors affichés et pourront être modifiés à l'aide d'un curseur déplaçable ;
+
+\item[•]\textbf{sélection d'une fenêtre temporelle} pour l'étude ;
+
+\item[•]\textbf{sélection d'un instant précis} sur la fenêtre temporelle du chronogramme réel pour la représentation des automates à cet instant donné ; 
+
+\item[•]\textbf{bouton d'affichage du chronogramme estimé} : l'appui sur ce bouton fera apparaître le graphique ;
+
+\item[•]\textbf{importation et exploitation de fichiers} (au format tsv ou an) contenant les données à représenter.
+
+\end{itemize}
+\bigbreak
+\bigbreak
+\subsection{Portée du logiciel}
+Au vu des objectifs précédemment établis, l'outil a donc une portée scientifique qui permettrait aux biologistes d'obtenir une représentation plus claire de leurs données et donc de pouvoir vérifier plus simplement leurs modèles et suppositions.
+\newline
+
+Il aurait également une dimension de vulgarisation, permettant aux biologistes, pas toujours à l'aise avec les représentations venant de l'informatique, de mieux comprendre le fonctionnement des modèles. La dimension de vulgarisation peut aussi s'étendre plus largement, dans la mesure où l'outil se trouvera normalement sur le site de l'équipe de M. Buchet et M. Roux, il permettrait à toute personne intéressée par le sujet de découvrir ce que fait l'équipe de recherche de manière simple et graphique.

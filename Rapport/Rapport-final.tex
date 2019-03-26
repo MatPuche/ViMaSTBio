@@ -1,0 +1,105 @@
+%\documentclass[14pt,a4paper]{article}
+\documentclass{article}
+
+\input{Preambule.tex}
+
+
+\title{\textbf{Projet de groupe : {\bfseries Outil interactif de Visualisation et Manipulation de Séries Temporelles Biologiques }- "ViMaSTBio"}}
+
+
+
+\author{
+  \\%
+  \\
+  Lucas \textsc{Deswarte}, Dorian \textsc{Malguid}, David \textsc{Malvoisin}, \\
+  Mathilde \textsc{Puche}, Oscar \textsc{Saadate}}
+
+\date{25 mars 2019}
+
+\begin{document}
+
+\vbox{\vspace{-1cm}
+
+    \centering
+    \includegraphics[scale = .35]{images/LogoECN.png}
+    \vspace{1.5cm}
+    \maketitle
+  }
+  
+\thispagestyle{empty}
+  
+\vfill
+\begin{flushright} 
+      Encadrants du projet : Olivier \textsc{Roux} et Samuel \textsc{Buchet}
+\end{flushright} 
+
+  
+\renewcommand{\contentsname}{Sommaire}
+
+\noindent
+
+\clearpage
+\begingroup
+\let\cleardoublepage\clearpage
+\setcounter{page}{1}
+\tableofcontents
+\endgroup
+\newpage
+\section{Introduction}
+\bigbreak
+\bigbreak
+
+\input{fichiers/introduction.tex}
+
+\bigbreak
+\bigbreak
+\bigbreak
+
+\section{Présentation du projet}
+\bigbreak
+\bigbreak
+
+\input{fichiers/presentation_projet.tex}
+
+\newpage
+\section{Diagrammes UML}
+\bigbreak
+\bigbreak
+
+\input{fichiers/diagrammes_uml.tex}
+
+\clearpage
+\newpage
+
+\section{Fonctionnalités de l'outil et réalisation}
+\bigbreak
+
+\input{fichiers/fonctionnalites_outil.tex}
+
+\newpage
+
+\section{Déroulement du projet}
+\bigbreak 
+\bigbreak
+
+\input{fichiers/deroulement_projet.tex}
+
+\newpage
+\section{Axes d'amélioration}
+\bigbreak
+\input{fichiers/axes_amelioration.tex}
+\bigbreak
+
+\newpage
+\section{Conclusion}
+\bigbreak
+\bigbreak
+
+\input{fichiers/conclusion.tex}
+
+\newpage
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{fichiers/bibliographie}
+
+\end{document}

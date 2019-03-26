@@ -1,0 +1,5 @@
+utiliser noLoop 							non
+désactiver la barre de défilement					non
+remettre les événements dans la fenêtre des automates			?
+ajouter le redimensionnement au canvas		
+vérifier le offsetHeight

@@ -1,0 +1,45 @@
+La réalisation de l'outil a été principalement divisée en deux parties distinctes : la représentation du chronogramme réel et celle des automates. Puis, il a fallut faire le lien entre ces deux sections afin faire correspondre les données de l'une avec celles de l'autre. 
+\bigbreak
+\subsection{Le chronogramme réel}
+\bigbreak
+\subsubsection{Lecture du fichier .tsv}
+\bigbreak
+La lecture du fichier .tsv se fait avec le programme parseTsv. Tout d’abord on met le contenu du fichier dans le tableau curves en séparant par jeu de données qui rentrent dans une ligne. On a donc dans la première case de notre tableau la liste des noms des axes. 
+On sépare à l’aide de split ensuite chaque jeu de données par ligne. 
+On a donc dans notre tableau la liste des légende et les tableau correspondant à chaque jeu de données séparés par lignes (chaque ligne est un élément du tableau).
+
+On sépare ensuite ces lignes par tabulation et obtient donc une nouvelle dimension dans notre tableau qui à maintenant 3 dimensions. 
+La première ligne contient les légendes, ensuite viennent chaque jeu de données.
+
+Ensuite la première ligne de chaque jeu de données contient le temps correspondant à chaque abscisse et les lignes suivantes correspondent aux valeurs de chaque gènes.
+On transpose donc les matrices correspondant à chaque jeu de données afin d’avoir chaque ligne contenant l’abscisse et l’ordonnée de chaque point.
+C’est ensuite le fichier readTsvFile qui prend le relais et appel la fonction parseTsv avec le fichier choisi par l’utilisateur et met le tableau retourné par parseTsv dans la variable globale graphArray.
+
+\bigbreak
+
+
+\subsection{Les automates}
+
+\bigbreak
+\subsubsection{Lecture du fichier .an }
+Avant de pouvoir commencer la représentation des automates, il a d'abord fallu réaliser un parser permettant la lecture des fichiers .an fournis par M. Samuel Buchet. Ces derniers contiennent le nom des gènes étudiés, le nombre d'états que chacun d'eux peut prendre ainsi que leurs différentes transitions possibles. En utilisant les expressions régulières nous avons pu extraire ces informations et les stocker dans des variables globales. Cela implique alors que le format des données stockées sur les fichiers .an doivent toujours être le même et suivre une structure identique, ce qui nous avait été confirmé par M. Samuel Buchet. 
+\bigbreak
+\subsubsection{Représentation des automates}
+Une fois ces données récupérées il a fallu représenter chacun des gènes sous forme d'automate. Pour ce faire, nous avons choisi, ici aussi, d'utiliser p5 qui offre de nombreuses fonctionnalités de dessin en JavaScript. 
+\newline
+
+Cependant, après avoir longuement cherché s'il permettait de construire automatiquement, ou du moins plus facilement, des automates et n'avoir rien trouvé de concluant, nous avons décidé de les représenter par nous même en dessinant uns à uns les différentes parties avec des arcs, des cercles, des rectangles, etc. Ce fut alors un long travail de tatonnements et de calculs pour trouver les dimentions adaptées à la représentation voulue, au nombre d'automates à placer dans la page et à leur nombre d'états respectifs.
+
+\bigbreak
+\subsubsection{Les transitions}
+Finalement, les transitions possibles de chacun des gènes devaient être représentées. Nous avons pour cela dessiné des arcs à l'aide de courbes de Béziers et ajouté à leur côté les conditions nécessaires à leur franchissement lorsqu'il y en a. 
+\newline
+
+De plus, les transitions d'un même gène pouvant être nombreuses, il est possible que les différents arcs se chevauchent et que le schéma soit rapidement illisible. Pour éviter cela, nous avons ajouté la possibilité de déplacer les arcs comme nous le souhaitons et ainsi d'agencer l'affichage à notre guide. 
+\bigbreak
+\bigbreak
+\subsection{Le lien entre chronogramme et automates}
+\bigbreak
+
+Les parties chronogramme réel et automates qui étaient jusqu’ici totalement indépendantes dans leur représentation devaient finalement être liées. En effet, les automates représentent les gènes sélectionnés dans le chronogramme réel et doivent alors, selon l’instant choisi, afficher quel est l’état courant de chacun des gènes. 
+Pour ce faire, nous avons principalement utilisé des variables globales actualisées à chaque fois qu’un gène est ajouté ou supprimé ou qu’un instant est sélectionné. La fonction Draw() de p5.js s’exécutant de manière continuelle, la représentation se met alors à jour instantanément. 
