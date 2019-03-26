@@ -1,5 +1,6 @@
 .rangeSliderTrack {
     position: absolute;
+    background-color: #ccc;
 }
 
 .rangeSliderThumb {

@@ -130,18 +130,15 @@ function RangeSlider(n, minValue, maxValue, startValues, parentId, trackColour) 
 			(function(j) {
 				// Center vertically the thumb in the parent container (won't
 				// move vertically)
-				thumbElts[j].style.top = (refHeight - thumbElts[j].offsetHeight)
-						/ 2 + "px";
+				thumbElts[j].style.top = (refHeight - thumbElts[j].offsetHeight) / 2 + "px";
 				// Place horizontally the thumb and its label to their starting
 				// position on the track relatively to starting value
-				thumbElts[j].style.left = trackElt.offsetLeft
-						+ trackWidth * (thumbValues[j] - minmax[0])/(minmax[1] - minmax[0]) - thumbWidth / 2 + "px";
+				thumbElts[j].style.left = trackElt.offsetLeft + trackWidth * (thumbValues[j] - minmax[0])/(minmax[1] - minmax[0]) - thumbWidth / 2 + "px";
 
 				// Place vertically the label above its thumb
 				thumbLabelElts[j].style.top = thumbElts[j].offsetTop - 4*labelHeight + "px";
 				// Place horizontally the label centered on its thumb
-				thumbLabelElts[j].style.left = trackElt.offsetLeft
-						+ trackWidth * (thumbValues[j] - minmax[0])/(minmax[1] - minmax[0]) - labelWidth / 2 + "px";
+				thumbLabelElts[j].style.left = trackElt.offsetLeft + trackWidth * (thumbValues[j] - minmax[0])/(minmax[1] - minmax[0]) - labelWidth / 2 + "px";
 			})(i);
 		}
 
