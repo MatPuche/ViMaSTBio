@@ -18,6 +18,9 @@ var editedGene = [];
 // contain genes states thresholds
 var statesThresholds = [];
 
+// contain instant for which the automata states are activated
+var time = 0;
+
 // booleans which are set to true in onload function when corresponding file are
 // read
 var tsvFileLoaded, anFileLoaded;
