@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 function parseTsv(fileContent) {
 		// Separate curves from each other, first element is the legend
 		var curves = fileContent.split("\n" + String.fromCharCode(13) + "\n");
@@ -12,7 +8,7 @@ function parseTsv(fileContent) {
 		for (var i = 1; i < curves.length; i++) {
 			curves[i] = curves[i].split("\n");
 		}
-		
+
 		// Remove quotes from the axes names if they exist
 		for (var i = 0; i < curves[0].length; i++) {
 			curves[0][i] = curves[0][i].replace(/\"/g,"");

@@ -70,10 +70,8 @@ document.getElementById('anFile').onchange = function(){
     transitions['initial_context'] = (RegExp.$1);
     //and finally the total number of arrows
     transitions['nbre_arcs'] = nbre_arcs;
-    console.log(transitions);
-    console.log(auto);
-    console.log("CLICK");
 
+    //to draw the automata
     paintAuto(transitions, auto);
   };
 

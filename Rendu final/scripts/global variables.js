@@ -32,7 +32,7 @@ var transitions = {};
 // array which contains the number of states that each automaton can take
 var auto = [];
 
-// arry which contains the current activated state for each of the automaton
+// array which contains the current activated state for each of the automaton
 var etatsEnCours = [];
 
 var dragged = false;
@@ -40,6 +40,7 @@ var resized = false;
 var traine = false;
 var xx, yy;
 
+//function which reset all variables in order to load a new .an file
 var resetAutomata = function() {
 	auto = [];
 	transitions = {};
@@ -50,7 +51,9 @@ var resetAutomata = function() {
 	}
 }
 
+//function which reset all variables in order to load a new .tsv file
 var resetGraph = function() {
+  etatsEnCours = [];
 	graphArray = [];
 	selectedGenes = [];
 	graphSketch = null;
@@ -59,6 +62,7 @@ var resetGraph = function() {
 	softResetGraph();
 }
 
+//function which reset all variables in order to change the displayed curve
 var softResetGraph = function() {
 	editedGene = [];
 	var graphCanvas = document.getElementById("defaultCanvas0");
