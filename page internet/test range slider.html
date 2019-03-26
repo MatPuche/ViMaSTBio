@@ -6,11 +6,11 @@
     
     <body>
         <script src="range_slider.js"></script>
-        <div id="container">
+        <div id="container" style="width: 600px; height: 320px; left: 100px; top: 300px; position: relative;">
             <script>
             	const min = 0;
             	const max = 1;
-            	const n = 4;
+            	const n = 5;
             	var tab = [min];
             	for (var i = 1; i < n-1; i++) {
             		tab.push(Math.floor(100*(min + (max-min)*i/(n-1)))/100);
