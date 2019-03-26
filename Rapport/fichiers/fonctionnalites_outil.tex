@@ -1,16 +1,80 @@
 
-Notre application a été écrite en Javascript. Elle assure plusieurs fonctionnalités, permettant à l'utilisateur d'effectuer les différentes actions expliquées ci-dessous.
+Nous allons dans cette partie présenter les différentes fonctionnalités du logiciel et expliquer comment nous les avons réalisées.
+
 \bigbreak
+\subsection{La page html}
+\bigbreak
+
+Les fonctionnalités tournant autour de deux axes principaux, le graphe et les automates, il paraissait logique de les afficher dans deux espaces séparés sur la page. Le choix du fenêtrage offre une bonne ergonomie et permet de naviguer dans l’outil de manière confortable (grâce à l’habitude des systèmes d’exploitation). En outre les fonctions créées pour rendre les fenêtres utilisables ont été reprises dans d’autres parties du code (déplacement des flèches de transition des automates, curseurs du RangeSlider).
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[scale = .3]{images/html.png}
+  \caption{Les deux fenêtres de ViMaSTBio}
+\end{figure}
+\bigbreak
+
+La structure telle qu’elle apparaît ci-dessus correspond à l’architecture de la page décrite dans le fichier html. Tout le reste est généré par le JavaScript au chargement des fichiers.
+
+Une fois construite, la page html a servi de base à l’intégration des fonctionnalités et a fourni un environnement graphique permettant de tester sans trop de difficultés les nouveautés.
+
+\bigbreak
+\newpage
 \subsection{Chargement des fichiers .tsv et .an}
 
 \bigbreak
-Le programme doit permettre de charger les fichiers .tsv et .an correspondants à des automates et à des chronogrammes. Au lancement du programme deux fenêtres s’affichent, avec un bouton dans chaque  afin de charger le fichier correspondant. On ne peut dans chaque fenêtre charger que le bon type de fichier. Attention cependant, les fichiers à rentrer sont laissés aux choix de l’utilisateur mais s’il ne sont pas correspondant le logiciel marchera tout de même, il convient donc de faire attention au fichier chargés.
-Une fois les fichiers chargés ils sont directement affichés dans les fenêtres correspondantes.
+
+Le programme doit permettre de charger les fichiers .tsv et .an correspondant à des automates et à des chronogrammes. Au lancement du programme deux fenêtres s’affichent. Un bouton dans chacune d’elles permet de charger le fichier correspondant. On ne peut dans chaque fenêtre charger que le bon type de fichier : fichiers .tsv dans la partie graphe et fichiers .an dans la partie automate. Cependant, le choix des fichiers est laissé libre à  l’utilisateur qui peut alors en sélectionner deux qui ne correspondent pas entre eux.  Dans ce cas le logiciel n'affichera que les courbes sans les automates, ou avec les mauvais automates. Il convient donc de faire attention aux fichiers sélectionnés.
 \bigbreak
 
-\subsection{Selection des gènes}
+\subsubsection{Lecture et traitement du fichier .tsv}
 \bigbreak
-Le logiciel permet de sélectionner les gènes à afficher, pour cela il y a une légende sous les chronogrammes avec tous les numéros de gènes affichés si l’on clique dessus on n’affiche plus le gène et l’automate correspondant, si l’on reclique ils apparaissent à nouveau.
+La lecture du fichier .tsv se fait avec le programme parseTsv. Le fichier .tsv contient 3 niveaux d’information : le jeu de données, au sein duquel on va retrouver les différentes valeurs pour les gènes ainsi que le temps. On sépare donc les informations au sein d’un tableau qui contient comme première ligne la légende du graphes puis chaque jeu de données contenant les listes des différentes valeurs des gènes à un instant donné.
+\bigbreak
+
+\subsubsection{Lecture et traitement du fichier .an}
+\bigbreak
+La lecture du fichier .an se fait directement dans le fichier readAnFile.js. Il a d'abord fallu réaliser un parser permettant la lecture des fichiers .an fournis par M. Samuel Buchet. Ces derniers contiennent le nom des gènes étudiés, le nombre d'états que chacun d'eux peut prendre ainsi que leurs différentes transitions possibles. En utilisant les expressions régulières nous avons pu extraire ces informations et les stocker dans deux variables globales : auto et transitions. Le premier est un tableau contenant le nombre d’états que peut prendre chacun des gènes. Le second est un dictionnaire contenant pour chacun des gènes, ses transitions et les conditions associées.
+
+Il est important de noter que cette lecture implique que le format des données stockées sur les fichiers .an doivent toujours être le même et suivre une structure identique, ce qui nous avait été confirmé par M. Samuel Buchet. 
+\bigbreak
+
+\newpage
+\subsection{Représentation des gènes}
+\bigbreak
+\subsubsection{Représentation graphique et interactions (zoom et légende)}
+\bigbreak
+L’affichage du graphe se sert pleinement de grafica qui permet d’afficher simplement des graphes. On utilise donc les différentes fonctions dédiées à cela.
+
+Le choix du jeu de données se fait à l’aide de la liste déroulante au-dessus du graphe. Puis, nous n’avons plus qu'à aller chercher les données à afficher.
+
+Nous affichons indépendamment chaque courbes, ce qui permet de les afficher ou non lorsque que l’on clique sur le nom correspondant dans la légende.
+
+Cette légende, dont les données sont récupérées dans le tableau avec toutes les données du graphe, s’affiche grâce à des fonctions standard de graphica. Cependant, c’est sur cet affichage que se superposent les clickListener qui permettent ou non d’afficher les courbes.
+
+Il est aussi possible de zoomer et déplacer le graphe à l’aide de la souris, afin de pouvoir être plus précis dans le choix des seuils. Le zoom et le déplacement se fait grâce à des fonction de grafica qui dissocient les coordonnées dans le graphe et les coordonnées dans la fenêtre. 
+\bigbreak
+\subsubsection{Représentation des automates}
+\bigbreak
+Lorsque les gènes sont sélectionnés, il faut pouvoir les représenter sous forme d'automate. Pour ce faire, nous avons choisi, ici aussi, d'utiliser p5 qui offre de nombreuses fonctionnalités de dessin en JavaScript.
+
+Cependant, après avoir longuement cherché s'il permettait de construire automatiquement, ou du moins plus facilement, des automates et n'avoir rien trouvé de concluant, nous avons décidé de les représenter par nous même en dessinant uns à uns les différentes parties avec des arcs, des cercles, des rectangles, etc. Ce fut alors un long travail de tâtonnements et de calculs pour trouver les dimensions adaptées à la représentation voulue, au nombre d'automates à placer dans la page et à leur nombre d'états respectifs.
+
+Ainsi, la représentation des automates se fait en permanence à travers la fonction paintAuto() puisqu’elle utilise la fonction draw de p5, exécutée de manière infinie.
+\bigbreak
+
+\subsection{RangeSlider}
+
+À cause du manque de documentation de grafica, il nous paraissait difficile de déplacer efficacement un marqueur dans le graphe à l’aide de la souris : il n’y a pas de relation explicite entre les coordonnées du pointeur de souris et les coordonnées dans le graphe, et une simple règle de proportionnalité ne pouvait pas convenir du fait de la possibilité d’agrandir le graphe ou de déplacer son contenu. Nous avons donc décidé de créer un nouveau composant réalisant l’interface entre l’utilisateur et le graphe.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[scale = .7]{images/slider.png}
+  \caption{Un RangeSlider à 5 curseurs}
+\end{figure}
+N’ayant pas trouvé de librairie supportant plus de deux curseurs à la fois - il en faut n-1 pour chaque automate, avec n le nombre d’états de l’automate - nous avons décidé de coder notre propre classe. Grâce aux possibilités du DOM (html/css/javascript), nous avons pu réaliser sans trop de difficultés un composant hautement personnalisable, intégrant les comportements élémentaires que nous pouvions attendre : non dépassement des curseurs voisins pendant le déplacement, calcul et affichage des mises à jour des valeurs représentées par la position des curseurs.
+
+Cet objet est utilisé pour tracer deux types de marqueur sur le graphe : la barre temporelle et les barres de seuil. que nous allons détailler dans les parties suivantes.
 \bigbreak
 
 \subsection{Selection d'une fenêtre temporelle}
@@ -18,11 +82,64 @@ Le logiciel permet de sélectionner les gènes à afficher, pour cela il y a une
 Le chronogramme est déplaçable et il est possible de zoomer afin mieux ajuster les niveaux. Le zoom se fait avec la molette de la souris ou à deux doigts sur un pad. Pour le déplacement de l’affichage, il faut cliquer puis déplacer la fenêtre et relâcher le bouton de la souris.
 \bigbreak
 
-\subsection{Selection d'un instant}
+\subsection{Selection d'un temps dans le graphe}
 \bigbreak
-Le logiciel permet de sélectionner un instant à l’aide d’un range slider,  cette instant est modifiable en prenant le sélecteur sur le range slider et en le faisant glisser. Lorsque le sélecteur se déplace d’instant en instant les états sur les automates s’allument en fonction des seuils définis sur les gènes correspondants.
+La sélection du temps se fait sensiblement de la même manière que la sélection des seuils. Comme le montre la figure suivante, un curseur indique l’instant actuellement sélectionné pour la représentation des automates :
+
+\vbox{
+  \centering
+  \includegraphics[scale = 0.5]{images/instant.png}
+}
+\bigbreak
+ On a donc un Slider qui modifie la variable globale time. Cette variable sert à afficher la barre verticale permettant de se repérer dans le graphe.
+Cette variable sert aussi à repérer le temps où l’on est, avec ce temps on trouve donc l’abscisse la plus proche dans le tableau array.
+
+Ensuite à l’aide d’une boucle for on regarde pour chaque gène la valeur à cet instant, on la compare ensuite avec les seuils puis on modifie la case correspondante dans la variable globale etatsEnCours. 
+
 \bigbreak
 
-\subsection{Positionnement des seuils}
+\subsection{Les seuils}
 \bigbreak
-Le logiciel permet de changer les seuils de chaques gènes pour l’activation des différents états. Pour cela lorsque l’on clique sur le carré de couleur sous un numéro de gène on affiche un slider contenant le nombre de seuils correspondant à l’automate auquel il est lié. En faisant bouger les différentes barres on modifie les valeurs des seuils ce qui influe sur l’état activé à chaque instant.
+\subsubsection{Déplacement des seuils de transition}
+\bigbreak
+L’édition des seuils de transition sur le graphe permet de choisir les valeurs d’activation marquant la frontière entre les états des automates.
+Pour accéder au mode d’édition il suffit de cliquer sur les rectangles en couleur sous les gènes :
+
+\begin{figure}[!h]
+  \includegraphics[scale = 0.8]{images/couleur_gene.png}
+  \caption{Légende représentant des noms de gènes et le rectangle de couleur associée.}
+\end{figure}
+
+\begin{figure}[!h]
+  \includegraphics[scale = .7]{images/seuil_graphe.png}
+  \caption{Mode d’édition du seuil entre les deux états du gène G4.}
+\end{figure}
+
+Quand l’édition est lancée, les courbes des autres gènes sont retirées du graphe et l’activation ou la désactivation de l’affichage des courbes (en cliquant sur le nom du gène cette fois) ne sont plus disponibles afin d’éviter que l’application ne fonctionne plus ce qui forcerait à réinitialiser la page. Le curseur déplace la barre à l’abscisse de la valeur affichée au-dessus, et la nouvelle valeur actualise l’état en cours de l’automate sélectionné par l’intermédiaire de la variable globale (on rappelle que les automates sont redessinés en boucle par p5).
+
+Pour quitter le mode d’édition, il suffit de cliquer à nouveau sur la couleur du gène (identique à celle de la barre du RangeSlider) pour ramener à l’affichage normal, ou d’éditer un nouveau gène pour basculer directement sur son mode d’édition.
+Attention, si le fichier d’automates correspondant n’est pas chargé, les seuils n’apparaissent pas sur le slide.
+
+\bigbreak
+\subsubsection{Les transitions}
+\bigbreak
+
+En fonction des seuils établis précédemment, les transitions possibles de chacun des gènes devaient être représentées. Nous avons pour cela dessiné des arcs à l'aide de courbes de Béziers et ajouté à leur côté les conditions nécessaires à leur franchissement lorsqu'il y en a. p5.js proposait alors une solution adaptée avec la fonction Bezier permettant de faire une interpolation à 4 points. 
+
+De plus, les transitions d'un même gène pouvant être nombreuses, il est possible que les différents arcs se chevauchent et que le schéma soit rapidement illisible. Pour éviter cela, nous avons ajouté la possibilité de déplacer les arcs comme nous le souhaitons et ainsi d'agencer l'affichage à notre guide, en plaçant les transitions dans des éléments <div> déplaçables. 
+
+
+
+\bigbreak
+
+\subsection{Le lien entre chronogramme et automates}
+
+\bigbreak
+
+Les parties chronogramme réel et automates qui étaient jusqu’ici totalement indépendantes dans leur représentation devaient finalement être liées. En effet, les automates représentent les gènes sélectionnés dans le chronogramme réel et doivent alors, selon l’instant choisi, afficher quel est l’état courant de chacun des gènes. 
+
+Pour ce faire, nous avons principalement utilisé des variables globales actualisées à chaque fois qu’un gène est ajouté ou supprimé ou qu’un instant est sélectionné. La fonction Draw() de p5.js s’exécutant en continu, la représentation se met alors à jour instantanément.
+
+Ceci permet de résoudre une difficulté à laquelle nous avons dû faire face : le chargement des fichiers s’exécute de manière asynchrone(dans les callbacks), c’est-à-dire en parallèle de l’exécution de la suite du code. Ainsi il était difficile de manipuler les valeurs hors des callbacks, sous peine qu’elles ne soient pas encore définies, ce qui devenait contraignant lorsqu’il fallait les partager.
+
+La combinaison des variables globales et des gestionnaires d’événement permet d’outrepasser cette difficulté : l’utilisateur interagit avec la page uniquement quand les composants sont placés, autrement dit après la lecture des fichiers et l’écriture des variables globales.
