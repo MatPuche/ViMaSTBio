@@ -139,11 +139,6 @@ function paintGraph(array, geneList, curveNo) {
 			
 			hiddenLayers = [];
 			function displayOnlyLayer(layerId) {
-				if (editedGene.some(function(a) {return a;})) {
-					displayAllLayers();
-					hiddenLayers = [];
-				}
-				var layers = [];
 				for (var i = 0; i < geneList.length; i++) {
 					if (layerId !== plotLayers[i].getId()) {
 						hiddenLayers.push(plotLayers[i]);
@@ -210,7 +205,7 @@ function paintGraph(array, geneList, curveNo) {
 			plot.drawGridLines(GPlot.BOTH);
 			for (var i = 0; i < editedGene.length; i++) {
 				if (editedGene[i]) {
-					for (var j = 0; j < auto[i]; j++) {
+					for (var j = 0; j < auto[i]-1; j++) {
 						plot.getLayer(array[0][i + 1]).drawHorizontalLine(statesThresholds[i][j], "#000000", 3);
 					}
 				}
