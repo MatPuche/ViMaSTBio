@@ -126,7 +126,7 @@ function paintGraph(array, geneList, curveNo) {
 									editedGene[j] = false;
 								}
 							}
-							slider = new RangeSlider(auto[i-1]-1, 0, 1,	statesThresholds[geneIndex], "thresholdEditor",
+							slider = new RangeSlider(auto[i-1]-1, 0, 1,statesThresholds[geneIndex], "thresholdEditor",
 									colourSample.style.backgroundColor);
 							displayOnlyLayer(array[0][geneIndex+1]);
 						} else {
@@ -139,6 +139,11 @@ function paintGraph(array, geneList, curveNo) {
 			
 			hiddenLayers = [];
 			function displayOnlyLayer(layerId) {
+				if (editedGene.some(function(a) {return a;})) {
+					displayAllLayers();
+					hiddenLayers = [];
+				}
+				var layers = [];
 				for (var i = 0; i < geneList.length; i++) {
 					if (layerId !== plotLayers[i].getId()) {
 						hiddenLayers.push(plotLayers[i]);
@@ -185,6 +190,8 @@ function paintGraph(array, geneList, curveNo) {
 			document.getElementById("graphBox").insertBefore(curvesListElt,
 					document.getElementById("graph"));
 			curvesListElt.selectedIndex = displayCurveNo;
+			
+			var sliderTime = new RangeSlider(1,0,array[1][0][array[1][0].length-2],[0],"rangeSliderContainer","#cccccc"); //nombre curseur
 
 			// Set the plot title and the axis labels
 			plot.setTitleText("Gene expression");
@@ -205,11 +212,12 @@ function paintGraph(array, geneList, curveNo) {
 			plot.drawGridLines(GPlot.BOTH);
 			for (var i = 0; i < editedGene.length; i++) {
 				if (editedGene[i]) {
-					for (var j = 0; j < auto[i]-1; j++) {
+					for (var j = 0; j < auto[i]; j++) {
 						plot.getLayer(array[0][i + 1]).drawHorizontalLine(statesThresholds[i][j], "#000000", 3);
 					}
 				}
 			}
+			plot.drawVerticalLine(time,"#000000",3);
 			plot.drawTitle();
 			plot.drawLines();
 			plot.drawLabels();

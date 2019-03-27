@@ -29,7 +29,6 @@ body {
 }
 
 #graphLegend {
-	margin-top: 2%;
 	text-align: center;
 	min-width: 99%;
 	display: inline-block;
@@ -123,11 +122,8 @@ h2 {
 	position: relative;
 	width: 100%;
 	height: 15%;
-	margin-top: 5%;
-	margin-bottom: 6%;
 	visibility: visible;
 }
-
 select {
 	margin-left: 0.5%;
 	margin-top: 0.5%;

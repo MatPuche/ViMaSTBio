@@ -3,8 +3,21 @@
  */
 
 function parseTsv(fileContent) {
+		var separator = String.fromCharCode(10);
+		var found = false;
+		var k = 0;
+		while(!found) {
+			if (fileContent.charAt(k) === String.fromCharCode(10)) {
+				found = true;
+				if (fileContent.charAt(k+1) === String.fromCharCode(13)) {
+					separator += String.fromCharCode(13);
+				}
+				separator += String.fromCharCode(10);
+			}
+			k = k+1;
+		}
 		// Separate curves from each other, first element is the legend
-		var curves = fileContent.split("\n" + String.fromCharCode(13) + "\n");
+		var curves = fileContent.split(separator);
 
 		// Extract axes names from the first element, and split curves data
 		// into arrays of lines
