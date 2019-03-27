@@ -191,7 +191,7 @@ function paintGraph(array, geneList, curveNo) {
 					document.getElementById("graph"));
 			curvesListElt.selectedIndex = displayCurveNo;
 			
-			var sliderTime = new RangeSlider(1,0,array[1][0][array[1][0].length-2],[0],"rangeSliderContainer","#cccccc"); //nombre curseur
+			var sliderTime = new RangeSlider(1,0,array[1][0][array[1][0].length-1],[0],"rangeSliderContainer","#cccccc"); //nombre curseur
 
 			// Set the plot title and the axis labels
 			plot.setTitleText("Gene expression");

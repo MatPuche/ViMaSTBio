@@ -38,6 +38,9 @@ function parseTsv(fileContent) {
 				curves[i][j] = curves[i][j].split("\t");
 			}
 		}
+		if(curves[curves.length-1][curves[curves.length-1].length-1].length <= 1) {
+			curves[curves.length-1].pop();
+		}
 
 		// Transform data storage : curves[curve nb][gene nb][activation
 		// value nb]
