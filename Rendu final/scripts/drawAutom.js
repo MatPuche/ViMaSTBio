@@ -193,9 +193,9 @@ function drawArc(texte, e1, e2, a, k, num_arc, coordonnees, first, p) {
         p.bezier(x1, y1, coordonnees[num_arc][0], coordonnees[num_arc][1] + (e1 - e2 - 1) * 25 + 20, coordonnees[num_arc][0], coordonnees[num_arc][1] - (e1 - e2 - 1) * 25 - 20, x4, y4);
         xx = p.bezierPoint(x1, coordonnees[num_arc][0], coordonnees[num_arc][0], x4, 1 / 2);
         yy = p.bezierPoint(y1, coordonnees[num_arc][1] + (e1 - e2 - 1) * 25 + 20, coordonnees[num_arc][1] - (e1 - e2 - 1) * 25 - 20, y4, 1 / 2);
-        p.fill(0, 0, 0);
+        p.fill(0, 255, 0);
         p.textSize(15);
-        p.text(texte, xx, yy + 10);
+        p.text(texte, xx + 10, yy);
         p.textSize(10);
       } else {
         x1 = x4 = x - 18;
@@ -207,9 +207,9 @@ function drawArc(texte, e1, e2, a, k, num_arc, coordonnees, first, p) {
         p.bezier(x1, y1, coordonnees[num_arc][0] - 18, coordonnees[num_arc][1] + (e2 - e1 - 1) * 25 + 20, coordonnees[num_arc][0] - 18, coordonnees[num_arc][1] - (e2 - e1 - 1) * 25 - 20, x4, y4);
         xx = p.bezierPoint(x1, coordonnees[num_arc][0] - 18, coordonnees[num_arc][0] - 18, x4, 1 / 2);
         yy = p.bezierPoint(y1, coordonnees[num_arc][1] + (e2 - e1 - 1) * 25 + 20, coordonnees[num_arc][1] - (e2 - e1 - 1) * 25 - 20, y4, 1 / 2);
-        p.fill(0, 0, 0);
+        p.fill(0, 255, 0);
         p.textSize(15);
-        p.text(texte, xx, yy - 10);
+        p.text(texte, xx - 10, yy);
         p.textSize(10);
       }
     } else {
@@ -243,7 +243,7 @@ function drawArc(texte, e1, e2, a, k, num_arc, coordonnees, first, p) {
         yy = p.bezierPoint(y1, coordonnees[num_arc][1] + (e1 - e2 - 1) * 25 + 20, coordonnees[num_arc][1] - (e1 - e2 - 1) * 25 - 20, y4, 1 / 2);
         p.fill(0, 0, 0);
         p.textSize(15);
-        p.text(texte, xx - 10, yy);
+        p.text(texte, xx - 40, yy);
         p.textSize(10);
 
       }
