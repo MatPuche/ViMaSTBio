@@ -126,7 +126,7 @@ function paintGraph(array, geneList, curveNo) {
 									editedGene[j] = false;
 								}
 							}
-							slider = new RangeSlider(auto[i-1]-1, 0, 1,	statesThresholds[geneIndex], "thresholdEditor",
+							slider = new RangeSlider(auto[i-1]-1, 0, 1,statesThresholds[geneIndex], "thresholdEditor",
 									colourSample.style.backgroundColor);
 							displayOnlyLayer(array[0][geneIndex+1]);
 						} else {
@@ -190,6 +190,8 @@ function paintGraph(array, geneList, curveNo) {
 			document.getElementById("graphBox").insertBefore(curvesListElt,
 					document.getElementById("graph"));
 			curvesListElt.selectedIndex = displayCurveNo;
+			
+			var sliderTime = new RangeSlider(1,0,array[1][0][array[1][0].length-1],[0],"rangeSliderContainer","#cccccc"); //nombre curseur
 
 			// Set the plot title and the axis labels
 			plot.setTitleText("Gene expression");
@@ -215,6 +217,7 @@ function paintGraph(array, geneList, curveNo) {
 					}
 				}
 			}
+			plot.drawVerticalLine(time,"#000000",3);
 			plot.drawTitle();
 			plot.drawLines();
 			plot.drawLabels();
